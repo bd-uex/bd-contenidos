@@ -255,6 +255,8 @@ Salida:
 
 Escribe una consulta SQL para seleccionar las columnas sex y body mass de little_penguins en ese orden, ordenadas de modo que la masa corporal más grande aparezca primero.
 
+
+
 ---
 
 ## Filtrando filas en el resultado
@@ -529,8 +531,8 @@ Salida:
 | ---------- | ---------------------------------------------------------- |
 | Round(X)   | Redondea el número X su entero más cercano                 |
 | Round(X,Y) | Redondea el número X a Y decimales                         |
-| Ceil(X,Y)  | Redondea el número hacia el entero inmediatamente superior |
-| Floor(X,Y) | Redondea el número hacia el entero inmediatamente inferior |
+| Ceil(X)  | Redondea el número hacia el entero inmediatamente superior |
+| Floor(X) | Redondea el número hacia el entero inmediatamente inferior |
 | Abs(X)     | Valor absoluto de X                                        |
 | Sqrt(X)    | Raíz cuadrada de X                                         | 
 

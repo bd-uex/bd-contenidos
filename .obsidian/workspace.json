@@ -169,11 +169,12 @@
       "bases:Create new base": false
     }
   },
-  "active": "8af79c670299604d",
+  "active": "7365b2a2d3b2ac50",
   "lastOpenFiles": [
     "labs/LAB01 - tools select basico.md",
-    "labs/LAB02 - select.md",
     "T01 - Fundamentos.md",
+    "Historia Bases de Datos.md",
+    "labs/LAB02 - select.md",
     "Vistas de un SDB.md",
     "BD Universidad - Estado.md",
     "CHECK.md",
@@ -183,7 +184,6 @@
     "Arquitectura de 3 niveles de los SGBD.md",
     "BD Empresa - Estado.md",
     "Modelo de Datos.md",
-    "Historia Bases de Datos.md",
     "Modelo Relacional.md",
     "Modelo Relacional - Ejercicios.md",
     "Premio ACM Turing.md",

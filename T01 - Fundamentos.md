@@ -1,4 +1,4 @@
-# Tema 01 - Introducción y Conceptos Fundamentales
+# Introducción y Conceptos Fundamentales
 
 ## Contenidos
 
@@ -21,6 +21,10 @@ El poder de las bases de datos proviene de un conjunto de **conocimientos y tecn
 En la siguiente imagen se muestra una línea de tiempo con parte de la [[Historia Bases de Datos]], que sirve como resumen breve de la misma.
 
 ![Database timeline](https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fznhljp08r9lbrbf3yxgs.png)
+
+>[!todo]+ TODO
+> Crear una imagen con la línea de tiempo de las bases de datos que cubra la mayoría de lo 
+> expuesto en [[Historia Bases de Datos]].
 
 ###  1.1. Definiciones básicas
 
@@ -90,6 +94,8 @@ Los recientes **cambios tecnológicos**, a menudo caracterizados por el término
  
 Junto a estas nuevas fuentes, se produce una **avalancha de datos no estructurados**, que incluyen texto, audio, vídeo y datos sin procesar de sensores. El **gran volumen y la velocidad** de estos datos a menudo superan las capacidades de los sistemas de bases de datos tradicionales. Esta presión ha impulsado directamente la **innovación y la adopción de una amplia gama de nuevos modelos de datos**, en particular las diversas categorías bajo el paraguas de NoSQL (Not only SQL), así como otros modelos especializados diseñados para abordar estos desafíos contemporáneos de los datos. La prominencia de estos nuevos modelos no es un desarrollo arbitrario, sino una adaptación impulsada por el mercado a este ecosistema de datos en constante evolución.
 
+Para una comprensión más profunda de los modelos de datos comentados, revisa el [[Ejemplo modelo de datos]].
+
 ### 2.3. Niveles de los modelos de datos
 El modelado de datos generalmente se aborda en tres niveles distintos de abstracción, cada uno de los cuales cumple un propósito y una audiencia diferentes:
 
@@ -106,6 +112,7 @@ Comprender estos niveles aclara que el término "modelo de datos" puede referirs
 ## 3. Base de datos
 
 Una base de datos permite almacenar entidades de datos y sus relaciones siguiendo un modelo de datos específico. Cuando hablamos de bases de datos es necesario distinguir entre su esquema (definición de datos a almacenar) y su estado (datos realmente almacenados en un momento dado).
+
 ### 3.1. Esquema de base de datos
 
 El esquema de una base de datos, o intención, se refiere a la **descripción de la base de datos**. Incluye descripciones de la **estructura** de la base de datos, los **tipos** de datos y las **restricciones** de la base de datos.
@@ -156,14 +163,13 @@ erDiagram
         
     %% Relaciones principales
     CURSO ||--o{ EDICION : "tiene"
+    CURSO }o--o{ CURSO : "requiere"
     
     %% Relación muchos a muchos entre ESTUDIANTE y EDICION a través de CALIFICACION
     ESTUDIANTE ||--o{ CALIFICACION : "obtiene"
     EDICION ||--o{ CALIFICACION : "recibe"
     
-    %% Relación muchos a muchos entre CURSO y CURSO (prerrequisitos) a través de REQUISITO
-    CURSO ||--o{ REQUISITO : "requiere"
-    CURSO ||--o{ REQUISITO : "es_requisito"
+    
     
 ```
 Podemos, no obstante, proporcionar una visión más detallada del esquema especificando los atributos considerados para cada entidad.
@@ -205,6 +211,7 @@ erDiagram
     
     %% Relaciones principales
     CURSO ||--o{ EDICION : "tiene"
+    CURSO }o--o{ CURSO : "requiere"
     
     %% Relación muchos a muchos entre ESTUDIANTE y EDICION a través de CALIFICACION
     ESTUDIANTE ||--o{ CALIFICACION : "obtiene"
@@ -336,6 +343,29 @@ Se necesitan definir **mapeos entre diferentes niveles** de esquema para transfo
 - Por un lado, los usuarios o aplicaciones hacen referencia a un esquema externo y el SGBD los asigna al esquema interno para su ejecución.
 - Por otro lado, los datos extraídos del nivel interno del SGBD se transforman para que coincidan con la vista externa del usuario.
 
+Además, esto permite tener **múltiples vistas de los datos**:
+- Cada usuario puede ver una vista diferente de la base de datos, que describe únicamente los datos de interés para ese usuario. Puedes ver un ejemplo más completo de [[Vistas de un SDB]].
+
+>[!example]+ Ejemplo de vistas derivadas de la base de datos de universidad
+> - Vista del certificado de estudios
+> 
+> | NombreEstudiante | NumCurso | Nota | Semestre | Año | IDSeccion |
+> |------------------|:----------:|:------:|----------|:-----:|:-----------:|
+> | Luis             | CC1310   | C    | Otoño    | 05  | 119       |
+> |                  | MAT2410  | B    | Otoño    | 05  | 112       |
+> | Carlos           | MAT2410  | A    | Otoño    | 04  | 85        |
+> |                  | CC1310   | A    | Otoño    | 04  | 92        |
+> |                  | CC3320   | B    | Primavera| 05  | 102       |
+> |                  | CC3380   | A    | Otoño    | 05  | 135       |
+> 
+> - Vista de los prerrequisitos de los cursos
+> 
+> | NombreCurso        | NumCurso | Prerrequisitos |
+> |--------------------|:----------:|:----------------:|
+> | Bases de datos     | CC3380   | CC3320         |
+> |                    |          | MAT2410        |
+> | Estructuras de datos | CC3320 | CC1310         |
+
 ### 4.2. Arquitectura modular de un SGBD
 
 Estos sistemas se encuentran entre los tipos de software más complejos disponibles. La siguiente imagen representa la arquitectura modular fundamental de estos sistemas:
@@ -403,33 +433,6 @@ Esto permite que:
 > - Los puntos suspensivos (...) indican que hay más filas en la tabla original que no se muestran.
 > - TipoEspecialidad se define como un tipo enumerado con todas las especialidades conocidas.
 > - XXXXNNNN se utiliza para definir un tipo con cuatro caracteres alfanuméricos seguido por cuatro dígitos.
-
-Para conseguirlo, se usa la **abstracción de datos**:
-- Un **modelo de datos se usa para ocultar detalles de almacenamiento** y presentar a los usuarios una **vista conceptual** de la base de datos.
-- Las **aplicaciones** se refieren a las construcciones del **modelo de datos** en lugar de a los detalles de almacenamiento de datos.
-
-Además, esto permite tener **múltiples vistas de los datos**:
-- Cada usuario puede ver una vista diferente de la base de datos, que describe únicamente los datos de interés para ese usuario. Puedes ver un ejemplo más completo de [[Vistas de un SDB]].
-
->[!example]+ Ejemplo de vistas derivadas de la base de datos de universidad
-> - Vista del certificado de estudios
-> 
-> | NombreEstudiante | NumCurso | Nota | Semestre | Año | IDSeccion |
-> |------------------|:----------:|:------:|----------|:-----:|:-----------:|
-> | Luis             | CC1310   | C    | Otoño    | 05  | 119       |
-> |                  | MAT2410  | B    | Otoño    | 05  | 112       |
-> | Carlos           | MAT2410  | A    | Otoño    | 04  | 85        |
-> |                  | CC1310   | A    | Otoño    | 04  | 92        |
-> |                  | CC3320   | B    | Primavera| 05  | 102       |
-> |                  | CC3380   | A    | Otoño    | 05  | 135       |
-> 
-> - Vista de los prerrequisitos de los cursos
-> 
-> | NombreCurso        | NumCurso | Prerrequisitos |
-> |--------------------|:----------:|:----------------:|
-> | Bases de datos     | CC3380   | CC3320         |
-> |                    |          | MAT2410        |
-> | Estructuras de datos | CC3320 | CC1310         |
 
 ### 4.4. Funcionalidad básica de un SGBD
 
@@ -605,7 +608,7 @@ Aunque los sistemas gestores de bases de datos (SGBD) son fundamentales en la ma
 2. **Requisitos de Tiempo Real Crítico.** Los sistemas de control industrial, procesamiento de señales en tiempo real, y aplicaciones aeroespaciales pueden tener ventanas de tiempo de respuesta medidas en microsegundos. La predictibilidad y determinismo del acceso directo a memoria pueden ser más críticos que las ventajas de un SGBD.
 3. **Modelos de Datos Altamente Especializados.** Ciertos dominios requieren estructuras de datos tan especializadas que los SGBD tradicionales resultan inadecuados:
 	- **Procesamiento de grafos masivos**: Las bases de datos de grafos especializadas o estructuras en memoria pueden ser más eficientes
-	- **Datos científicos multidimensionales**: HDF5 y formatos similares optimizados para análisis numérico
+	- **Datos científicos multidimensionales**: [HDF5](https://www.hdfgroup.org/solutions/hdf5/) y formatos similares optimizados para análisis numérico
 	- **Datos geoespaciales complejos**: Aunque PostGIS es potente, aplicaciones especializadas pueden requerir estructuras espaciales personalizadas
 	- **Streaming de datos en tiempo real**: Los sistemas que procesan millones de eventos por segundo pueden necesitar arquitecturas completamente diferentes
 
