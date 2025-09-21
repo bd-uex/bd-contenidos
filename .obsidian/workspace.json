@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "eb438570276cdf02",
+        "id": "971a3798e49eee91",
         "type": "tabs",
         "children": [
           {
-            "id": "7365b2a2d3b2ac50",
+            "id": "72376ff584d8ad82",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "T01 - Fundamentos.md",
+                "file": "labs/LAB02 - select basico.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "T01 - Fundamentos"
+              "title": "LAB02 - select basico"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "T01 - Fundamentos.md",
+                "file": "labs/LAB02 - select basico.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for T01 - Fundamentos"
+              "title": "Backlinks for LAB02 - select basico"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "T01 - Fundamentos.md",
+                "file": "labs/LAB02 - select basico.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from T01 - Fundamentos"
+              "title": "Outgoing links from LAB02 - select basico"
             }
           },
           {
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "T01 - Fundamentos.md",
+                "file": "labs/LAB02 - select basico.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of T01 - Fundamentos"
+              "title": "Outline of LAB02 - select basico"
             }
           }
         ],
@@ -169,21 +169,23 @@
       "bases:Create new base": false
     }
   },
-  "active": "7365b2a2d3b2ac50",
+  "active": "72376ff584d8ad82",
   "lastOpenFiles": [
+    "T02 - Modelo Relacional.md",
     "Ejemplo modelo de datos.md",
-    "labs/LAB01 - tools select basico.md",
     "T01 - Fundamentos.md",
+    "labs/LAB02 - select basico.md",
+    "labs/LAB01 - tools select basico.md",
+    "CHECK.md",
+    "BD Empresa - Estado.md",
     "Historia Bases de Datos.md",
     "labs/LAB02 - select.md",
     "Vistas de un SDB.md",
     "BD Universidad - Estado.md",
-    "CHECK.md",
     "Evitar valores null.md",
     "E.F. Codd.md",
     "Algebra Relacional.md",
     "Arquitectura de 3 niveles de los SGBD.md",
-    "BD Empresa - Estado.md",
     "Modelo de Datos.md",
     "Modelo Relacional.md",
     "Modelo Relacional - Ejercicios.md",

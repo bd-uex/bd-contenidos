@@ -1,4 +1,5 @@
 # El Escenario: Una Sencilla Red Social de Blogs 📝
+(generado con Gemini 2.5 Pro)
 
 Imaginemos que queremos construir una plataforma simple donde los **usuarios** pueden:
 
@@ -115,7 +116,7 @@ Este modelo no usa tablas, sino "documentos" (normalmente en formato JSON), que 
 
 ### 3. Modelo Basado en Grafo (NoSQL) 🌐
 
-Este modelo se centra en las **relaciones**. Los datos se representan como nodos (las "cosas") y aristas (las relaciones entre esas cosas). Es como un mapa conceptual o una red social.
+Este modelo se centra en las **relaciones**. Los datos se representan como nodos (las entidades) y aristas (las relaciones entre esas entidades). Es como un mapa conceptual o una red social.
 
 - **Idea Principal:** Tratar las relaciones como ciudadanos de primera clase. Es perfecto para explorar conexiones complejas y profundas entre los datos.
     
