@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "labs/LAB02 - select basico.md",
+                "file": "T02 - Modelo Relacional.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "LAB02 - select basico"
+              "title": "T02 - Modelo Relacional"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "labs/LAB02 - select basico.md",
+                "file": "T02 - Modelo Relacional.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for LAB02 - select basico"
+              "title": "Backlinks for T02 - Modelo Relacional"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "labs/LAB02 - select basico.md",
+                "file": "T02 - Modelo Relacional.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from LAB02 - select basico"
+              "title": "Outgoing links from T02 - Modelo Relacional"
             }
           },
           {
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "labs/LAB02 - select basico.md",
+                "file": "T02 - Modelo Relacional.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of LAB02 - select basico"
+              "title": "Outline of T02 - Modelo Relacional"
             }
           }
         ],
@@ -171,10 +171,10 @@
   },
   "active": "72376ff584d8ad82",
   "lastOpenFiles": [
+    "labs/LAB02 - select basico.md",
     "T02 - Modelo Relacional.md",
     "Ejemplo modelo de datos.md",
     "T01 - Fundamentos.md",
-    "labs/LAB02 - select basico.md",
     "labs/LAB01 - tools select basico.md",
     "CHECK.md",
     "BD Empresa - Estado.md",

@@ -1,5 +1,12 @@
 # Modelo Relacional
 
+---
+tags: database, lecture, relational-model
+author: rre
+origin: BD2425/teoria/Chapter05-es.pptx
+date: 2025-09-01
+
+---
 # Origen
 
 - Propuesto por el Dr. [E.F. Codd](https://en.wikipedia.org/wiki/Edgar_F._Codd) de IBM Research en 1970 en el artículo:
@@ -22,7 +29,12 @@
 
 ## 1.1. Relación como Producto Cartesiano
 
-En teoría de conjuntos, una **relación** es un subconjunto del producto cartesiano de uno o más conjuntos (dominios). Si tenemos dominios $D_1, D_2, \dots, D_n$, entonces:
+En teoría de conjuntos, una **relación** es un subconjunto del producto cartesiano de uno o más conjuntos (dominios). 
+
+>[!info] Relación
+>Una relación de un conjunto $A$ a un conjunto $B$ es un subconjunto $A \times B$. Por lo tanto, una relación $R$ consiste en pares ordenados $(a,b)$, donde $a \in A$ y $b \in B$. Si $(a,b) \in R$, decimos que *están relacionados*, y también se escribe $a R b$.
+
+De forma general, si tenemos $n$ dominios $D_1, D_2, \dots, D_n$, entonces:
 
 $$R \subseteq D_1 \times D_2 \times \dots \times D_n $$
 
@@ -86,6 +98,7 @@ Esta formalización matemática es lo que hace que el modelo relacional sea tan 
 
 >[!info] No siempre tablas físicamente.
 > Cabe destacar que esta implementación física es solo una de las posibles maneras de implementar la tabla en estructuras de datos físicas. De hecho, no es la forma habitual de representar relaciones, y gran parte del estudio de los sistemas de bases de datos se centra en las formas correctas de implementar dichas tablas. Gran parte de la distinción reside en la escala de las relaciones: normalmente no se implementan como estructuras de memoria principal, y su correcta implementación física debe tener en cuenta la necesidad de acceder a relaciones de gran tamaño que residen en el disco.
+
 ### Definiciones informales vs formales
 
 | Informal         | Formal           |
@@ -137,7 +150,7 @@ Esta formalización matemática es lo que hace que el modelo relacional sea tan 
 - El estado de una relación es un **subconjunto del producto cartesiano de los dominios de sus atributos**.
 	- Cada dominio contiene el conjunto de todos los valores posibles que puede tomar el atributo
 
-- Formalmente[, dados
+- Formalmente, dados
 	- $R(A_1, A_2, \dots, A_n)$
 	- $r(R) \subset dom(A_1) \times dom(A_2) \times \dots \times dom(A_n)$
 
@@ -145,8 +158,8 @@ Esta formalización matemática es lo que hace que el modelo relacional sea tan 
 	- $R$ es el nombre de la relación.
 	- $A_1, A_2, \dots, A_n$ son los atributos de la relación
 - $r(R)$: un estado específico (o "población") de la relación $R$: un conjunto de tuplas (filas)
-	- $r(R) = {t_1, t_2, \dots, t_n}$ donde cada $t_i$ es una tupla de grado n
-	- $t_i = (v_1, v_2, \dots, v_n)$ donde cada elemento $v_j$  es del dom(Aj)
+	- $r(R) = {t_1, t_2, \dots, t_n}$ donde cada $t_i$ es una tupla de grado $n$
+	- $t_i = (v_1, v_2, \dots, v_n)$ donde cada elemento $v_j$  es del dominio $A_j$
 
 #### Ejemplo de estado de una relación
 
@@ -212,39 +225,101 @@ Los valores en una tupla:
 
 #### Ejemplo de esquema de base de datos de EMPRESA 
 
-- $EMPLEADO$(nombre, apellido1, apellido2, <u>dni</u>, fechaNac, dirección, sexo, sueldo, supervisor, dpto )
+Este esquema de base de datos solo contiene el esquema de las relaciones pero no el conjunto de restricciones de integridad, que lo veremos posteriormente.
+
+- $EMPLEADO$(nombre, apellido1, apellido2, dni, fechaNac, dirección, sexo, sueldo, supervisor, dpto )
 	- Representa una entidad del mundo real
 	- Atributos no triviales:
 		- `{supervisor}` indica quién es el supervisor de un determinado empleado
 		- `{dpto}` indica a qué departamento pertenece un empleado
 
-- $DEPARTAMENTO$(nombre, <u>numero</u>, director, fechaIngresoDirector)
+- $DEPARTAMENTO$(nombre, numero, director, fechaIngresoDirector)
 	- Representa una entidad del mundo real
 	- Atributos no triviales:
 		- `{numero}` código que identifica a cada departamento
 		- `{director}` indica qué empleado ejerce de director		
 
-- $LOCALIZACIONES\_DPTO$(<u>dpto</u>, ubicacion)
+- $LOCALIZACIONES\_DPTO$(dpto, ubicacion)
 	- Representa una entidad del mundo real
 	- Atributos no triviales: 
 		- `{dpto}` indica el departamento al que pertenece la localización 
 		
-- $PROYECTO$(nombre, <u>numero</u>, ubicacion, dpto)
+- $PROYECTO$(nombre, numero, ubicacion, dpto)
 	- Representa una entidad del mundo real
 	- Atributos no triviales:
 		- `{numero}` código que identifica a cada proyecto
 		- `{dpto}` indica el departamento al que pertenece el proyecto.
 
-- $TRABAJA\_EN$(<u>empleado, proyecto</u>, horas)
+- $TRABAJA\_EN$(empleado, proyecto, horas)
 	- Representa una **asociación entre entidades del mundo real**
 	- Atributos no triviales:
 		- `{empleado}` indica el empleado que trabaja en un proyecto
 		- `{proyecto}` indica el proyecto en el que trabaja un empleado
 
-- $FAMILIAR$(<u>empleado, nombre</u>, sexo, fechaNac, relación)
+- $FAMILIAR$(empleado, nombre, sexo, fechaNac, relación)
 	- Representa una entidad del mundo real
 	- Atributos no triviales: 
 		- `{empleado}` indica el empleado del que es familiar
+
+#### Diagrama de la base de datos
+
+```mermaid
+erDiagram
+    EMPLEADO {
+        VARCHAR(10) dni
+        VARCHAR(40) nombre "NOT NULL"
+        VARCHAR(30) apellido1 "NOT NULL"
+        VARCHAR(30) apellido2
+        DATE fechaNac "NOT NULL"
+        VARCHAR(150) direccion
+        CHAR(1) sexo "NOT NULL"
+        NUMERIC(12) sueldo "NOT NULL"
+        VARCHAR(10) supervisor
+        INTEGER dpto "NOT NULL"
+    }
+    
+    DEPARTAMENTO {
+        INTEGER numero
+        VARCHAR(40) nombre "NOT NULL"
+        VARCHAR(10) director "NOT NULL"
+        DATE fechaIngresoDirector "NOT NULL"
+    }
+    
+    LOCALIZACIONES_DPTO {
+        INTEGER dpto
+        VARCHAR(40) ubicacion
+    }
+    
+    PROYECTO {
+        INTEGER numero
+        VARCHAR(40) nombre "NOT NULL"
+        VARCHAR(40) ubicacion "NOT NULL"
+        INTEGER dpto "NOT NULL"
+    }
+    
+    TRABAJA_EN {
+        VARCHAR(10) empleado 
+        INTEGER proyecto 
+    }
+    
+    FAMILIAR {
+        VARCHAR(10) empleado
+        VARCHAR(40) nombre
+        CHAR(1) sexo "NOT NULL"
+        DATE fechaNac "NOT NULL"
+        VARCHAR(30) relacion 
+    }
+
+    %% Relaciones
+    EMPLEADO ||--o{ EMPLEADO : "supervisa"
+    EMPLEADO }o--|| DEPARTAMENTO : "pertenece_a"
+    DEPARTAMENTO ||--o| EMPLEADO : "dirigido_por"
+    DEPARTAMENTO ||--o{ LOCALIZACIONES_DPTO : "tiene"
+    DEPARTAMENTO ||--o{ PROYECTO : "controla"
+    EMPLEADO ||--o{ TRABAJA_EN : "participa"
+    PROYECTO ||--o{ TRABAJA_EN : "incluye"
+    EMPLEADO ||--o{ FAMILIAR : "tiene"
+```
 
 #### Creación de esquema de base de datos en SQL
 
@@ -320,26 +395,12 @@ CREATE TABLE LOCALIZACIONES_DPTO (
 	ubicacion VARCHAR(40) NOT NULL
 };	
 
--- PROYECTO(nombre, numero, ubicacion, dpto)
-
-CREATE TABLE PROYECTO (
-	nombre VARCHAR(40) NOT NULL,
-	numero INTEGER NOT NULL,
-	ubicacion VARCHAR(40) NOT NULL,
-	dpto INTEGER NOT NULL
-};
-
--- FAMILIAR(empleado, nombre, sexo, fechaNac, relación)
-
-CREATE TABLE FAMILIAR (	
-	empleado VARCHAR(10) NOT NULL,
-	nombre VARCHAR(40) NOT NULL,
-	sexo CHAR(1) NOT NULL,	
-	fechaNac DATE NOT NULL,
-	relacion VARCHAR(30)
-);
+-- El resto de tablas se proponen como ejercicio
 
 ```
+
+>[!exercise] Ejercicio
+> Revisa las relaciones definidas para la base de datos empresa y **crea las sentencias de creación de las tablas correspondientes en SQL** para su definición.
 
 ### Estado de bases de datos relacionales
 
@@ -412,7 +473,7 @@ CREATE TABLE EMPLEADO (
 ```
 
 >[!exercise] Ejercicio
-> Revisa las relaciones definidas para la base de datos empresa e identifica otras posibles restricciones de dominio. Modifica las sentencias de creación de las tablas correspondientes en SQL para indicar las restricciones de dominio.
+> Revisa las relaciones definidas para la base de datos empresa e identifica otras posibles restricciones de dominio. Completa el modelo relacional: descripción de las relaciones. Modifica las sentencias de creación de las tablas correspondientes en SQL para indicar las restricciones de dominio.
 
 ## 2.3. Restricciones de clave
 
@@ -462,6 +523,7 @@ CREATE TABLE EMPLEADO (
 >Elegir como **clave primaria la más pequeña de las claves candidatas** (en términos de tamaño). No siempre es aplicable: la elección a veces es subjetiva.
 >
 >En contextos profesionales, la práctica estándar es utilizar claves primarias que no tengan significado de negocio. Estas se conocen como **claves sustitutas** (surrogate keys), como por ejemplo un número entero autoincremental (`AUTO_INCREMENT` o `SERIAL`).
+
 ### Restricciones de Integridad de la Entidad
 
 - Integridad de la entidad:
@@ -509,7 +571,7 @@ CREATE TABLE LOCALIZACIONES_DPTO (
 ```
 
 >[!exercise] Ejercicio
-> Revisa las relaciones definidas para la base de datos empresa e identifica sus claves primarias y claves alternativas. Modifica las sentencias de creación de las tablas correspondientes en SQL para indicar las restricciones de clave.
+> Revisa las relaciones definidas para la base de datos empresa e identifica sus claves primarias y claves alternativas. Completa el modelo relacional: descripción de las relaciones. Modifica las sentencias de creación de las tablas correspondientes en SQL para indicar las restricciones de clave.
 
 ## 2.5. Restricciones de Integridad Referencial
 
@@ -560,7 +622,7 @@ Para corregir todos estos problemas de integridad, el modelo relacional permite 
 
 A continuación, se revisan estas dos relaciones y se identifican sus relaciones para representarlas mediante claves externas (o foráneas).
 
-$EMPLEADO$(nombre, apellido1, apellido2, <u>dni</u>, fechaNac, dirección, sexo, sueldo, supervisor, dpto )
+$EMPLEADO$(nombre, apellido1, apellido2, <u>dni</u>, fechaNac, dirección, sexo, sueldo, supervisor, dpto)
 	- Representa una entidad del mundo real
 	- Clave primaria (PK): `{dni}`
 	- Claves externas (FK): 
@@ -609,7 +671,7 @@ CREATE TABLE DEPARTAMENTO (
 >¿Puede un empleado no tener supervisor?
 
 >[!exercise] Ejercicio
-> Revisa las relaciones definidas para la base de datos empresa e identifica sus claves externas. Modifica las sentencias de creación de las tablas correspondientes en SQL para indicar las restricciones de integridad referencial.
+> Revisa las relaciones definidas para la base de datos empresa e identifica sus claves externas. Completa el modelo relacional: descripción de las relaciones. Modifica las sentencias de creación de las tablas correspondientes en SQL para indicar las restricciones de integridad referencial.
 
 ## 2.6. Restricciones semánticas
 - Restricciones de Integridad Semántica:
