@@ -460,7 +460,7 @@ Resultado:
 
 ### Ejercicio 4 - Manejar valores nulos
 
-Escribe una consulta que devuelva todas las columnas de pingüinos y añada una columna nueva (first_measure) que contenga el primer valor no nulo de las medidas de un pingüino en este orden: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g. Si todas tienen valor nulo, entonces devolverá el valor -1.
+Escribe una consulta que devuelva todas las columnas de pingüinos y añada una columna nueva (first_measure) que contenga el primer valor no nulo de las medidas de un pingüino en este orden: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g. Si todas tienen valor nulo, entonces devolverá el valor -1. Limita el resultado a las 10 primeras filas.
 
 Solución:
 ```sql
