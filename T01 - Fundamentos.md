@@ -1,4 +1,4 @@
-# Introducción y Conceptos Fundamentales de BD
+# Introducción y Conceptos Fundamentales de Base de Datos
 
 ## Contenidos
 
