@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "labs/LAB02 - select basico.md",
+                "file": "T01 - Fundamentos.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "LAB02 - select basico"
+              "title": "T01 - Fundamentos"
             }
           }
         ]
@@ -44,7 +44,7 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Explorador de archivos"
             }
           },
           {
@@ -142,17 +142,27 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "labs/LAB02 - select basico.md",
+                "file": "T01 - Fundamentos.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of LAB02 - select basico"
+              "title": "Esquema de T01 - Fundamentos"
+            }
+          },
+          {
+            "id": "235ed7741a5a2e31",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -160,21 +170,22 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "switcher:Abrir selector rápido": false,
+      "graph:Abrir vista gráfica": false,
+      "canvas:Crear nuevo lienzo": false,
+      "daily-notes:Abrir la nota de hoy": false,
+      "templates:Insertar plantilla": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Crear nueva base": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "72376ff584d8ad82",
   "lastOpenFiles": [
-    "T02 - Modelo Relacional.md",
-    "labs/LAB02 - select basico.md",
-    "Ejemplo modelo de datos.md",
     "T01 - Fundamentos.md",
+    "labs/LAB02 - select basico.md",
+    "T02 - Modelo Relacional.md",
+    "Ejemplo modelo de datos.md",
     "labs/LAB01 - tools select basico.md",
     "CHECK.md",
     "BD Empresa - Estado.md",
