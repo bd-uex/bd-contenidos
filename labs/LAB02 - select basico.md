@@ -13,7 +13,7 @@
 
 ### Ejercicio 1 - Repaso SELECT
 
-Escribe una consulta que calcule y devuelva una columna llamada `what_where` que tenga la especie (`species`) en letras mayúsculas y la isla (`island`) en letras minúsculas de cada pingüino separadas por un solo espacio; y una columna llamada `bill_ratio` que tenga la relación entre la longitud del pico y la profundidad del mismo. Redonda el resultado para mostrar números con un solo decimal. El resultado solo debe incluir pingüinos que sean hembras. Ordena el resultado de forma descendente por `bill_ratio`. Y limita el resultado a las 10 primeras filas.
+Escribe una consulta que calcule y devuelva una columna llamada `what_where` que tenga la especie (`species`) en letras mayúsculas y la isla (`island`) en letras minúsculas de cada pingüino separadas por un solo espacio; y una columna llamada `bill_ratio` que tenga la relación entre la longitud del pico y la profundidad del mismo. Redonda el resultado para mostrar números con un solo decimal. El resultado solo debe incluir pingüinos que no sean hembras. Ordena el resultado de forma descendente por `bill_ratio`. Y limita el resultado a las 10 primeras filas.
 
 Solución:
 ```sql
@@ -162,7 +162,7 @@ CASE WHEN te permite:
 
 ### Ejercicio 2 - CASE WHEN
 
-Escribe una consulta que devuelva las columnas especie (`species`),  isla (`island`), peso (`body_mass_g`) y una nueva columna `fixed_body_mass_kg` que sume 500g a los pingüinos avistados en la isla `Biscoe` y 750g a los de Torgersen y devuelva el valor en kilogramos. Limita el resultado a las 20 primeras filas.
+Escribe una consulta que devuelva las columnas especie (`species`),  isla (`island`), peso (`body_mass_g`) y una nueva columna `fixed_body_mass_kg` que sume 500g a los pingüinos avistados en la isla `Biscoe` y 750g a los de Torgersen y devuelva el valor en kilogramos. El resultado no debe tener resultados repetidos. Limita el resultado a las 20 primeras filas.
 
 Solución:
 ```sql
@@ -818,7 +818,7 @@ Salida:
 ### Ejercicio 8 - Filtrar valores agregados
 
 Escriba una consulta que cuente el número de pingüinos de cada una de las siguientes categorías:
-	- light si pesa menos de 3500g
+	- light si pesa menos de 3650g
 	- heavy si pesa más de 4500g
 	- medium_weight si pesa entre los valores anteriores
 
