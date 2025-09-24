@@ -1,4 +1,4 @@
-# El Problema de la **complejidad** del [[Historia Bases de Datos### Modelo de Red (o grafo)|Modelo en Red]]: La Telaraña
+# El Problema de la **complejidad** del [Modelo en Red](Historia%20Bases%20de%20Datos.md#Modelo%20de%20Red%20(o%20grafo)): La Telaraña
 
 ---
 
@@ -9,7 +9,7 @@ date: 2025-09-23
 
 ---
 
-El modelo en red se creó precisamente para resolver [[Problema Modelo Jerárquico|el problema de la rigidez]] del [[Historia Bases de Datos###ModeloJerárquico|modelo jerárquico]] también conocido como problema de"un solo padre". Su regla fundamental es: **un "hijo" puede tener múltiples "padres"**. Esto resolvió el problema de la duplicación, pero creó uno nuevo.
+El modelo en red se creó precisamente para resolver [el problema de la rigidez](Problema%20Modelo%20Jerárquico.md) del [Modelo Jerárquico](Historia%20Bases%20de%20Datos.md#Modelo%20Jerárquico) también conocido como problema de"un solo padre". Su regla fundamental es: **un "hijo" puede tener múltiples "padres"**. Esto resolvió el problema de la duplicación, pero creó uno nuevo.
 
 **Ejemplo Práctico: La Misma Clínica Médica**
 

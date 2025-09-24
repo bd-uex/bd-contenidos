@@ -1,4 +1,4 @@
-# El Problema de la **rigidez** del  [[Historia Bases de Datos###ModeloJerárquico|Modelo Jerárquico]]: El Callejón sin Salida
+# El Problema de la **rigidez** del [Modelo Jerárquico](Historia%20Bases%20de%20Datos.md#Modelo%20Jerárquico): El Callejón sin Salida
 
 ---
 
