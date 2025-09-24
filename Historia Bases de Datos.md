@@ -16,7 +16,7 @@ Los primeros sistemas comerciales de gestión de bases de datos aparecieron a fi
 - **[IMS](https://www.ibm.com/products/ims) (Information Management System) de IBM** se lanzó en 1966 para el programa Apollo de la NASA
 - Organiza los datos en estructuras de árbol con relaciones padre-hijo uno-a-muchos
 - Aunque considerado obsoleto en muchos contextos, IMS sigue siendo utilizado extensivamente en sistemas bancarios y de aerolíneas, procesando billones de transacciones anuales
-- Limitación principal: dificultad para representar relaciones muchos-a-muchos
+- Limitación principal: dificultad para representar relaciones muchos-a-muchos. Para más información se recomienda revisar [[Problema Modelo Jerárquico|el problema de la rigidez]] de estos modelos.
 
 ![IMS](https://www.ibmmainframer.com/static/images/imsdb/ims-database.jpg)
 ### Modelo de Red (o grafo)
@@ -24,7 +24,7 @@ Los primeros sistemas comerciales de gestión de bases de datos aparecieron a fi
 - **CODASYL DBTG** (Conference on Data Systems Languages - Data Base Task Group) propuso el estándar en 1971
 - Productos notables: IDMS (Integrated Database Management System) de Cullinet
 - Permitía relaciones más complejas que el modelo jerárquico mediante punteros
-- Desventaja: Las bases de datos CODASYL eran complejas y requerían de una capacitación y un esfuerzo importantes para producir aplicaciones útiles.
+- Desventaja: Las bases de datos CODASYL eran complejas y requerían de una capacitación y un esfuerzo importantes para producir aplicaciones útiles. Para más información se recomienda revisar [[Problema Modelo Red|el problema de la complejidad]] de estos modelos.
 
 ![CODASYL](https://upload.wikimedia.org/wikipedia/commons/d/d6/CodasylB.png)
 
