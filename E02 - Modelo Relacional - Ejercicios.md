@@ -56,9 +56,13 @@ Considere una relación `ESTUDIANTE` en una base de datos `UNIVERSIDAD` con los
 Considere las siguientes relaciones para una base de datos que controla las matriculaciones de los estudiantes en los cursos y los libros utilizados en los mismos: 
 
 $ESTUDIANTE$(<u>dni</u>, nombre, asignatura, fechaNac) 
+
 $CURSO$(<u>codigo</u>, nombre, departamento) 
+
 $MATRICULACION$(<u>dni, codigoCurso, trimestre</u>, Nota) 
+
 $LIBRO_USADO$(<u>codigoCurso, trimestre</u>, isbn) 
+
 $LIBRO$(<u>isbn</u>, título, editorial, autor) 
 
 **Especifique las claves necesarias** para este esquema, argumentando todas sus decisiones. 
