@@ -4,7 +4,7 @@
 
 Considera las siguientes relaciones:
 
-$$EMPLEADO$$(<u>codigo</u>,nombre,despacho\*)
+EMPLEADO(<u>codigo</u>,nombre,despacho\*)
 Clave externa: despacho -> DESPACHO.codigo
 
 | codigo | nombre | despacho |
@@ -14,7 +14,7 @@ Clave externa: despacho -> DESPACHO.codigo
 | E3     | Flor   |          |
 | E4     | Juan   | 40       | 
 
-$$DESPACHO$$(<u>codigo</u>,pabellon,planta)
+DESPACHO(<u>codigo</u>,pabellon,planta)
 
 | despacho | pabellon    | planta |
 | -------- | ----------- | ------ |
@@ -67,4 +67,48 @@ $LIBRO$(<u>isbn</u>, título, editorial, autor)
 
 **Especifique las claves necesarias** para este esquema, argumentando todas sus decisiones. 
 
+## Ejercicio 4 - De SQL a relaciones
+
+A partir de las sentencias SQL siguientes, define las relaciones en el modelo relacional de forma exhaustiva indicando todo lo que puedas de las mismas.
+
+```sql
+-- Tabla de Bandas de Rock
+CREATE TABLE bandas (
+    id_banda INT PRIMARY KEY,
+    nombre_banda VARCHAR(100) NOT NULL,
+    ano_formacion INT NOT NULL,
+    pais_origen VARCHAR(50) NOT NULL,
+    genero_rock VARCHAR(50) NOT NULL,
+    esta_activa CHAR(1) DEFAULT 'S',
+    CHECK (ano_formacion >= 1950 AND ano_formacion <= 2025),
+    CHECK (esta_activa IN ('S', 'N'))
+);
+
+-- Tabla de Artistas
+CREATE TABLE artistas (
+    id_artista INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    instrumento_principal VARCHAR(50) NOT NULL,
+    pais_nacimiento VARCHAR(50) NOT NULL,
+    CHECK (fecha_nacimiento >= '1930-01-01'),
+    CHECK (instrumento_principal IN ('Voz', 'Guitarra', 'Bajo', 'Batería', 'Teclado', 'Otro'))
+);
+
+-- Tabla Histórico de pertenencia de artistas a bandas
+CREATE TABLE artistas_bandas (
+    id_artista INT NOT NULL,
+    id_banda INT NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE,
+    es_lider CHAR(1) DEFAULT 'N',
+    rol_en_banda VARCHAR(100),
+    PRIMARY KEY (id_artista, id_banda, fecha_inicio),
+    FOREIGN KEY (id_artista) REFERENCES artistas(id_artista),
+    FOREIGN KEY (id_banda) REFERENCES bandas(id_banda),
+    CHECK (es_lider IN ('S', 'N')),
+    CHECK (fecha_fin IS NULL OR fecha_fin > fecha_inicio)
+);
+```
 
