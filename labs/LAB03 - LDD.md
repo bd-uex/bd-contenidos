@@ -255,7 +255,7 @@ Para verificar tu respuesta, selecciona su definición de la tabla sqlite_schema
 ```sql
 SELECT 
 	Lower(tbl_name) as name, 
-	REPLACE(REPLACE(REPLACE(REPLACE(sql, ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '') as sql
+	Lower(REPLACE(REPLACE(REPLACE(REPLACE(sql, ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '')) as sql
 from sqlite_schema where type='table' and Lower(name)='familiar';
 ```
 
@@ -263,7 +263,7 @@ Tabla resultado:
 
 | name     | sql                                                                                                                                                                                                       |
 | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| familiar | CREATETABLEFAMILIAR(empleadoTEXTNOTNULL,nombreTEXTNOTNULL,sexoTEXTNOTNULLCHECK(sexoIN('M','F','O')),fechaNacTEXTNOTNULL,relacionTEXTCHECK(relacionIN('Hijo','Hija','Conyuge','Hermano','Hermana')))STRICT |
+| familiar | createtablefamiliar(empleadotextnotnull,nombretextnotnull,sexotextnotnullcheck(sexoin('m','f','o')),fechanactextnotnull,relaciontextcheck(relacionin('hijo','hija','conyuge','hermano','hermana')))strict |
 
 ---
 
@@ -441,15 +441,15 @@ Para verificar tu respuesta, selecciona su definición de la tabla sqlite_schema
 ```sql
 SELECT 
 	Lower(tbl_name) as name, 
-	REPLACE(REPLACE(REPLACE(REPLACE(sql, ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '') as sql
+	Lower(REPLACE(REPLACE(REPLACE(REPLACE(sql, ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '')) as sql
 from sqlite_schema where type='table' and Lower(name)='empleado';
 ```
 
 Tabla resultado:
 
-| name     | sql                                                                                                                                                                                                            |
+| name     | sql                                                                                                                                                                                                            | 
 | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| empleado | CREATETABLEEMPLEADO(nombreTEXTNOTNULL,apellido1TEXTNOTNULL,apellido2TEXT,dniTEXTPRIMARYKEYNOTNULL,fechaNacTEXTNOTNULL,direccionTEXT,sexoTEXTNOTNULL,sueldoREALNOTNULL,supervisorTEXT,dptoINTEGERNOTNULL)STRICT |
+| empleado | createtableempleado(nombretextnotnull,apellido1textnotnull,apellido2text,dnitextprimarykeynotnull,fechanactextnotnull,direcciontext,sexotextnotnull,sueldorealnotnull,supervisortext,dptointegernotnull)strict |
 
 ---
 ## Clave externa: motivación
@@ -712,15 +712,15 @@ Para verificar tu respuesta, selecciona su definición de la tabla sqlite_schema
 ```sql
 SELECT 
 	Lower(tbl_name) as name, 
-	REPLACE(REPLACE(REPLACE(REPLACE(sql, ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '') as sql
+	Lower(REPLACE(REPLACE(REPLACE(REPLACE(sql, ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '')) as sql
 from sqlite_schema where type='table' and Lower(name)='familiar';
 ```
 
 Tabla resultado:
 
-| name     | sql                                                                                                                                                                                                                                                                                                |
+| name     | sql                                                                                                                                                                                                                                                                                                | 
 | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| familiar | CREATETABLEFAMILIAR(empleadoTEXTNOTNULL,nombreTEXTNOTNULL,sexoTEXTNOTNULLCHECK(sexoIN('M','F','O')),fechaNacTEXTNOTNULL,relacionTEXTCHECK(relacionIN('Hijo/a','Conyuge','Hermano/a')),PRIMARYKEY(empleado,nombre),FOREIGNKEY(empleado)REFERENCESEMPLEADO(dni)ONUPDATECASCADEONDELETECASCADE)STRICT |
+| familiar | createtablefamiliar(empleadotextnotnull,nombretextnotnull,sexotextnotnullcheck(sexoin('m','f','o')),fechanactextnotnull,relaciontextcheck(relacionin('hijo/a','conyuge','hermano/a')),primarykey(empleado,nombre),foreignkey(empleado)referencesempleado(dni)onupdatecascadeondeletecascade)strict |
 
 ---
 ## Tipos de asociaciones entre tablas
@@ -829,9 +829,9 @@ select name, sql from sqlite_schema where type='table' and name like 'ubi%';
 
 Tabla resultado:
 
-| name      | sql                                                                                                                                                                                                                                |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UBICACION | CREATE TABLE "UBICACION" ( dpto INTEGER NOT NULL, ubicacion TEXT NOT NULL, valoracion integer not null default 0 check (valoracion > -1 and valoracion <6), PRIMARY KEY (dpto, ubicacion) -- PRIMARY KEY implica NOT NULL ) STRICT |
+| name      | sql                                                                                                                        | 
+| --------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ubicacion | createtable"ubicacion"(dptointegernotnull,ubicaciontextnotnull,primarykey(dpto,ubicacion)--primarykeyimplicanotnull)strict |
 
 En SQLite, `ALTER TABLE` permite modificar de una tabla:
 - `RENAME TO` cambia el nombre de la tabla
@@ -860,7 +860,7 @@ Para verificar tu respuesta, selecciona su definición de la tabla sqlite_schema
 ```sql
 SELECT 
 	Lower(tbl_name) as name, 
-	REPLACE(REPLACE(REPLACE(REPLACE(sql, ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '') as sql
+	Lower(REPLACE(REPLACE(REPLACE(REPLACE(sql, ' ', ''), CHAR(9), ''), CHAR(10), ''), CHAR(13), '')) as sql
 from sqlite_schema where type='table' and Lower(name)='ubicacion';
 ```
 
@@ -868,7 +868,7 @@ Tabla resultado:
 
 | name      | sql                                                                                                                        |
 | --------- | -------------------------------------------------------------------------------------------------------------------------- |
-| ubicacion | CREATETABLE"UBICACION"(dptoINTEGERNOTNULL,ubicacionTEXTNOTNULL,PRIMARYKEY(dpto,ubicacion)--PRIMARYKEYimplicaNOTNULL)STRICT |
+| ubicacion | createtable"ubicacion"(dptointegernotnull,ubicaciontextnotnull,primarykey(dpto,ubicacion)--primarykeyimplicanotnull)strict |
 
 ---
 
