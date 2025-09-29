@@ -55,7 +55,7 @@ Tabla resultado (consulta del esquema):
 
 Vamos a empezar borrando las tablas que ya existen en la [BD Empresa en SQL Snippets](https://i3lab.unex.es/sql-snippets/index.html?db=empresa)
 - `DROP TABLE` elimina la tabla del esquema y todos sus contenidos
-- `IF NOT EXISTS`: evita error si se intenta crear dos veces la misma tabla (propio de SQLite)
+- `IF EXISTS`: evita error si se intenta borrar una tabla que no existe (propio de SQLite)
 
 Ahora ya tenemos una base de datos vacía en SQL Snippets para poder continuar con la lección.
 
@@ -775,14 +775,14 @@ CREATE TABLE EMPLEADO (
 	sexo TEXT NOT NULL CHECK (sexo IN ('M', 'F', 'O')),
 	sueldo REAL NOT NULL CHECK (sueldo > 0),
 	supervisor TEXT,
-	dpto INTEGER DEFAULT 1 NOT NULL,    -- DEPARTAMENTO[1..1] -> EMPLEADO[1..N]
+	dpto INTEGER DEFAULT 1 NOT NULL,    -- DEPARTAMENTO[1..1] -> EMPLEADO[0..N]
 	PRIMARY KEY (dni),
 	FOREIGN KEY (supervisor) REFERENCES EMPLEADO (dni) ON UPDATE CASCADE ON DELETE SET NULL,
 	FOREIGN KEY (dpto) REFERENCES DEPARTAMENTO (numero) ON UPDATE CASCADE ON DELETE SET DEFAULT
 ) STRICT;
 ```
 
-En este caso, la clave externa `dpto` representa la asociación uno-a-muchos entre `DEPARTAMENTO` y `EMPLEADO`  que establece que 1 empleado pertenece a 1 departamento y que 1 departamento puede tener muchos empleados. En definitiva, la participación de `DEPARTAMENTO` en la relación es obligatoria.
+En este caso, la clave externa `dpto` representa la asociación uno-a-muchos entre `DEPARTAMENTO` y `EMPLEADO`  que establece que 1 empleado pertenece a 1 departamento y que 1 departamento puede tener muchos empleados, aunque también puede no tener ninguno. En definitiva, la participación de `EMPLEADO` en la relación es obligatoria.
 
 Asociación uno-a-muchos en SQL:
 - **Obligatorio**: FK con `NOT NULL` en el lado "muchos"
