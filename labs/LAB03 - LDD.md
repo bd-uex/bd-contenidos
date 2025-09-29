@@ -177,13 +177,13 @@ $FAMILIAR$(empleado, nombre, sexo, fechaNac, relación\*)
 
 | empleado  | nombre  | sexo | fechaNac   | relacion |
 | --------- | ------- | ---- | ---------- | -------- |
-| 333445555 | Alicia  | F    | 06-04-1986 | Hija     |
-| 333445555 | Teodoro | M    | 25-10-1983 | Hijo     |
-| 333445555 | Luisa   | F    | 03-05-1958 | Esposa   |
-| 987654321 | Alfonso | M    | 28-02-1942 | Esposo   |
-| 123456789 | Miguel  | M    | 04-01-1988 | Hijo     |
-| 123456789 | Alice   | F    | 30-12-1988 | Hija     |
-| 123456789 | Elisa   | F    | 05-05-1967 | Esposa   |
+| 333445555 | Alicia  | F    | 1986-04-06 | Hija     |
+| 333445555 | Teodoro | M    | 1983-10-25 | Hijo     |
+| 333445555 | Luisa   | F    | 1958-05-03 | Esposa   |
+| 987654321 | Alfonso | M    | 1942-02-28 | Esposo   |
+| 123456789 | Miguel  | M    | 1988-01-04 | Hijo     |
+| 123456789 | Alice   | F    | 1988-12-30 | Hija     |
+| 123456789 | Elisa   | F    | 1967-05-05 | Esposa   |
 
 3. Escribe una consulta que devuelva todos los familiares hombre.
 
