@@ -746,14 +746,14 @@ Básicamente, en SQL podemos usar la clave externa (FK) para indicar cardinalida
 CREATE TABLE DEPARTAMENTO (
 	nombre TEXT UNIQUE NOT NULL,
 	numero INTEGER NOT NULL,
-	director TEXT UNIQUE,              -- EMPLEADO[0..1] -> DEPARTAMENTO[0..1] 
+	director TEXT UNIQUE NOT NULL,       -- EMPLEADO[0..1] -> DEPARTAMENTO[1..1] 
 	fechaIngresoDirector TEXT NOT NULL,
 	PRIMARY KEY (numero),
 	FOREIGN KEY (director) REFERENCES EMPLEADO(dni) ON UPDATE CASCADE ON DELETE SET NULL
 ) STRICT;
 ```
 
-En este caso, la clave externa `director` representa la asociación uno-a-uno entre `EMPLEADO` y `DEPARTAMENTO` que establece que 1 empleado puede dirigir 0 o 1 departamento y que un departamento puede estar dirigido por 0 o 1 empleados. En definitiva, la participación de `EMPLEADO`en la relación es opcional.
+En este caso, la clave externa `director` representa la asociación uno-a-uno entre `EMPLEADO` y `DEPARTAMENTO` que establece que 1 empleado puede dirigir 0 o 1 departamento y que un departamento tiene que estar dirigido por 1 empleado. 
 
 Asociación uno-a-uno en SQL:
 - **Obligatorio**: FK con `NOT NULL UNIQUE`
