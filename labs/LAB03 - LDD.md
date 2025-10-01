@@ -793,6 +793,12 @@ Asociación uno-a-muchos en SQL:
 ## Modificar las columnas de una tabla
 
 ```sql
+CREATE TABLE IF NOT EXISTS LOCALIZACIONES_DPTO (
+    dpto INTEGER NOT NULL,
+    ubicacion TEXT NOT NULL,
+    PRIMARY KEY (dpto, ubicacion) -- PRIMARY KEY implica NOT NULL
+) STRICT;
+
 -- añadir una nueva columna a una tabla
 ALTER TABLE localizaciones_dpto
 ADD valoracion integer not null default 0 check (valoracion > -1 and valoracion <6);
