@@ -304,10 +304,10 @@ select * from departamento;
 
 Tabla resultado:
 
-| nombre | apellido1 | apellido2 | dni       | fechaNac   | direccion  | sexo | sueldo | supervisor | dpto |
-| ------ | --------- | --------- | --------- | ---------- | ---------- | ---- | ------ | ---------- | ---- |
-| José   | Pérez     | Pérez     | 123456789 | 1965-09-01 | Eloy 1, 98 | M    | 30000  | 333445555  | 5    |
-| José   | Pérez     | Pérez     | 123456789 | 1965-09-01 | Eloy 1, 98 | M    | 30000  | 333445555  | 5    |
+| nombre        | numero | director  | fechaIngresoDirector |
+| ------------- | ------ | --------- | -------------------- |
+| Investigación | 5      | 333445555 | 1988-05-22           |
+| Investigación | 5      | 333445555 | 1988-05-22           |
 
 En nuestra definición de tablas actual, se pueden **duplicar filas**, porque no hemos definido **ninguna forma de identificar una fila** del resto y, en ese caso, SQL permite filas repetidas.
 
@@ -718,9 +718,9 @@ from sqlite_schema where type='table' and Lower(name)='familiar';
 
 Tabla resultado:
 
-| name     | sql                                                                                                                                                                                                                                                                                                | 
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| familiar | createtablefamiliar(empleadotextnotnull,nombretextnotnull,sexotextnotnullcheck(sexoin('m','f','o')),fechanactextnotnull,relaciontextcheck(relacionin('hijo/a','conyuge','hermano/a')),primarykey(empleado,nombre),foreignkey(empleado)referencesempleado(dni)onupdatecascadeondeletecascade)strict |
+| name     | sql                                                                                                                                                                                                                                                                                                             | 
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| familiar | createtablefamiliar(empleadotextnotnull,nombretextnotnull,sexotextnotnullcheck(sexoin('m','f','o')),fechanactextnotnull,relaciontextcheck(relacionin('hijo','hija','conyuge','hermano','hermana')),primarykey(empleado,nombre),foreignkey(empleado)referencesempleado(dni)onupdatecascadeondeletecascade)strict |
 
 ---
 ## Tipos de asociaciones entre tablas
