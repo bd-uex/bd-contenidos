@@ -7,13 +7,32 @@
 - Operaciones de álgebra relacional a partir de la teoría de conjuntos
 - Operaciones relacionales binarias
 - Operaciones relacionales adicionales
-- Ejemplos de consultas en álgebra relacional
+- Expresando restricciones en álgebra relacional
 
 ---
 
 ## 1. Conceptos fundamentales
 
 ### 1.1. Álgebra relacional
+
+#### Un lenguaje de consulta algebraico
+
+En este tema, se presenta el aspecto de manipulación de datos del modelo relacional. Un modelo de datos no es solo una estructura; necesita una forma de consultar y modificar los datos. Para comenzar nuestro estudio de las operaciones con relaciones, aprenderemos sobre un álgebra especial, llamada álgebra relacional, que consiste en **métodos simples pero eficaces para construir nuevas relaciones a partir de relaciones dadas**.
+
+El álgebra relacional no se utiliza actualmente como lenguaje de consulta en los SGBD comerciales, aunque algunos de los primeros prototipos sí la utilizaban directamente. En cambio, **SQL incorpora el álgebra relacional en su núcleo**. Además, cuando un SGBD procesa consultas, lo primero que ocurre con una consulta SQL es que se traduce a álgebra relacional o a una representación interna muy similar. Por lo tanto, existen varias buenas razones para comenzar a aprender esta álgebra.
+
+#### Álgebra
+
+Un álgebra, en general, consta de **operadores y operandos atómicos.** Por ejemplo, en el álgebra aritmética, los operandos atómicos son variables como $x$ y constantes como `15`. Los operadores son los habituales en la aritmética: suma, resta, multiplicación y división. 
+
+Cualquier álgebra permite **construir expresiones aplicando operadores a operandos atómicos y/u otras expresiones algebraicas**. Normalmente, se necesitan paréntesis para agrupar operadores y sus operandos. Por ejemplo, en aritmética tenemos expresiones como $(x + y) * z$ o $((x + 7)/(2 / -3)) + x.$
+
+El álgebra relacional es otro ejemplo de álgebra. Sus operandos atómicos son:
+
+1. Variables, que representan relaciones.
+2. Constantes, que son relaciones finitas.
+
+#### Conceptos y terminología
 
 - El álgebra relacional es el **conjunto básico de operaciones** para el modelo relacional.
 - Permiten al usuario **especificar** solicitudes de recuperación básicas (o **consultas** )
@@ -64,7 +83,7 @@ El álgebra relacional consta de varios grupos de operaciones
 	- **SELECCIÓN** (símbolo:  $\sigma$ (sigma))
 	- **PROYECCIÓN** (símbolo: $\pi$ (pi))
 	- **RENOMBRADO** (símbolo: $\rho$ (rho))
-- Operaciones de la teoría de conjuntos
+- Operaciones binarias de la teoría de conjuntos
 	- **UNIÓN** ( $\cup$ )
 	- **INTERSECCIÓN** ( $\cap$ )
 	- **DIFERENCIA** (o MENOS, - )
@@ -177,6 +196,7 @@ Esta operación **elimina cualquier tupla duplicada**.
 
 **Ejemplo**. Para enumerar el nombre, apellido y sueldo de cada empleado, se utiliza lo siguiente:
 $$\pi_{Apellido1, Nombre, Sueldo} (EMPLEADO)$$
+
 >[!example] Ejemplo en RelaX
 > ```
 > pi Apellido1,Nombre,Sueldo (Empleado)
