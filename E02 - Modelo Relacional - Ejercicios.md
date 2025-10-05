@@ -14,9 +14,25 @@ Clave externa: despacho -> DESPACHO.codigo
 | E3     | Flor   |          |
 | E4     | Juan   | 40       | 
 
+
+```sql
+CREATE TABLE EMPLEADO(
+	codigo TEXT PRIMARY KEY,
+	nombre TEXT NOt NULL,
+	despacho TEXT UNIQUE,
+	FOREIGN KEY (despacho) REFERENCES DESPACHO(codigo) ON UPDATE CASCADE ON DELETE SET NULL
+) STRICT;
+
+CREATE TABLE DESPACHO(
+	codigo TEXT PRIMARY KEY,
+	pabellon TEXT NOT NULL,
+	planta INTEGER CHECK (planta >0 and planta<10)
+)STRICT;
+```
+
 $DESPACHO$(<u>codigo</u>,pabellon,planta)
 
-| despacho | pabellon    | planta |
+| codigo   | pabellon    | planta |
 | -------- | ----------- | ------ |
 | 37       | central     | 2      |
 | 40       | informática | 4      |
