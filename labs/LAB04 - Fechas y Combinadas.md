@@ -19,7 +19,7 @@ En esta sesión trabajaremos con la [BD Empresa completa en SQL Snippets (Empres
 
 ## Ejercicio 01 - Repaso SELECT
 
-Escribe una consulta que devuelva el sueldo medio por departamento para departamentos que tengan más de 1 empleado.
+Escribe una consulta que devuelva el sueldo medio por departamento para departamentos que tengan más de 1 empleado. Columnas a devolver: dpto, sueldo_medio
 
 Solución:
 ```sql
@@ -28,10 +28,10 @@ Solución:
 
 Resultado:
 
-| dpto | avg(sueldo) |
-| ---- | ----------- |
-| 4    | 31000       | 
-| 5    | 33250       |
+| dpto | sueldo_medio | 
+| ---- | ------------ |
+| 4    | 31000        |
+| 5    | 33250        |
 
 ---
 

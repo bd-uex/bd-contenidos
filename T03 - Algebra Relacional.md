@@ -573,20 +573,26 @@ FROM R INNER JOIN S ON (<condición>);
 SELECT R.*, S.* 
 FROM R NATURAL JOIN S;
 
+SELECT R.*, S.* 
+FROM R INNER JOIN S USING (<atributos comunes>);
+
 ```
 
 Ejemplos
 
 ```sql
-/* Departamento join DniDirector=Dni Empleado */
+/* Equijoin. Departamento join DniDirector=Dni Empleado */
 
 SELECT DEPARTAMENTO.*, EMPLEADO.*
 FROM DEPARTAMENTO INNER JOIN EMPLEADO ON (DniDirector=Dni);
 
-/* Proyecto natural join Departamento */
+/* Natural Join. Proyecto natural join Departamento */
 
-SELECT PROYECTO.*, DEPARTAMENTO.*
-FROM PROYECTO NATURAL JOIN DEPARTAMENTO;
+SELECT DEPARTAMENTO.*, LOCALIZACION_DPTO.* 
+FROM DEPARTAMENTO NATURAL JOIN LOCALIZACION_DPTO;
+
+SELECT DEPARTAMENTO.*, LOCALIZACION_DPTO.* 
+FROM DEPARTAMENTO INNER JOIN LOCALIZACION_DPTO USING(NumeroDpto);
 
 ```
 
@@ -606,71 +612,10 @@ FROM PROYECTO NATURAL JOIN DEPARTAMENTO;
 >$$R \cap S = (R \cup S ) – ((R - S) \cup (S - R))$$
 >$$R \Join_{<condición\ de\ join>} S = \sigma_{<condición\ de\ join>} (R \times S)$$
 
-### 4.2. División
-
-$R(Z) \div S(X)$, donde $X$ es subconjunto de $Z$. 
-Sea $Y = Z - X$ (y, por tanto, $Z = X \div Y$); es decir, sea $Y$ el conjunto de atributos de $R$ que no son atributos de $S$.
-
-El resultado de la DIVISIÓN es una relación $T(Y)$ que incluye una tupla $t$ si las tuplas $t_R$ aparecen en $R$ con $t_R [Y] = t$, y con $t_R [X] = t_S$ para cada tupla $t_S$ en $S$.
-
-Para que una tupla $t$ aparezca en el resultado $T$ de la DIVISIÓN, los valores en $t$ deben aparecer en $R$ en combinación con cada tupla en $S$.
-
->[!example] Ejemplo en RelaX
->```
->DNI_PNOS = pi DniEmpleado,NumProy (Trabaja_En)
->PEREZ_PNOS = pi NumProy (Trabaja_En join DniEmpleado = Dni (sigma Apellido1 = 'Perez' (Empleado)))
->DNI_PNOS division PEREZ_PNOS
->```
->![[BD - Algebra Relacional - Division.png]]
-
-## 5. Operaciones relacionales adicionales
-Hay algunos tipos de consulta que no se pueden expresar en el álgebra relacional básica:
-- Funciones matemáticas de agregación sobre colecciones de valores
-- La agrupación de valores para el cálculo de funciones agregadas
-- El cierre recursivo
-- Las operaciones Outer Join
-### 5.1. Funciones de agregación
-En este caso, vamos a considerar las siguientes funciones de agregación (soportadas por RelaX), que también aparecen en SQL:
-
-| función/tipo datos | number | string | date |
-| ------------------ | ------ | ------ | ---- |
-| COUNT( * )         | yes    | yes    | yes  |
-| COUNT( atributo )  | yes    | yes    | yes  |
-| MIN( atributo )    | yes    | yes    | yes  |
-| MAX( atributo )    | yes    | yes    | yes  |
-| SUM( atributo )    | yes    | no     | no   |
-| AVG( atributo )    | yes    | no     | no   |
-La diferencia entre COUNT( * ) y COUNT(atributo) es que la primera devuelve el número total de tuplas de la relación, independientemente de los valores NULL, mientras que la segunda devuelve el número valores no NULL en el atributo dado.
-### 5.2. Operación de agrupación
-Permite agrupar los resultados de las funciones de agregación por uno o varios atributos de la relación.
-
-- Se denota por $\gamma$ (gamma)
-- Caso general:
-$$\gamma <atributos\ agrupación>; <lista\ funciones\ agregación> (R)$$
-- En RelaX:
-	- Si no se especifican atributos de agrupación, la relación completa es el grupo
-	- la lista de funciones de agregación está compuesta por elementos del tipo:
-$$ FUNCIÓN(A_i) \to a $$
-
->[!example] Ejemplo en Relax
->Agrupar a los empleados por Dno (número de departamento) y calcular el número de empleados y el salario promedio por departamento.
->```
-> gamma Dno; COUNT(Dni) to dnis, AVG(Sueldo) to sueldos (Empleado)
->```
->| Dno | dnis | sueldos |
->|---|---|---|
->| 1 | 1 | 55000|
->| 4| 3| 31000|
->|5|4|33250|
->
-
->[!todo]
->más ejemplos con varios atributos de agrupación
-
-### 5.3. Outer Join
+### 4.2. Outer Join
 
 En NATURAL JOIN y EQUIJOIN, **se eliminan del resultado las tuplas**:
-- **sin una tupla coincidente** (o relacionada ), 
+- **sin una tupla coincidente** (o relacionada), 
 - **con nulos en los atributos de concatenación**.
 
 Esto equivale a una **pérdida de información**.
@@ -768,6 +713,66 @@ SELECT R.*, S.*
 FROM R OUTER JOIN S ON(CONDICION);
 ```
 
+### 4.3. División
+
+$R(Z) \div S(X)$, donde $X$ es subconjunto de $Z$. 
+Sea $Y = Z - X$ (y, por tanto, $Z = X \div Y$); es decir, sea $Y$ el conjunto de atributos de $R$ que no son atributos de $S$.
+
+El resultado de la DIVISIÓN es una relación $T(Y)$ que incluye una tupla $t$ si las tuplas $t_R$ aparecen en $R$ con $t_R [Y] = t$, y con $t_R [X] = t_S$ para cada tupla $t_S$ en $S$.
+
+Para que una tupla $t$ aparezca en el resultado $T$ de la DIVISIÓN, los valores en $t$ deben aparecer en $R$ en combinación con cada tupla en $S$.
+
+>[!example] Ejemplo en RelaX
+>```
+>DNI_PNOS = pi DniEmpleado,NumProy (Trabaja_En)
+>PEREZ_PNOS = pi NumProy (Trabaja_En join DniEmpleado = Dni (sigma Apellido1 = 'Perez' (Empleado)))
+>DNI_PNOS division PEREZ_PNOS
+>```
+>![[BD - Algebra Relacional - Division.png]]
+
+## 5. Operaciones relacionales adicionales
+Hay algunos tipos de consulta que no se pueden expresar en el álgebra relacional básica:
+- Funciones matemáticas de agregación sobre colecciones de valores
+- La agrupación de valores para el cálculo de funciones agregadas
+- El cierre recursivo
+- Las operaciones Outer Join
+
+### 5.1. Funciones de agregación
+En este caso, vamos a considerar las siguientes funciones de agregación (soportadas por RelaX), que también aparecen en SQL:
+
+| función/tipo datos | number | string | date |
+| ------------------ | ------ | ------ | ---- |
+| COUNT( * )         | yes    | yes    | yes  |
+| COUNT( atributo )  | yes    | yes    | yes  |
+| MIN( atributo )    | yes    | yes    | yes  |
+| MAX( atributo )    | yes    | yes    | yes  |
+| SUM( atributo )    | yes    | no     | no   |
+| AVG( atributo )    | yes    | no     | no   |
+
+La diferencia entre COUNT( * ) y COUNT(atributo) es que la primera devuelve el número total de tuplas de la relación, independientemente de los valores NULL, mientras que la segunda devuelve el número valores no NULL en el atributo dado.
+
+### 5.2. Operación de agrupación
+Permite agrupar los resultados de las funciones de agregación por uno o varios atributos de la relación.
+
+- Se denota por $\gamma$ (gamma)
+- Caso general:
+$$\gamma <atributos\ agrupación>; <lista\ funciones\ agregación> (R)$$
+- En RelaX:
+	- Si no se especifican atributos de agrupación, la relación completa es el grupo
+	- la lista de funciones de agregación está compuesta por elementos del tipo:
+$$ FUNCIÓN(A_i) \to a $$
+
+>[!example] Ejemplo en Relax
+>Agrupar a los empleados por Dno (número de departamento) y calcular el número de empleados y el salario promedio por departamento.
+>```
+> gamma Dno; COUNT(Dni) to dnis, AVG(Sueldo) to sueldos (Empleado)
+>```
+>| Dno | dnis | sueldos |
+>|---|---|---|
+>| 1 | 1 | 55000|
+>| 4| 3| 31000|
+>|5|4|33250|
+>
 
 ## 6. Expresando restricciones en álgebra relacional
 Hasta ahora hemos visto el uso del álgebra relacional para especificar operaciones de consulta sobre los datos, en este apartado veremos otro de sus usos: la especificación de restricciones.
