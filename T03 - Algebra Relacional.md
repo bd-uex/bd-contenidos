@@ -765,7 +765,7 @@ $$ FUNCIÓN(A_i) \to a $$
 >[!example] Ejemplo en Relax
 >Agrupar a los empleados por Dno (número de departamento) y calcular el número de empleados y el salario promedio por departamento.
 >```
-> gamma Dno; COUNT(Dni) to dnis, AVG(Sueldo) to sueldos (Empleado)
+> gamma Dno; COUNT(Dni) -> dnis, AVG(Sueldo) -> sueldos (Empleado)
 >```
 >| Dno | dnis | sueldos |
 >|---|---|---|
@@ -809,7 +809,7 @@ La idea es que si construimos todos los pares de tuplas $DEPARTMENTO$ $(t_1,t_2)
 
 Para empezar, dado que tomamos el producto de una relación consigo misma, necesitamos renombrar al menos una copia para tener nombres para los atributos del producto. Para simplificar, usemos dos nuevos nombres, D1 y D2, para referirnos a la relación $DEPARTAMENTO$. Entonces, el requisito se puede expresar mediante la restricción algebraica:
 
-$$\sigma_{D1.nombre=D2.nombre\ AND\ D1.nombre \neq D2.nombre\ (D1 \times D2) = \emptyset}$$
+$$\sigma_{D1.numero=D2.numero\ AND\ D1.nombre \neq D2.nombre\ (D1 \times D2) = \emptyset}$$
 
 Teniendo en cuenta que $D1$ en el producto $D1 x D2$ es el nombre destino de la operación de renombrado:
 $$\rho_{D1}(Departamento)$$
@@ -829,8 +829,8 @@ En el segundo ejemplo, supongamos que deseamos establecer como requisito que un 
 1. Es necesario hacer un theta-join de las relaciones $EMPLEADO$ y $DEPARTAMENTO$ usando la condición de que `dni` y `director` son iguales. De esta manera, combinamos los datos de los directores con los del departamento que dirigen.
 2. Seleccionamos las tuplas con `sueldo` mayor a 30000.
 
-$$\sigma_{Sueldo>30000}\ (Empleado \Join_{Dni=DniDirector} Departamento) = \emptyset $$
+$$\sigma_{Sueldo<30000}\ (Empleado \Join_{Dni=DniDirector} Departamento) = \emptyset $$
 
 Una forma alternativa de expresar la misma restricción sería comparar el conjunto de `DniDirector` que representa a los directores de $DEPARTAMENTO$ con el de $EMPLEADOS$ que cobran más de 30000; el primero debe ser un subconjunto del segundo. 
 
-$$\pi_{DniDirector} (Departamento) \subseteq \pi_{Dni} (\sigma_{Sueldo>30000}(Empleado)) $$
+$$\pi_{DniDirector} (Departamento) \subseteq \pi_{Dni} (\sigma_{Sueldo>=30000}(Empleado)) $$

@@ -14,12 +14,12 @@ FK:
 $VEHICULO$(<u>matricula</u>, fec_matriculacion, propietario\*, cod_marca, cod_modelo)
 FK:
 - {cod_marca, cod_modelo} -> $MODELO$(cod_marca, cod_modelo) B:R M:C
-- {propietario} -> $PERSONA$(dni) B:N M:C
+- {propietario} -> $PERSONA$(nif) B:N M:C
 
 $PERSONA$(<u>nif</u>, apellido1, apellido2, nombre, domicilio, cod_postal, municipio)
 $MULTA$(<u>expediente</u>,infractor, fecha, importe, matricula, articulo, lugar, kilometro)
 FK:
-- {infractor} -> $PERSONA$(dni) B:C M:C
+- {infractor} -> $PERSONA$(nif) B:C M:C
 - {matricula} -> $VEHICULO$(matricula) B:R M:C
 
 ---
