@@ -408,9 +408,9 @@ Generalmente, el producto cartesiano **no es una operación significativa**, dad
 >**Ejemplo no significativo**
 >```
 > Empleadas = sigma Sexo = ‘M' (Empleado)
-> Nom_Empleadas = pi Nombre, Apellido, Dni (Empleadas
-> Emp_Familiares = Nom_Empleadas x Familia
-> Resultado = pi Nombre, Apellido1, Nombre_Fam (Fam_Reales)
+> Nom_Empleadas = pi Nombre, Apellido1, Dni (Empleadas)
+> Emp_Familiares = Nom_Empleadas x Familiar
+> Resultado = pi Nombre, Apellido1, NombSubordinado (Fam_Reales)
 >  ```
 >  Resultado contendrá cada combinación de Nom_Empleadas y Familiar estén realmente
 >  relacionados o no. 
@@ -445,7 +445,7 @@ Generalmente, el producto cartesiano **no es una operación significativa**, dad
 >  Nom_Empleadas = pi Nombre, Apellido1, Dni (Empleadas)
 >  Emp_Familiares = Nom_Empleadas x Familiar
 >  Fam_Reales = sigma Dni=DniEmpleado (Emp_Familiares)      -- filtro
->  Resultado = pi Nombre, Apellido, Nombre_Fam (Fam_Reales)
+>  Resultado = pi Nombre, Apellido1, NombSubordinado (Fam_Reales)
 >  ```
 >
 > El resultado ahora contendrá el nombre de las empleadas y sus familiares
@@ -780,11 +780,12 @@ Hasta ahora hemos visto el uso del álgebra relacional para especificar operacio
 Hay dos maneras de usar expresiones de álgebra relacional para expresar restricciones:
 
 1. Si $R$ es una expresión de álgebra relacional, entonces $R = \emptyset$ es una restricción que dice: "El valor de $R$ debe estar vacío" o, equivalentemente, "No hay tuplas en el resultado de $R$".
-2. Si $R$ y $S$ son expresiones de álgebra relacional, entonces $R \subset S$ es una restricción que dice: "Toda tupla en el resultado de $R$ debe estar también en el resultado de $S$". Por supuesto, el resultado de $S$ puede contener tuplas adicionales no producidas por R.
+2. Si $R$ y $S$ son expresiones de álgebra relacional, entonces $R \subset S$ es una restricción que dice: "Toda tupla en el resultado de $R$ debe estar también en el resultado de $S$". Por supuesto, el resultado de $S$ puede contener tuplas adicionales no producidas por $R$.
 
 Estas formas de expresar restricciones son en realidad equivalentes en lo que pueden expresar, pero a veces una u otra es más clara o concisa. Es decir, la restricción  $R \subset S$ podría haberse escrito perfectamente como $R — S = \emptyset$. Para entender por qué, observa que si toda tupla en $R$ está también en $S$, entonces $R — S$ tiene que estar vacía. Por el contrario, si $R — S$ no contiene tuplas, entonces cada tupla en $R$ debe estar en $S$ (de lo contrario, estaría en $R — S$).
 
 Por otro lado, una restricción de la primera forma, $R = \emptyset$, podría haberse escrito perfectamente como $R \subset \emptyset$. Técnicamente, $\emptyset$ no es una expresión de álgebra relacional, pero dado que existen expresiones que evalúan a $\emptyset$, como $R — R$, no hay inconveniente en usar $\emptyset$ como expresión de álgebra relacional.
+
 ### 6.1. Restricciones de integridad referencial
 Un tipo común de restricción, denominada restricción de integridad referencial, establece que un valor que aparece en un contexto también aparece en otro contexto relacionado.
 
@@ -798,13 +799,17 @@ $$\pi_A(R) - \pi_B (S) = \emptyset$$
 ### 6.2. Restricciones de clave
 La misma notación de restricción nos permite expresar mucho más que la integridad referencial. Aquí veremos cómo podemos expresar algebraicamente la restricción de que un determinado atributo o conjunto de atributos es clave para una relación.
 
-Recordemos que en la relación $$DEPARTAMENTO(nombre, numero, director, fechaIngresoDirector)$$, el atributo `numero` es la clave primaria. Es decir, no hay dos tuplas que coincidan en el atributo `numero`. Expresaremos algebraicamente una de las implicaciones de esta restricción: si dos tuplas coinciden en el `numero`, también deben coincidir en el `nombre`. Nótese que, de hecho, estas dos tuplas, que coinciden en la clave `numero`, deben ser la misma tupla y, por lo tanto, concuerdan en todos los atributos.
+Recordemos que en la relación 
+
+$DEPARTAMENTO(nombre, numero, director, fechaIngresoDirector)$, 
+
+el atributo `numero` es la clave primaria. Es decir, no hay dos tuplas que coincidan en el atributo `numero`. Expresaremos algebraicamente una de las implicaciones de esta restricción: si dos tuplas coinciden en el `numero`, también deben coincidir en el `nombre`. Nótese que, de hecho, estas dos tuplas, que coinciden en la clave `numero`, deben ser la misma tupla y, por lo tanto, concuerdan en todos los atributos.
 
 La idea es que si construimos todos los pares de tuplas $DEPARTMENTO$ $(t_1,t_2)$, no debemos encontrar un par que coincida en el componente de `numero` y discrepe en el de `nombre`. Para construir los pares, utilizamos un producto cartesiano y, para buscar pares que violen la condición, utilizamos una selección. Luego, afirmamos la restricción igualando el resultado a  $\emptyset$.
 
 Para empezar, dado que tomamos el producto de una relación consigo misma, necesitamos renombrar al menos una copia para tener nombres para los atributos del producto. Para simplificar, usemos dos nuevos nombres, D1 y D2, para referirnos a la relación $DEPARTAMENTO$. Entonces, el requisito se puede expresar mediante la restricción algebraica:
 
-$$\sigma_{D1.name=D2.name\ AND\ D1.address \neq D2.address\ (D1 \times D2) = \emptyset}$$
+$$\sigma_{D1.nombre=D2.nombre\ AND\ D1.nombre \neq D2.nombre\ (D1 \times D2) = \emptyset}$$
 
 Teniendo en cuenta que $D1$ en el producto $D1 x D2$ es el nombre destino de la operación de renombrado:
 $$\rho_{D1}(Departamento)$$
