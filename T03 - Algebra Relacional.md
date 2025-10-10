@@ -772,7 +772,26 @@ $$ FUNCIÓN(A_i) \to a $$
 >| 1 | 1 | 55000|
 >| 4| 3| 31000|
 >|5|4|33250|
->
+
+### 5.3. Operación de ordenado
+
+Permite ordenar los resultados por uno o varios atributos de la relación.
+
+- Se denota por $\tau$ (tau)
+- Caso general:
+$$\tau atributo_1 [ASC/DESC], \dots, atributo_n [ASC/DESC]$$
+
+>[!example] Ejemplo en Relax
+>Ordenar de forma descendente los departamentos por su nombre.
+>```
+> tau NombreDpto DESC (Departamento)
+>```
+>| Departamento.NombreDpto | Departamento.NumeroDpto | Departamento.DniDirector | Departamento.FechaIngresoDirector |
+>| ----------------------- | ----------------------- | ------------------------ | --------------------------------- |
+>| 'Sede-central'          | 1                       | 888665555                | 1981-06-19                        |
+>| 'Investigacion'         | 5                       | 333445555                | 1988-05-22                        |
+>| 'Administracion'        | 4                       | 987654321                | 1995-01-01                        |
+
 
 ## 6. Expresando restricciones en álgebra relacional
 Hasta ahora hemos visto el uso del álgebra relacional para especificar operaciones de consulta sobre los datos, en este apartado veremos otro de sus usos: la especificación de restricciones.
