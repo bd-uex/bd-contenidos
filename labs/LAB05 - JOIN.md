@@ -681,7 +681,7 @@ Tabla resultado de `EMPLEADO LEFT JOIN FAMILIAR`:
 
 ---
 
-## El Peligro de `COUNT(*)` con `LEFT JOIN` 😵
+## El Peligro de `COUNT(*)` con `LEFT JOIN` 
 
 
 ```sql
