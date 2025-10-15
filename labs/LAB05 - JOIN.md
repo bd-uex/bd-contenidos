@@ -473,7 +473,7 @@ Este ejemplo se basa en la **coincidencia de datos (nombres de ciudades)** en lu
 
 ## Ejercicio 05 - OUTER JOIN 
 
-Listar todos los proyectos y los empleados que trabajan en ellos. Asegurarse de que todos los proyectos aparecen en la lista, incluso si nadie trabaja en ellos. Columnas resultado: nombre_proyecto, nombre_empleado y horas. Ordena los resultados por nombre de proyecto en orden alfabético.
+Listar todos los proyectos y los empleados que trabajan en ellos. Asegurarse de que todos los proyectos aparecen en la lista, incluso si nadie trabaja en ellos. Columnas resultado: nombre_proyecto, nombre_empleado y horas. Ordena los resultados por nombre de proyecto y nombre de empleado en orden alfabético.
 
 Antes del ejercicio: Inserta un nuevo proyecto
 ```sql
