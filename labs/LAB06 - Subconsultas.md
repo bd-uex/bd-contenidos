@@ -34,26 +34,7 @@ La dirección de la empresa necesita un informe completo sobre la situación de 
 
 Solución:
 ```sql
-SELECT
-  D.nombre AS nombre_departamento,
-  ED.nombre || ' ' || ED.apellido1 AS nombre_director,
-  COUNT(DISTINCT E.dni) AS num_empleados,
-  COUNT(DISTINCT P.numero) AS num_proyectos,
-  COALESCE(SUM(T.horas), 0) AS total_horas_trabajadas
-FROM
-  DEPARTAMENTO D
-INNER JOIN
-  EMPLEADO ED ON D.director = ED.dni
-LEFT JOIN
-  EMPLEADO E ON D.numero = E.dpto AND E.dni != D.director
-LEFT JOIN
-  PROYECTO P ON D.numero = P.dpto
-LEFT JOIN
-  TRABAJA_EN T ON P.numero = T.proyecto
-GROUP BY
-  D.numero, D.nombre, ED.nombre, ED.apellido1
-ORDER BY
-  num_empleados DESC;
+
 ```
 
 Tabla resultado:
@@ -196,16 +177,7 @@ Escribe una consulta que muestre los nombres de los departamentos cuyo sueldo me
 
 Solución:
 ```sql
-SELECT 
-    D.nombre,
-    AVG(E.sueldo) AS sueldoMedio
-FROM DEPARTAMENTO D
-INNER JOIN EMPLEADO E ON D.numero = E.dpto
-GROUP BY D.numero, D.nombre
-HAVING AVG(E.sueldo) > (
-    SELECT AVG(sueldo)
-    FROM EMPLEADO
-);
+
 ```
 
 Tabla resultado:
@@ -320,17 +292,7 @@ Escribe una consulta que liste el nombre y apellido de los empleados que trabaja
 
 Solución:
 ```sql
-SELECT DISTINCT
-    E.nombre,
-    E.apellido1
-FROM EMPLEADO E
-INNER JOIN TRABAJA_EN T ON E.dni = T.empleado
-WHERE T.proyecto IN (
-    SELECT numero
-    FROM PROYECTO
-    WHERE ubicacion = 'Madrid'
-)
-ORDER BY E.apellido1, E.nombre;
+
 ```
 
 Tabla resultado:
@@ -471,16 +433,7 @@ Escribe una consulta que liste el el nombre y apellido de cada empleado junto co
 
 Solución:
 ```sql
-SELECT 
-    E.nombre,
-    E.apellido1,
-    E.sueldo - (
-        SELECT AVG(E2.sueldo)
-        FROM EMPLEADO E2
-        WHERE E2.dpto = E.dpto
-    ) AS diferenciaSueldoMedio
-FROM EMPLEADO E
-ORDER BY diferenciaSueldoMedio DESC;
+
 ```
 
 Tabla resultado:
@@ -567,18 +520,7 @@ Escribe una consulta que liste el nombre de los proyectos donde trabaja al menos
 
 Solución:
 ```sql
-SELECT 
-    P.nombre
-FROM PROYECTO P
-WHERE EXISTS (
-    SELECT 1
-    FROM TRABAJA_EN T
-    INNER JOIN EMPLEADO E ON T.empleado = E.dni
-    INNER JOIN DEPARTAMENTO D ON E.dpto = D.numero
-    WHERE T.proyecto = P.numero
-    AND D.nombre = 'Investigación'
-)
-ORDER BY P.nombre;
+
 ```
 
 Tabla resultado:
@@ -667,22 +609,7 @@ SELECT nombre, apellido1, sueldo FROM EMPLEADO;
 
 Solución:
 ```sql
-UPDATE EMPLEADO
-SET sueldo = sueldo * 1.20
-WHERE dni IN (
-    SELECT empleado
-    FROM TRABAJA_EN
-    GROUP BY empleado
-    HAVING SUM(horas) > (
-        SELECT AVG(total_horas)
-        FROM (
-            SELECT SUM(horas) AS total_horas
-            FROM TRABAJA_EN
-            WHERE horas IS NOT NULL
-            GROUP BY empleado
-        )
-    )
-);
+
 ```
 
 Tabla resultado:
@@ -763,18 +690,7 @@ WHERE P.ubicacion = 'Madrid';
 
 Solución:
 ```sql
-SELECT 
-  E.nombre,
-  E.apellido1
-FROM EMPLEADO E
-WHERE EXISTS (
-  SELECT 1
-  FROM TRABAJA_EN T
-  INNER JOIN PROYECTO P ON T.proyecto = P.numero
-  WHERE T.empleado = E.dni
-  AND P.ubicacion = 'Madrid'
-)
-ORDER BY E.apellido1, E.nombre;
+
 ```
 
 Tabla resultado:
