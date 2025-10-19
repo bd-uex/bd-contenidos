@@ -29,6 +29,20 @@
 **8. Observa la tabla `customer`. Tiene un campo `active` (0 o 1). ¿En qué situaciones crees que un cliente estaría "inactivo"? ¿Debería el sistema permitir alquileres a clientes inactivos?**
 
 ---
+
+### **Diseño y Decisiones**
+
+**9. La tabla `film` tiene `rental_duration` y `rental_rate`. ¿Por qué crees que estos valores están en la tabla `film` y no en la tabla `rental`?**
+
+**10. ¿Qué información NO puedes obtener de esta base de datos que sería útil para un videoclub real?**
+
+---
+
+### **Bonus: Pregunta de Reflexión Final**
+
+**11. Si tuvieras que añadir una funcionalidad de "lista de deseos" donde los clientes puedan marcar películas que les interesan, ¿qué nueva tabla(s) necesitarías crear y qué columnas tendrían?**
+
+---
 # Consultas: Base de Datos Sakila
 
 ---
