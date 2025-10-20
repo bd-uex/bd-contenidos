@@ -23,14 +23,12 @@ La dirección de la empresa necesita un informe completo sobre la situación de 
 - **nombre_director**: Nombre completo del director (nombre y apellido1 separados por espacio)
 - **num_empleados**: Número total de empleados del departamento (sin contar al director)
 - **num_proyectos**: Número de proyectos asignados al departamento
-- **total_horas_trabajadas**: Suma total de horas trabajadas en todos los proyectos del departamento
 
 **Requisitos importantes:**
 
 1. Deben aparecer **TODOS los departamentos**, incluso si no tienen proyectos asignados o empleados trabajando
 2. Ten cuidado con el uso de `COUNT()` cuando uses `LEFT JOIN`
-3. Las horas `NULL` deben tratarse como 0 en el total
-4. Ordena el resultado por número de empleados (de mayor a menor)
+3. Ordena el resultado por número de empleados (de mayor a menor)
 
 Solución:
 ```sql
@@ -39,11 +37,11 @@ Solución:
 
 Tabla resultado:
 
-| nombre_departamento | nombre_director | num_empleados | num_proyectos | total_horas_trabajadas | 
-| ------------------- | --------------- | ------------- | ------------- | ---------------------- |
-| Investigación       | Alberto Campos  | 3             | 3             | 140                    |
-| Administración      | Juana Sáinz     | 2             | 2             | 110                    |
-| Sede Central        | Eduardo Ochoa   | 0             | 1             | 25                     |
+| nombre_departamento | nombre_director | num_empleados | num_proyectos | 
+| ------------------- | --------------- | ------------- | ------------- |
+| Investigación       | Alberto Campos  | 3             | 3             |
+| Administración      | Juana Sáinz     | 2             | 2             |
+| Sede Central        | Eduardo Ochoa   | 0             | 1             |
 
 ---
 ## Subconsultas
