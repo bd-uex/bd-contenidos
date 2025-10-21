@@ -61,6 +61,35 @@ Dado la relación MATRICULA siguiente, encontrar las dependencias funcionales y 
 | 2543    | Martín       | José       | BD             | 3º        |          | I1       | Informática  |
 | 7777    | Martín       | Lucía      | BDA            | 4º        |          | I1       | Informática  |
 
+---
+
+## Ejercicio 4
+
+Considera la siguiente relación:
+$VentaCoche$(Coche#, FechaVenta, Vendedor#, Comision%, Descuento)
+Se asume que un coche puede ser vendido por múltiples vendedores y por tanto la clave primaria es  {Coche#, Vendedor#}.
+siendo F= { Coche# -> FechaVenta, FechaVenta -> Descuento, Vendedor# -> Comision%}
+
+Basado en la clave primaria proporcionada, ¿está la relación en 1FN, 2FN o 3FN? Razona tu respuesta. ¿Cómo se podría normalizar completamente?
+
+---
+
+## Ejercicio 5
+
+Considera la siguiente relación universal R = {A, B, C, D, E, F, G, H, I, J} y su conjunto de dependencias funcionales F = { {A, B} -> {C}, {A} -> {D, E}, {B} -> {F}, {F} -> {G, H}, {D} -> {I, J} }. 
+¿Cuál es la clave de R? Descompón R en relaciones en 2FN y en 3FN.
 
 
+---
 
+## Ejercicio 6
+
+Considera la siguiente relación de libros publicados:
+$Libro$ (TituloLibro, NombreAutor, TipoLibro, Precio, AfiliacionAutor, Editor)
+Supón que existen las siguientes dependencias:
+TituloLibro -> Editor, TipoLibro
+TipoLibro -> Precio
+NombreAutor -> AfiliacionAutor
+
+- ¿En qué forma nomral se encuentra la relación? Razona tu respuesta
+- Normaliza la relación todo lo posible. Indica las razones de cada descomposición
