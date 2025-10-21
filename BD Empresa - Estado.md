@@ -1,16 +1,16 @@
 
 #### EMPLEADO
 
-| nombre   | apellido1 | apellido2 | dni       | fechaNac   | direccion     | sexo | sueldo | superDni  | dpto | 
-| -------- | --------- | --------- | --------- | ---------- | ------------- | ---- | ------ | --------- | ---------- |
-| José     | Pérez     | Pérez     | 123456789 | 01-09-1965 | Eloy 1, 98    | F    | 30000  | 333445555 | 5          |
-| Alberto  | Campos    | Sastre    | 333445555 | 08-12-1955 | Avda. Ríos, 9 | F    | 40000  | 888665555 | 5          |
-| Alicia   | Jiménez   | Celaya    | 999887777 | 12-05-1968 | Gran Vía, 38  | M    | 25000  | 987654321 | 4          |
-| Juana    | Sáinz     | Oreja     | 987654321 | 20-06-1941 | Canalejas, 67 | M    | 43000  | 888665555 | 4          |
-| Fernando | Ojeda     | Ordóñez   | 666884444 | 15-09-1962 | Portillo, s/n | F    | 38000  | 333445555 | 5          |
-| Aurora   | Oliva     | Azevuela  | 453453453 | 31-07-1972 | Antón, 6      | M    | 25000  | 333445555 | 5          |
-| Luis     | Pajares   | Morera    | 987987987 | 29-03-1969 | Embrujos, 91  | F    | 25000  | 987654321 | 4          |
-| Eduardo  | Ochoa     | Paredes   | 888665555 | 10-11-1937 | Las Peñas, 1  | F    | 55000  | NULL      | 1          |
+| nombre   | apellido1 | apellido2 | dni       | fechaNac   | direccion     | sexo | sueldo | superDni  | dpto |     |
+| -------- | --------- | --------- | --------- | ---------- | ------------- | ---- | ------ | --------- | ---- | --- |
+| José     | Pérez     | Pérez     | 123456789 | 01-09-1965 | Eloy 1, 98    | F    | 30000  | 333445555 | 5    |     |
+| Alberto  | Campos    | Sastre    | 333445555 | 08-12-1955 | Avda. Ríos, 9 | F    | 40000  | 888665555 | 5    |     |
+| Alicia   | Jiménez   | Celaya    | 999887777 | 12-05-1968 | Gran Vía, 38  | M    | 25000  | 987654321 | 4    |     |
+| Juana    | Sáinz     | Oreja     | 987654321 | 20-06-1941 | Canalejas, 67 | M    | 43000  | 888665555 | 4    |     |
+| Fernando | Ojeda     | Ordóñez   | 666884444 | 15-09-1962 | Portillo, s/n | F    | 38000  | 333445555 | 5    |     |
+| Aurora   | Oliva     | Azevuela  | 453453453 | 31-07-1972 | Antón, 6      | M    | 25000  | 333445555 | 5    |     |
+| Luis     | Pajares   | Morera    | 987987987 | 29-03-1969 | Embrujos, 91  | F    | 25000  | 987654321 | 4    |     |
+| Eduardo  | Ochoa     | Paredes   | 888665555 | 10-11-1937 | Las Peñas, 1  | F    | 55000  | NULL      | 1    |     |
 
 #### DEPARTAMENTO
 
