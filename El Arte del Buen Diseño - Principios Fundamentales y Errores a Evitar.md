@@ -1,6 +1,5 @@
 Dominar el modelado Entidad-Relación es como aprender a jugar al ajedrez ♟️: conocer las piezas (entidades, relaciones) es solo el principio. Para crear un diseño **sólido, correcto y eficiente**, necesitas aplicar **principios estratégicos**. Esta sección presenta los **criterios de diseño fundamentales** que debes seguir. Dominarlos te convertirá en un buen diseñador. Ignorarlos o aplicarlos incorrectamente no solo resultará en un modelo deficiente, sino que también acarrea **penalizaciones** en la evaluación de tus diseños. Hemos organizado estos criterios por su importancia: desde los principios esenciales que son la base de un buen modelo, hasta los detalles que marcan la diferencia entre un diseño aceptable y uno excelente.
 
-
 ---
 ### 1 Principios Fundamentales (Errores Graves y Penalizaciones) 🚨
 
@@ -262,7 +261,7 @@ Estos principios aseguran que uses el concepto de entidad débil de manera preci
 
 ##### Principio 21: Una Entidad Débil DEBE Tener Dependencia de Identificación (L10) 🆔
 
-La característica **definitoria** de una entidad débil es que **no puede identificarse por sí misma** y necesita "tomar prestada" la clave de su entidad fuerte propietaria para formar su propia identidad única. Si modelas una entidad como débil, pero en realidad _sí_ tiene una clave primaria propia o podría identificarse sin depender de la supuesta entidad fuerte, estás usando incorrectamente el concepto **(Fallo L10)**. Es un error leve (salvo casos específicos como L15) porque, aunque estructuralmente podrías forzarlo, semánticamente es incorrecto.
+La característica **definitoria** de una entidad débil es que **no puede identificarse por sí misma** y necesita "tomar prestada" la clave de su entidad fuerte propietaria para formar su propia identidad única. Si modelas una entidad como débil, pero en realidad _sí_ tiene una clave primaria propia o podría identificarse sin depender de la supuesta entidad fuerte, estás usando incorrectamente el concepto **(Fallo L10)**. Es un error leve porque, aunque estructuralmente podrías forzarlo, semánticamente es incorrecto.
 
 - ✅ **Correcto**: `FAMILIAR` es débil porque su `nombre` solo es único _dentro_ del contexto de un `EMPLEADO`. Necesita el `dni_empleado`.
     
@@ -270,7 +269,7 @@ La característica **definitoria** de una entidad débil es que **no puede ident
     
 ##### Principio 22: Una Entidad Débil DEBE Tener Dependencia de Existencia (L11) ⏳
 
-Además de la dependencia de identificación, una entidad débil también **debe** tener dependencia de existencia con su entidad fuerte. Esto significa que no puede existir si su propietario no existe. Modelar una entidad como débil si conceptualmente _podría_ existir independientemente de la entidad fuerte **(Fallo L11)** es un error leve (salvo casos específicos como L15). Muestra una inconsistencia entre la dependencia estructural que impones y la lógica del negocio.
+Además de la dependencia de identificación, una entidad débil también **debe** tener dependencia de existencia con su entidad fuerte. Esto significa que no puede existir si su propietario no existe. Modelar una entidad como débil si conceptualmente _podría_ existir independientemente de la entidad fuerte **(Fallo L11)** es un error leve. Muestra una inconsistencia entre la dependencia estructural que impones y la lógica del negocio.
 
 - ✅ **Correcto**: Una `LINEA_FACTURA` (débil) no puede existir si no existe la `FACTURA` (fuerte) a la que pertenece.
     
@@ -373,3 +372,7 @@ Las restricciones de **totalidad/parcialidad** y **disyunción/solapamiento** de
 - ✅ **Correcto**: Marcar la especialización `{TIEMPOCOMPLETO, TIEMPOPARCIAL}` como (t,d) si todo empleado debe tener una y solo una de esas jornadas.
     
 - ❌ **Incorrecto (L21)**: Marcarla la especialización como ( t,s / p,d / p,s) si todo empleado debe tener una y solo una de esas jornadas.
+
+---
+
+![Resumen Criterios de Evaluación - Examen Entidad Relación](Resumen%20Criterios%20de%20Evaluación%20-%20Examen%20Entidad%20Relación.md)
