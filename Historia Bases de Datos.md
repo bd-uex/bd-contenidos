@@ -2,6 +2,7 @@
 
 Este vídeo de 5 minutos del [Computer History Museum](https://computerhistory.org/) proporciona una revisión rápida (en inglés) de la historia de las bases de datos desde 1960 a 1990.
 ![History of Databases](https://youtu.be/KG-mqHoXOXY?si=9FO22pMOblmx4LX5)
+(parcialmente generada por Gemini 2.5 Pro)
 ## 1. Era Pre-Bases de Datos (1950s - principios 1960s)
 
 Antes de los sistemas de bases de datos propiamente dichos, las organizaciones utilizaban **sistemas de archivos**, que proporcionan: almacenamiento de datos durante largos periodos de tiempo y permiten el almacenamiento de grandes cantidades de datos. Sin embargo, los sistemas de archivos **no** suelen **garantizar la imposibilidad de perder datos** si no se realiza una copia de seguridad de estos, **ni permiten un acceso eficiente** a elementos de datos cuya ubicación en un archivo específico se desconoce.
