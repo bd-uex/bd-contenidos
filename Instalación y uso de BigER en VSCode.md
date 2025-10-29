@@ -115,10 +115,10 @@ Para comenzar a utilizar [BigER](https://github.com/borkdominik/bigER), solo nec
         ![](resources/BD%20-%20BigER%20-%20Imagen%20fichero%20sample%20erd.png)
         
         * Además, se habrá dividido la ventana y verás el diagrama E/R de este modelo (si no se ha abierto automáticamente pulsa Ctrl + O o botón derecho "Open ER Diagram):
-        ![](BD%20-%20BigER%20-%20Imagen%20fichero%20sample%20erd%20renderizado.png)
+        ![](resources/BD%20-%20BigER%20-%20Imagen%20fichero%20sample%20erd%20renderizado.png)
         
         * La notación que usa por defecto no es Crow's foot pero esto ya lo cambiaremos cuando lleguemos a la parte de relaciones en la lección. Por ahora solo indicar que hay una serie de opciones disponibles, más o menos útiles en la ventana de visualización del diagrama de las que, de algunas de ellas, entraremos en detalles a lo largo de la lección:
-        ![](BD%20-%20BigER%20Interfaz%20explicada.png)
+        ![](resources/BD%20-%20BigER%20Interfaz%20explicada.png)
 
 >[!NOTE]  No usaremos en esta asignatura el botón SQL. Si algún estudiante quiere usarlo debe tener en cuenta que esta herramienta es todavía una beta y que el SQL generado automáticamente no es completamente correcto y va a necesitar numerosos cambios por nuestra parte antes de ejecutarlo.
 
