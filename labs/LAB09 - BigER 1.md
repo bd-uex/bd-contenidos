@@ -79,7 +79,7 @@ Tenemos varios elementos en los que fijarnos:
 - } : llave de fin de descripción del contenido de la entidad.
 
 ---
-### Ejercicio 01
+### Ejercicio 01 - Entidades y atributos (1)
 
 Modifica el contenido de la entidad NombreEntidad anterior para que pase a ser la entidad **Estudiante**, con los atributos **numExpediente** (**Clave Primaria**), **nombre**, **apellido1** y **apellido2** para que se visualice dicha entidad de esta forma:
 
@@ -115,7 +115,7 @@ apellido2
 Todas las respuestas son correctas
 
 ---
-### Ejercicio 02
+### Ejercicio 02 - Entidades y atributos (2)
 
 Abre el archivo ModeloTheExpanseV1Simplificado.erd que será donde vamos a ir modelando el enunciado Enunciado 2 ER The Expanse v1 simplificado que se ha resuelto en Grupo Grande.
 
@@ -190,7 +190,7 @@ Hay dos maneras de conseguir que BigER nos muestre el diagrama E/R en notación 
 
 Tanto si lo haces de una forma como de otra ya deberías poder ver así el diagrama:
 
-![](../BD%20-%20BigER%20Estudiante%20Titulacion%20Matriculado%20En.png)
+![](../resources/BD%20-%20BigER%20Estudiante%20Titulacion%20Matriculado%20En.png)
 
 Como acabamos de ver, aunque BigER admite atributos al describir una relación, no los muestra.
 
@@ -221,7 +221,7 @@ atributoZDeLaRelacion
 }
 
 ---
-### Ejercicio 03
+### Ejercicio 03 - Relaciones (1)
 
 Abre de nuevo el archivo ModeloTheExpanseV1Simplificado.erd.
 
@@ -256,7 +256,7 @@ fechaMatriculacion
 }
 
 ---
-### Ejercicio 4
+### Ejercicio 04 - Relaciones (2)
 
 Vamos a seguir en el archivo ModeloTheExpanseV1Simplificado.erd.
 
@@ -381,7 +381,7 @@ Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo
 Puedes ver como tanto la entidad dependiente Asignatura como la relación débil compuestaDe aparecen con doble borde para indicar que son débiles.
 
 ---
-### Ejercicio 5
+### Ejercicio 05 - Entidades Dependientes (1)
 
 Abre de nuevo el archivo ModeloTheExpanseV1Simplificado.erd.
 
@@ -406,7 +406,7 @@ fechaFin
 horaFin
 }
 
-`weak relationship` realizadoPor {
+`relationship` realizadoPor {
 Vuelo[`0..N`] -> NaveEspacial[`1..1`]
 }
 
@@ -443,11 +443,11 @@ horaFin
 }
 
 `weak relationship` realizadoPor {
-Vuelo[`0..N`] -> NaveEspacial[`0..1`]
+Vuelo[`0..N`] -> NaveEspacial[`1..1`]
 }
 
 ---
-### Ejercicio 6
+### Ejercicio 06 - Entidades Dependientes (2)
 
 Abre de nuevo el archivo ModeloTheExpanseV1Simplificado.erd.
 
@@ -470,9 +470,9 @@ fecha `partial-key`
 cantidad
 }
 `weak relationship` incluidoEn {
-HistoricoExtraccion[`0..N`] -> Mineral[`1..1`]
+HistoricoExtraccion[`0..N`] -> Mineral[`0..1`]
 }
-weak relationship extraidoPor {
+`weak relationship` extraidoPor {
 HistoricoExtraccion[`0..N`] -> Centro[`1..1`]
 }
 
@@ -484,7 +484,7 @@ cantidad
 `weak relationship` incluidoEn {
 HistoricoExtraccion[`0..N`] -> Mineral[`1..1`]
 }
-weak relationship extraidoPor {
+`weak relationship` extraidoPor {
 HistoricoExtraccion[`0..N`] -> Centro[`1..1`]
 }
 
@@ -494,11 +494,12 @@ fecha `partial-key`
 cantidad
 }
 `weak relationship` incluidoEn {
-HistoricoExtraccion[`0..N`] -> Mineral[`0..1`]
+HistoricoExtraccion[`0..N`] -> Mineral[`1..1`]
 }
-weak relationship extraidoPor {
+`weak relationship` extraidoPor {
 HistoricoExtraccion[`0..N`] -> Centro[`1..1`]
 }
+
 
 - Opción 4
 `weak entity` HistoricoExtraccion {
@@ -508,12 +509,12 @@ cantidad
 `weak relationship` incluidoEn {
 HistoricoExtraccion[`0..1`] -> Mineral[`1..1`]
 }
-weak relationship extraidoPor {
+`weak relationship` extraidoPor {
 HistoricoExtraccion[`0..N`] -> Centro[`1..1`]
 }
 
 ---
-### Ejercicio 8
+### Ejercicio 07 - Entidades Dependientes (3)
 
 Vamos a terminar con el archivo ModeloTheExpanseV1Simplificado.erd.
 
@@ -530,7 +531,7 @@ Así, vamos a modelar:
 
 - Opción 1
 `relationship` formaParteDe {
-Cargamento[`0..N`] -> Mineral[`1..1`]
+Cargamento[`0..N`] -> Mineral[`1..N`]
 cantidad
 }
 `relationship` transportadoEn {
@@ -545,7 +546,7 @@ Vuelo[`0..N`] -> Centro[`1..1`]
 
 - Opción 2
 `relationship` formaParteDe {
-Cargamento[`0..N`] -> Mineral[`1..N`]
+Cargamento[`0..N`] -> Mineral[`1..1`]
 cantidad
 }
 `relationship` transportadoEn {
@@ -766,7 +767,7 @@ Así, puedes ver a continuación este diagrama tras retocar la imagen para inclu
 ![](../resources/BD%20-%20BigER%20Jerarquia%20Empleado%20retocada.png)
 
 ---
-### Ejercicio 9
+### Ejercicio 08 - Jerarquías (1)
 
 Abre el archivo ModeloEERUniversidad.erd que será donde vamos a ir modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en la en la sección 7.7.A del tema 5 de la asignatura.
 
@@ -822,7 +823,7 @@ nif `key`
 
 ---
 
-### Ejercicio 10
+### Ejercicio 09 - Jerarquías (2)
 
 Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en  la sección 7.7.A del tema 5 de la asignatura.
 
@@ -883,7 +884,7 @@ nif `key`
 
 ---
 
-### Ejercicio 11
+### Ejercicio 10 - Jerarquías (3)
 
 Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en la sección 7.7.A del tema 5 de la asignatura.
 
