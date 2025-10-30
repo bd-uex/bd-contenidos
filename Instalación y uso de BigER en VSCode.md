@@ -36,9 +36,10 @@ Pasos para descargar e instalar **Visual Studio Code**:
 **1.- Seleccionar la versión adecuada de VsCode**:
 
 * **Windows**: 
->[!IMPORTANT] AVISO: Si estás usando Windows, hay un problema no resuelto con Windows que hace que la Extensión BigER solo funcione en VSCode hasta la versión 1.91. Puedes conseguir dicha versión para Windows aquí:
+>[!IMPORTANT] AVISO: Si estás usando Windows, hay un problema no resuelto con Windows en algunas versiones que hace que la Extensión BigER solo funcione en VSCode hasta la versión 1.91 de junio de 2024 o desde la versión 1.105 de septiembre de 2025. Si tu versión de VsCode instalada te da error al renderizar los diagramas ER en VsCode, puedes conseguir dicha versiones para Windows aquí:
 > [https://code.visualstudio.com/updates/v1_91](https://code.visualstudio.com/updates/v1_91)
-> MUY IMPORTANTE: VScode por defecto trata de actualizarse cada vez que se cierra, por este motivo debemos ir a preferences->options, escribir en el buscador "update" y buscar la opción de actualización y cambiar esa opción a none o manual. 
+> [https://code.visualstudio.com/updates/v1_105](https://code.visualstudio.com/updates/v1_105)
+> MUY IMPORTANTE: si optas por la versión 1.91 y quieres mantenerla tienes que saber que VScode por defecto trata de actualizarse cada vez que se cierra, por este motivo debemos ir a preferences->options, escribir en el buscador "update" y buscar la opción de actualización y cambiar esa opción a none o manual. 
 > VsCode pedirá reiniciar para aplicar y, en algunos casos, este reinicio puede causar una actualización, si se desinstala y se reinstala de nuevo debería mantenerse esta configuración.
 * **Linux**: Si usas Linux, puedes ir al sitio oficial
 	* [https://code.visualstudio.com/Download](https://code.visualstudio.com/Download).
