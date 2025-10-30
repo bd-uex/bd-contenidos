@@ -47,7 +47,7 @@ Antes de comenzar, vamos a comenzar creando 4 archivos **.erd** en **Vs Code**:
 
 Para crear estos archivos, en VsCode, elige Archivo->Nuevo Archivo y elige **New Empty ER Model**:
 
-![](resources/BD%20-%20BigER%20Menu%20Nuevo%20Archivo.png)
+![](../resources/BD%20-%20BigER%20Menu%20Nuevo%20Archivo.png)
 
 Una vez creados los 4 archivos, ve al archivo EjemplosNotacionBigER.erd que será sobre el que escribamos los ejemplo iniciales con la notación.
 
@@ -67,7 +67,7 @@ entity NombreEntidad {
 
 Deberías ver algo similar a lo que se muestra en la siguiente pantalla:
 
-![](resources/BD%20-%20BigER%20Entidad%20y%20Atributos.png)
+![](../resources/BD%20-%20BigER%20Entidad%20y%20Atributos.png)
 
 Tenemos varios elementos en los que fijarnos:
 
@@ -83,7 +83,7 @@ Tenemos varios elementos en los que fijarnos:
 
 Modifica el contenido de la entidad NombreEntidad anterior para que pase a ser la entidad **Estudiante**, con los atributos **numExpediente** (**Clave Primaria**), **nombre**, **apellido1** y **apellido2** para que se visualice dicha entidad de esta forma:
 
-![](resources/BD%20-%20BigER%20Entidad%20Estudiante.png)
+![](../resources/BD%20-%20BigER%20Entidad%20Estudiante.png)
 
 ¿Cuál de los siguientes textos modela correctamente la entidad **Estudiante**?
 
@@ -121,7 +121,7 @@ Abre el archivo ModeloTheExpanseV1Simplificado.erd que será donde vamos a ir mo
 
 Escribe el texto BigER necesario para modelar las entidades fuertes Planeta, Centro, Mineral y NaveEspacial que se muestran en la siguiente imagen:
 
-![](resources/BD%20-%20BigER%20Mineral%20Centro%20Planeta%20Centro%20Espacial.png)
+![](../resources/BD%20-%20BigER%20Mineral%20Centro%20Planeta%20Centro%20Espacial.png)
 
 ¿En qué posición hay que situar la palabra reservada key para que nos aparezcan las claves primarias correctamente subrayadas en el diagrama E/R como en la imagen?:
 
@@ -179,24 +179,24 @@ fechaMatriculacion
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](resources/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Chen.png)
+![](../resources/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Chen.png)
 
 Como puedes observar, BigER por defecto usa una notación gráfica distinta a la notación Crow's foot que queremos en nuestros diagramas.
 
 Hay dos maneras de conseguir que BigER nos muestre el diagrama E/R en notación Crow's foot:
 
 - Incluyendo `notation`=crowsfoot justo en al línea a continuación del inicio del fichero donde aparece `erdiagram` NombreModelo
-- Seleccionando dicha notación al hacer clic en el botón de cambio de notación ![](resources/BD%20-%20BigER%20Botón%20Notación.png) y eligiendo Crow's foot
+- Seleccionando dicha notación al hacer clic en el botón de cambio de notación ![](../resources/BD%20-%20BigER%20Botón%20Notación.png) y eligiendo Crow's foot
 
 Tanto si lo haces de una forma como de otra ya deberías poder ver así el diagrama:
 
-![](BD%20-%20BigER%20Estudiante%20Titulacion%20Matriculado%20En.png)
+![](../BD%20-%20BigER%20Estudiante%20Titulacion%20Matriculado%20En.png)
 
 Como acabamos de ver, aunque BigER admite atributos al describir una relación, no los muestra.
 
 Si pasas el ratón por encima del rombo que modela la relación, verás que aunque no lo muestre, sí lo está incluyendo como atributo en la relación tal y como se ve en la siguiente imagen:
 
-![](resources/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En.png)
+![](../resources/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En.png)
 
 Para poder mostrar este, y cualquier otro atributo de relación, en el diagrama final tendremos que recurrir a otras herramientas que nos permitan incluir líneas y texto sobre la imagen del diagrama cuando tengamos nuestro diagrama terminado.
 
@@ -206,7 +206,7 @@ En nuestro caso, en los distintos diagramas E/R que ves en la asignatura, estamo
 
 Así, puedes ver a continuación el diagrama tan incluir su imagen (rápidamente mediante captura de pantalla) en una diapositiva de Powerpoint, incluir el nombre del atributo como cuadro de texto y unir el rombo y el texto insertando una línea recta:
 
-![](resources/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En%20Retocado.png)
+![](../resources/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En%20Retocado.png)
 
 Antes de pasar a realizar ejercicios con relaciones, indicar que es posible modelar relaciones ternarias entre tres entidades. La única diferencia es que en este caso la sintaxis sería:
 
@@ -376,7 +376,7 @@ Titulacion[`1..1`] -> Asignatura[`1..N`]
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente imagen:
 
-![](resources/BD%20-%20BigER%20Debil%20Titulacion%20Asignatura%20Crows%20Foot.png)
+![](../resources/BD%20-%20BigER%20Debil%20Titulacion%20Asignatura%20Crows%20Foot.png)
 
 Puedes ver como tanto la entidad dependiente Asignatura como la relación débil compuestaDe aparecen con doble borde para indicar que son débiles.
 
@@ -629,7 +629,7 @@ Estudiante[`0..1`| `"Mentor"`] -> Estudiante[`0..N`|`"Mentorizado"`]
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](resources/BD%20-%20BigER%20Relacion%20Estudiante%20con%20Roles.png)
+![](../resources/BD%20-%20BigER%20Relacion%20Estudiante%20con%20Roles.png)
 Puedes ver como ahora en cada extremo de la relación esMentorDe aparece el rol tomado en cada extremo de la relación por el Estudiante.
 
 ---
@@ -705,7 +705,7 @@ tipoIng
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](resources/BD%20-%20BigER%20Jerarquia%20Tipo%20Empleado.png)
+![](../resources/BD%20-%20BigER%20Jerarquia%20Tipo%20Empleado.png)
 
 
 3.- En tercer lugar, vamos a crear una segunda especialización de Empleado en un subtipo de acuerdo a la relación dirige con una entidad denominada Proyecto que solo tienen un subtipo del supertipo Empleado al que denominaremos Gerente.
@@ -727,7 +727,7 @@ Gerente[`1..1`] -> Proyecto[`1..N`]
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](resources/BD%20-%20BigER%20Jerarquia%20Gerente.png)
+![](../resources/BD%20-%20BigER%20Jerarquia%20Gerente.png)
 
 4.- En tercer lugar, vamos a crear una tercera especialización de Empleado en dos subtipos de acuerdo al tipo de jornada de cada Empleado donde cada subtipo tiene un atributo propio de su subtipo que no tiene el supertipo Empleado. Además, uno de los dos subtipos posibles también mantiene una relación que no tiene el resto de empleados:
 
@@ -753,7 +753,7 @@ EmpleadoTiempoParcial[`1..1`] -> Sindicato[`1..N`]
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](resources/BD%20-%20BigER%20Jerarquia%20Afiliado%20A.png)
+![](../resources/BD%20-%20BigER%20Jerarquia%20Afiliado%20A.png)
 
 Puedes ver como, al estar en fase beta, BigER no es capaz de mostrar las restricciones de completitud y disyunción en el diagrama.
 
@@ -763,7 +763,7 @@ Como ya hemos comentado, en nuestro caso, en los distintos diagramas E/R que ves
 
 Así, puedes ver a continuación este diagrama tras retocar la imagen para incluir un cuadro de texto con las iniciales de las restricciones que apliquen en la especialización/generalización ( t,d o t,s o p,d o p,s o p) cerca de las flechas de la especialización/generalización y añadir también una línea recta uniendo las flechas a las que aplica dicha especialización/generalización:
 
-![](resources/BD%20-%20BigER%20Jerarquia%20Empleado%20retocada.png)
+![](../resources/BD%20-%20BigER%20Jerarquia%20Empleado%20retocada.png)
 
 ---
 ### Ejercicio 9
