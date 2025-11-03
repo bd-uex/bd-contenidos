@@ -25,7 +25,7 @@
 
 #### a) Entidades fuertes (no débiles):
 
-- **M1**: 텅 Dejar entidades sin ningún atributo (más allá de la clave).
+- **M1**: 텅 Dejar entidades sin ningún atributo que la describa(más allá de la clave o incluso sin ella).
     
 - **M2**: ➕ Crear entidades que no son necesarias según los requisitos.
     

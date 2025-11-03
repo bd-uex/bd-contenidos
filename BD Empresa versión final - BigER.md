@@ -46,21 +46,21 @@ EMPLEADO[1..N] -> DEPARTAMENTO[1..1]
 #### Relación DIRIGE
 ```code
 relationship DIRIGE {
-EMPLEADO[0..1] -> DEPARTAMENTO[1..1]
+EMPLEADO[0..1] -> DEPARTAMENTO[0..1]
 fechaIngresoDirector
 }
 ```
 #### Relación TRABAJA_EN
 ```code
 relationship TRABAJA_EN {
-EMPLEADO[1..N] -> PROYECTO[1..N]
+EMPLEADO[1..N] -> PROYECTO[0..N]
 horas
 }
 ```
 #### Relación CONTROLA
 ```code
 relationship CONTROLA {
-PROYECTO[1..N] -> DEPARTAMENTO[0..1]
+PROYECTO[1..N] -> DEPARTAMENTO[1..1]
 }
 ```
 #### Relación SUPERVISA
@@ -85,7 +85,7 @@ relacion
 #### Relación débil FAMILIAR_DE 
 ```code
 weak relationship FAMILIAR_DE {
-FAMILIAR[1..N] -> EMPLEADO[0..1]
+FAMILIAR[0..N] -> EMPLEADO[1..1]
 }
 ```
 #### Entidad débil UBICACION_DPTO
