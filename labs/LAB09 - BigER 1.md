@@ -42,7 +42,7 @@ Antes de comenzar, vamos a comenzar creando 2 archivos **.erd** en **Vs Code**:
 
 Para crear estos archivos, en VsCode, elige Archivo->Nuevo Archivo y elige **New Empty ER Model**:
 
-![](../resources/BD%20-%20BigER%20Menu%20Nuevo%20Archivo.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main//resources/BD%20-%20BigER%20Menu%20Nuevo%20Archivo.png)
 
 Una vez creados los 2 archivos, ve al archivo EjemplosNotacionBigER.erd que será sobre el que escribamos los ejemplo iniciales con la notación.
 
@@ -62,7 +62,7 @@ entity NombreEntidad {
 
 Deberías ver algo similar a lo que se muestra en la siguiente pantalla:
 
-![](../resources/BD%20-%20BigER%20Entidad%20y%20Atributos.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main//resources/BD%20-%20BigER%20Entidad%20y%20Atributos.png)
 
 Tenemos varios elementos en los que fijarnos:
 
@@ -124,7 +124,7 @@ fechaMatriculacion
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](../resources/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Chen.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main//resources/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Chen.png)
 
 Como puedes observar, BigER por defecto usa una notación gráfica distinta a la notación Crow's foot que queremos en nuestros diagramas.
 
@@ -135,13 +135,13 @@ Hay dos maneras de conseguir que BigER nos muestre el diagrama E/R en notación 
 
 Tanto si lo haces de una forma como de otra ya deberías poder ver así el diagrama:
 
-![](../resources/BD%20-%20BigER%20Estudiante%20Titulacion%20Matriculado%20En.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main//resources/BD%20-%20BigER%20Estudiante%20Titulacion%20Matriculado%20En.png)
 
 Como acabamos de ver, aunque BigER admite atributos al describir una relación, no los muestra.
 
 Si pasas el ratón por encima del rombo que modela la relación, verás que aunque no lo muestre, sí lo está incluyendo como atributo en la relación tal y como se ve en la siguiente imagen:
 
-![](../resources/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main//resources/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En.png)
 
 Para poder mostrar este, y cualquier otro atributo de relación, en el diagrama final tendremos que recurrir a otras herramientas que nos permitan incluir líneas y texto sobre la imagen del diagrama cuando tengamos nuestro diagrama terminado.
 
@@ -151,7 +151,7 @@ En nuestro caso, en los distintos diagramas E/R que ves en la asignatura, estamo
 
 Así, puedes ver a continuación el diagrama tan incluir su imagen (rápidamente mediante captura de pantalla) en una diapositiva de Powerpoint, incluir el nombre del atributo como cuadro de texto y unir el rombo y el texto insertando una línea recta:
 
-![](../resources/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En%20Retocado.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main//resources/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En%20Retocado.png)
 
 Antes de pasar a realizar ejercicios con relaciones, indicar que es posible modelar relaciones ternarias entre tres entidades. La única diferencia es que en este caso la sintaxis sería:
 
@@ -224,7 +224,7 @@ Titulacion[`1..1`] -> Asignatura[`1..N`]
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente imagen:
 
-![](../resources/BD%20-%20BigER%20Debil%20Titulacion%20Asignatura%20Crows%20Foot.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main//resources/BD%20-%20BigER%20Debil%20Titulacion%20Asignatura%20Crows%20Foot.png)
 
 Puedes ver como tanto la entidad dependiente Asignatura como la relación débil compuestaDe aparecen con borde negro más grueso para indicar que son débiles. Cuando las dibujemos a mano normalmente usaremos doble borde en lugar de un borde grueso negro para que se distingan mejor.
 
@@ -271,7 +271,7 @@ Estudiante[`0..1`| `"Mentor"`] -> Estudiante[`0..N`|`"Mentorizado"`]
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](../resources/BD%20-%20BigER%20Relacion%20Estudiante%20con%20Roles.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main//resources/BD%20-%20BigER%20Relacion%20Estudiante%20con%20Roles.png)
 Puedes ver como ahora en cada extremo de la relación esMentorDe aparece el rol tomado en cada extremo de la relación por el Estudiante.
 
 ---
@@ -296,7 +296,7 @@ Básicamente todo estos párrafos se pueden resumir en que tenemos dos entidades
 
 Con esta información ya podemos modelar las dos primeras entidades mencionadas, para ello, escribe el texto BigER necesario para modelar los Planetas y los Centros mineros de manera que nuestro diagrama ER tenga estas dos entidades tal y como se muestran en la siguiente imagen:
 
-![](resources/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%201.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main/resources/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%201.png)
 
 ---
 
@@ -331,7 +331,7 @@ En resumen, Cargamento y Vuelo no son entidades fuertes y las modelaremos despu�
 
 Escribe el texto BigER necesario para modelarlas de manera que nuestro diagrama ER tenga estas dos nuevas entidades tal y como se muestran en la siguiente imagen:
 
-![](resources/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%202.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main/resources/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%202.png)
 
 ---
 ### Ejercicio 03 - Enunciado ER 2 The Expanse Simplificado  (3)
@@ -443,7 +443,7 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 
 ¡Enhorabuena! Has modelado correctamente el diagrama Entidad Relación para el enunciado Enunciado 2 ER The Expanse v1 simplificado.
 
-![](resources/BD%20-%20ERD%20resuelto%20por%20Bender.png)
+![](https://github.com/bd-uex/bd-contenidos/raw/main/resources/BD%20-%20ERD%20resuelto%20por%20Bender.png)
 
 Imagen generada por IA (Gemini Pro 2.5)
 
