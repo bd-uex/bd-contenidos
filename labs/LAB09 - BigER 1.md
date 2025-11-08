@@ -8,9 +8,7 @@
 
 3.-Modelar **entidades débiles** que dependen de otras entidades para existir, comprendiendo cómo utilizar las claves parciales.
 
-4.-Gestionar **herencia** o **especialización** de entidades, representando subtipos y supertipos de forma correcta en la notación BigER
-
-5.-Aplicar la notación para solucionar problemas de diseño E/R
+4.-Aplicar la notación para solucionar problemas de diseño E/R
 
 ---
 ## Contenidos
@@ -23,7 +21,6 @@
 - 2.- Relaciones entre Entidades
 - 3.- Entidades Dependientes y Relaciones Débiles
 - 4.- Roles
-- 5.- Herencia y Especialización
 
 ---
 ## Instalación y uso de BigER en VSCode
@@ -38,18 +35,16 @@ La notación textual **BigER** es una representación textual que permite descri
 
 Esta notación es especialmente útil en entornos donde es más fácil trabajar con texto en lugar de crear diagramas visuales manualmente, como es el caso de la extensión **BigER** para Visual Studio Code. A través de esta sesión, aprenderemos gradualmente a utilizar esta notación con ejemplos que van desde lo más básico hasta lo más avanzado.
 
-Antes de comenzar, vamos a comenzar creando 4 archivos **.erd** en **Vs Code**:
+Antes de comenzar, vamos a comenzar creando 2 archivos **.erd** en **Vs Code**:
 
 1. EjemplosNotacionBigER.erd
 2. ModeloTheExpanseV1Simplificado.erd
-3. EjemplosEERBigER.erd
-4. ModeloEERUniversidad.erd
 
 Para crear estos archivos, en VsCode, elige Archivo->Nuevo Archivo y elige **New Empty ER Model**:
 
 ![](../resources/BD%20-%20BigER%20Menu%20Nuevo%20Archivo.png)
 
-Una vez creados los 4 archivos, ve al archivo EjemplosNotacionBigER.erd que será sobre el que escribamos los ejemplo iniciales con la notación.
+Una vez creados los 2 archivos, ve al archivo EjemplosNotacionBigER.erd que será sobre el que escribamos los ejemplo iniciales con la notación.
 
 Ahora ya sí, vamos a comenzar a ver la notación, empezando por cómo describir Entidades y Atributos.
 
@@ -82,63 +77,13 @@ Tenemos varios elementos en los que fijarnos:
 ### Ejercicio 01 - Entidades y atributos (1)
 
 Modifica el contenido de la entidad NombreEntidad anterior para que pase a ser la entidad **Estudiante**, con los atributos **numExpediente** (**Clave Primaria**), **nombre**, **apellido1** y **apellido2** para que se visualice dicha entidad de esta forma:
+![](https://github.com/bd-uex/bd-contenidos/raw/main/resources/BD%20-%20BigER%20Entidad%20Estudiante.png)
 
-![](../resources/BD%20-%20BigER%20Entidad%20Estudiante.png)
-
-¿Cuál de los siguientes textos modela correctamente la entidad **Estudiante**?
-
-- Opción 1
-`entity` Estudiante {  
-numExpediente `Key`
-nombre  
-apellido1  
-apellido2  
-}
-
-- Opción 2
-`Entity` Estudiante {  
-numExpediente `key`
-nombre
-apellido1  
-apellido2  
-}
-
-- Opción 3
-`entity` Estudiante {  
-numExpediente `key`
-nombre
-apellido1  
-apellido2  
-}
-
-- Opción 4
-Todas las respuestas son correctas
+Escribe en la notación BigER cómo modelar la entidad **Estudiante**
 
 ---
-### Ejercicio 02 - Entidades y atributos (2)
 
-Abre el archivo ModeloTheExpanseV1Simplificado.erd que será donde vamos a ir modelando el enunciado Enunciado 2 ER The Expanse v1 simplificado que se ha resuelto en Grupo Grande.
-
-Escribe el texto BigER necesario para modelar las entidades fuertes Planeta, Centro, Mineral y NaveEspacial que se muestran en la siguiente imagen:
-
-![](../resources/BD%20-%20BigER%20Mineral%20Centro%20Planeta%20Centro%20Espacial.png)
-
-¿En qué posición hay que situar la palabra reservada key para que nos aparezcan las claves primarias correctamente subrayadas en el diagrama E/R como en la imagen?:
-
-- Opción 1
-En la línea anterior a los atributos codMineral (en Mineral), codCentro (en Centro), codPlaneta (en Planeta) y matricula (en Nave Espacial)
-
-- Opción 2
-En la misma línea, justo delante de los atributos codMineral (en Mineral), codCentro (en Centro), codPlaneta (en Planeta) y matricula (en Nave Espacial)
-
-- Opción 3
-En la misma línea, justo a continuación de los atributos codMineral (en Mineral), codCentro (en Centro), codPlaneta (en Planeta) y matricula (en Nave Espacial)
-
-- Opción 4
-Todas las respuestas son correctas
-
----
-##  Introducción a la notación textual de BigER (2) Relaciones
+## Introducción a la notación textual de BigER (2) Relaciones
 
 Vamos a continuar modelando **relaciones** entre entidades.
 
@@ -221,103 +166,6 @@ atributoZDeLaRelacion
 }
 
 ---
-### Ejercicio 03 - Relaciones (1)
-
-Abre de nuevo el archivo ModeloTheExpanseV1Simplificado.erd.
-
-Vamos a modelar alguna de las relaciones del diagrama con las entidades que tenemos hasta ahora.
-
-En primer lugar vamos a modelar la relación ubicadoEn entre Centros y Planetas. Como hemos visto en clase, una instancia de Centro estará siempre relacionada con una y solo una instancia de Planeta mientras que una instancia de Planeta estará relacionada, como mínimo, con una instancia de Centro y, como máximo, con muchas instancias de Centro.
-
-¿Cuál es la forma correcta de describir esta relación en BigER?
-
-- Opción 1
-`relationship` ubicadoEn {
-Centro[`1..1`] `->` Planeta[`1..N`]
-fechaMatriculacion
-}
-
-- Opción 2
-`relationship` ubicadoEn {
-Centro[`O..N`] `->` Planeta[`1..1`]
-fechaMatriculacion
-}
-
-- Opción 3
-`relationship` ubicadoEn {
-Centro[`1..N`] `->` Planeta[`1..1`]
-fechaMatriculacion
-}
-
-- Opción 4
-`relationship` ubicadoEn {
-Centro[`1..1`] `->` Planeta[`0..N`]
-fechaMatriculacion
-}
-
----
-### Ejercicio 04 - Relaciones (2)
-
-Vamos a seguir en el archivo ModeloTheExpanseV1Simplificado.erd.
-
-Vamos a modelar el resto de relaciones del diagrama con las entidades que tenemos hasta ahora.
-
-Así, vamos a modelar:
-
-1. La relación esPrincipalEn entre Centro y Planeta. Como hemos visto en clase, una instancia de Centro estará, como mínimo, con cero instancias de Planeta y, como máximo, con una instancia de Planeta mientras que una instancia de Planeta siempre estará relacionada con una y solo una instancia de Centro.
-2. La relación encontradoPor entre Centro y Mineral. Como hemos visto en clase, una instancia de Centro estará, como mínimo, con cero instancias de Mineral y, como máximo, con muchas instancias de Mineral mientras que, una instancia de Mineral estará, como mínimo, con cero instancias de Centro y, como máximo, con muchas instancias de Centro. Además, esta relación tiene un atributo llamado fechaHallazgo
-3. La relación asignadaA entre NaveEspacial y Planeta. Como hemos visto en clase, una instancia de NaveEspacial estará, como mínimo, con una instancia de Planeta y, como máximo, con una instancia de Planeta mientras que una instancia de Planeta estará relacionada, como mínimo, con una instancia de NaveEspacial y, como máximo, con muchas instancias de NaveEspacial.
-
-¿Cuál es la forma correcta de describir estas relaciones en BigER?
-
-- Opción 1
-`relationship` esPrincipalEn {
-Centro[`1..1`] `->` Planeta[`0..1`]
-}
-`relationship` encontradoPor {
-Mineral[`0..N`] `->` Centro[`0..N`]
-fechaHallazgo
-}
-`relationship` asignadaA {
-NaveEspacial[`1..N`] `->` Planeta[`1..1`]
-}
-
-- Opción 2
-`relationship` esPrincipalEn {
-Centro[`1..1`] `->` Planeta[`0..1`]
-}
-`relationship` encontradoPor {
-Mineral[`0..N`] `->` Centro[`0..N`]
-}
-`relationship` asignadaA {
-NaveEspacial[`1..N`] `->` Planeta[`1..1`]
-}
-
-- Opción 3
-`relationship` esPrincipalEn {
-Centro[`1..1`] `->` Planeta[`0..1`]
-}
-`relationship` encontradoPor {
-Mineral[`0..N`] `->` Centro[`0..N`]
-fechaHallazgo
-}
-`relationship` asignadaA {
-NaveEspacial[`1..1`] `->` Planeta[`1..N`]
-}
-
-- Opción 4
-`relationship` esPrincipalEn {
-Centro[`1..1`] `->` Planeta[`1..1`]
-}
-`relationship` encontradoPor {
-Mineral[`0..N`] `->` Centro[`0..N`]
-fechaHallazgo
-}
-`relationship` asignadaA {
-NaveEspacial[`1..N`] `->` Planeta[`1..1`]
-}
-
----
 ##  Introducción a la notación textual de BigER (3) Entidades dependientes o débiles
 
 Vamos a continuar modelando **entidades dependientes o débiles** entre entidades.
@@ -378,217 +226,10 @@ Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo
 
 ![](../resources/BD%20-%20BigER%20Debil%20Titulacion%20Asignatura%20Crows%20Foot.png)
 
-Puedes ver como tanto la entidad dependiente Asignatura como la relación débil compuestaDe aparecen con doble borde para indicar que son débiles.
+Puedes ver como tanto la entidad dependiente Asignatura como la relación débil compuestaDe aparecen con borde negro más grueso para indicar que son débiles. Cuando las dibujemos a mano normalmente usaremos doble borde en lugar de un borde grueso negro para que se distingan mejor.
 
 ---
-### Ejercicio 05 - Entidades Dependientes (1)
 
-Abre de nuevo el archivo ModeloTheExpanseV1Simplificado.erd.
-
-Vamos a modelar la entidad dependiente Vuelo que depende de NaveEspacial.
-
-1.- En primer lugar tenemos que añadir la **Entidad débil** Vuelo que está formada por los atributos:
-
-- fechaIni: clave parcial aportada por Vuelo que tenemos que combinar como clave parcial para formar la clave primaria.
-- horaIni: clave parcial aportada por Vuelo que tenemos que combinar como clave parcial para formar la clave primaria.
-- fechaFin
-- horaFin
-
-2.- En segundo lugar tenemos que añadir la **relación débil** realizadoPor entre Vuelo y NaveEspacial. Como hemos visto en clase, una instancia de Vuelo estará siempre relacionada con una y solo una instancia de NaveEspacial mientras que una instancia de NaveEspacial estará relacionada, como mínimo, con cero instancias de Vuelo y, como máximo, con muchas instancias de Vuelo.
-
-¿Cuál es la forma correcta de describir esta entidad y esta relación en BigER?
-
-- Opción 1
-`weak entity` Vuelo {
-fechaIni `partial-key`
-horaIni `partial-key`
-fechaFin
-horaFin
-}
-
-`relationship` realizadoPor {
-Vuelo[`0..N`] -> NaveEspacial[`1..1`]
-}
-
-- Opción 2
-`weak entity` Vuelo {
-fechaIni `partial-key`
-horaIni `partial-key`
-fechaFin
-horaFin
-}
-
-`weak relationship` realizadoPor {
-Vuelo[`0..N`] -> NaveEspacial[`1..N`]
-}
-
-- Opción 3
-`weak entity` Vuelo {
-fechaIni `key`
-horaIni `key`
-fechaFin
-horaFin
-}
-
-`weak relationship` realizadoPor {
-Vuelo[`0..N`] -> NaveEspacial[`1..1`]
-}
-
-- Opción 4
-`weak entity` Vuelo {
-fechaIni `partial-key`
-horaIni `partial-key`
-fechaFin
-horaFin
-}
-
-`weak relationship` realizadoPor {
-Vuelo[`0..N`] -> NaveEspacial[`1..1`]
-}
-
----
-### Ejercicio 06 - Entidades Dependientes (2)
-
-Abre de nuevo el archivo ModeloTheExpanseV1Simplificado.erd.
-
-Vamos a modelar la entidad dependiente HistoricoExtraccion que guarda todas las extracciones diarias que hará cada Centro de cada Mineral. Una entidad débil con repetición o histórica siempre es el resultado de una relación muchos a muchos entre dos entidades cuya relación se puede repetir a lo largo del tiempo y que tendrá un atributo que permita distinguir cada repetición que formará parte de la clave primaria como clave parcial.
-
-1.- En primer lugar tenemos que añadir la Entidad débil HistoricoExtraccion que está formada por los atributos:
-
-- fecha: clave parcial aportada por HistoricoExtraccion que permite distinguir la extracción de un día de Mineral por un Centro de la extracción de ese mismo mineral por ese mismo Centro cualquier otro día.
-- cantidad
-
-2.- En segundo lugar tenemos que añadir la relación débil extraidoPor entre HistoricoExtraccion y Centro. Como hemos visto en clase, una instancia de HistoricoExtraccion estará siempre relacionada con una y solo una instancia de Centro mientras que una instancia de Centro estará relacionada, como mínimo, con cero instancias de HistoricoExtraccion y, como máximo, con muchas instancias de HistoricoExtraccion.
-
-3.- En tercer lugar tenemos que añadir la relación débil incluidoEn entre HistoricoExtraccion y Mineral. Como hemos visto en clase, una instancia de HistoricoExtraccion estará siempre relacionada con una y solo una instancia de Mineral mientras que una instancia de Mineral estará relacionada, como mínimo, con cero instancias de HistoricoExtraccion y, como máximo, con muchas instancias de HistoricoExtraccion.
-
-¿Cuál es la forma correcta de describir esta entidad y estas relaciones en BigER?
-
-- Opción 1
-`weak entity` HistoricoExtraccion {
-fecha `partial-key`
-cantidad
-}
-`weak relationship` incluidoEn {
-HistoricoExtraccion[`0..N`] -> Mineral[`0..1`]
-}
-`weak relationship` extraidoPor {
-HistoricoExtraccion[`0..N`] -> Centro[`1..1`]
-}
-
-- Opción 2
-`weak entity` HistoricoExtraccion {
-fecha 
-cantidad
-}
-`weak relationship` incluidoEn {
-HistoricoExtraccion[`0..N`] -> Mineral[`1..1`]
-}
-`weak relationship` extraidoPor {
-HistoricoExtraccion[`0..N`] -> Centro[`1..1`]
-}
-
-- Opción 3
-`weak entity` HistoricoExtraccion {
-fecha `partial-key`
-cantidad
-}
-`weak relationship` incluidoEn {
-HistoricoExtraccion[`0..N`] -> Mineral[`1..1`]
-}
-`weak relationship` extraidoPor {
-HistoricoExtraccion[`0..N`] -> Centro[`1..1`]
-}
-
-
-- Opción 4
-`weak entity` HistoricoExtraccion {
-fecha `partial-key`
-cantidad
-}
-`weak relationship` incluidoEn {
-HistoricoExtraccion[`0..1`] -> Mineral[`1..1`]
-}
-`weak relationship` extraidoPor {
-HistoricoExtraccion[`0..N`] -> Centro[`1..1`]
-}
-
----
-### Ejercicio 07 - Entidades Dependientes (3)
-
-Vamos a terminar con el archivo ModeloTheExpanseV1Simplificado.erd.
-
-Vamos a modelar el resto de relaciones del diagrama que nos faltan para completar lo requerido en el enunciado The Expanse V1 Simplificado.
-
-Así, vamos a modelar:
-
-1. La relación formaParteDe entre Cargamento y Mineral. Como hemos visto en clase, una instancia de Mineral estará, como mínimo, con cero instancias de Cargamento y, como máximo, con muchas instancias de Cargamento mientras que una instancia de Cargamento siempre estará relacionada con una y solo una instancia de Mineral. Además, esta relación tiene un atributo llamado cantidad.
-2. La relación transportadoEn entre Cargamento y Vuelo. Como hemos visto en clase, una instancia de Cargamento estará, como mínimo, con cero instancias de Vuelo y, como máximo, con una instancia de Vuelo mientras que una instancia de Vuelo estará relacionada, como mínimo, con una instancia de Cargamento y, como máximo, con muchas instancias de Cargamento.
-3. La relación origenDe entre Vuelo y Centro. Como hemos visto en clase, una instancia de Centro estará, como mínimo, con cero instancias de Vuelo y, como máximo, con muchas instancias de Vuelo mientras que una instancia de Vuelo siempre estará relacionada con una y solo una instancia de Centro.
-4. La relación destinoDe entre Vuelo y Centro. Como hemos visto en clase, una instancia de Centro estará, como mínimo, con cero instancias de Vuelo y, como máximo, con muchas instancias de Vuelo mientras que una instancia de Vuelo siempre estará relacionada con una y solo una instancia de Centro.
-
-¿Cuál es la forma correcta de describir estas relaciones en BigER?
-
-- Opción 1
-`relationship` formaParteDe {
-Cargamento[`0..N`] -> Mineral[`1..N`]
-cantidad
-}
-`relationship` transportadoEn {
-Cargamento[`1..N`] -> Vuelo[`0..1`]
-}
-`relationship` origenDe {
-Vuelo[`0..N`] -> Centro[`1..1`]
-}
-`relationship` destinoDe {
-Vuelo[`0..N`] -> Centro[`1..1`]
-}
-
-- Opción 2
-`relationship` formaParteDe {
-Cargamento[`0..N`] -> Mineral[`1..1`]
-cantidad
-}
-`relationship` transportadoEn {
-Cargamento[`1..N`] -> Vuelo[`0..1`]
-}
-`relationship` origenDe {
-Vuelo[`0..N`] -> Centro[`1..1`]
-}
-`relationship` destinoDe {
-Vuelo[`0..N`] -> Centro[`1..1`]
-}
-
-- Opción 3
-`relationship` formaParteDe {
-Cargamento[`0..N`] -> Mineral[`1..1`]
-}
-`relationship` transportadoEn {
-Cargamento[`1..N`] -> Vuelo[`0..1`]
-}
-`relationship` origenDe {
-Vuelo[`0..N`] -> Centro[`1..N`]
-}
-`relationship` destinoDe {
-Vuelo[`0..N`] -> Centro[`1..1`]
-}
-
-- Opción 4
-`relationship` formaParteDe {
-Cargamento[`0..N`] -> Mineral[`1..1`]
-cantidad
-}
-`relationship` transportadoEn {
-Cargamento[`1..N`] -> Vuelo[`0..1`]
-}
-`relationship` origenDe {
-Vuelo[`0..N`] -> Centro[`1..1`]
-}
-`relationship` destinoDe {
-Vuelo[`0..N`] -> Centro[`1..N`]
-}
-
----
 ## Introducción a la notación textual de BigER (4) Relaciones con roles
 
 Vamos a continuar con el uso de **roles** en relaciones.
@@ -634,336 +275,177 @@ Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo
 Puedes ver como ahora en cada extremo de la relación esMentorDe aparece el rol tomado en cada extremo de la relación por el Estudiante.
 
 ---
+### Ejercicio 02 - Enunciado ER 2 The Expanse Simplificado  (1)
 
-## Introducción a la notación textual de BigER (5) Jerarquías de herencia
+Abre el archivo ModeloTheExpanseV1Simplificado.erd que será donde vamos a ir modelando el enunciado Enunciado 2 ER The Expanse v1 simplificado.
 
-Vamos a finalizar modelando **jerarquías de especialización/generalización** de entidades.
-
-En el modelado Entidad/Relación podemos tener **jerarquías de especialización/generalización** de entidades básicamente cuando:
-
-- Tenemos subtipos de una entidad con atributos específicos aparte de los atributos comunes heredados del supertipo.
-    - Por ejemplo, el atributo tipoIngeniero en una entidad subtipo INGENIERO que es especialización de la entidad supertipo EMPLEADO
-- Tenemos subtipos de una entidad que pueden participar en tipos de relaciones específicas en las que no participa la entidad supertipo.
-    - Por ejemplo, la relación afiliadoA de una entidad subtipo TIEMPOPARCIAL que es especialización de la entidad supertipo EMPLEADO  
-        
-Esta es una característica que en el momento de redactar este contenido está todavía en fase beta. Esto supone que vamos a tener que hacer más trabajo extra para que se muestre correctamente en nuestros diagramas.
-
-La notación utilizada en BigER es la siguiente:
-
-1.- En primer lugar, la notación para una entidad dependiente o débil es la siguiente:
-
-//`total` o `parcial`, `solapada`o `disjunta`
-`entity` NombreEntidadSubtipo `extends` NombreEntidadSupertipo{
-clavePrimariaEnEntidadSupertipo `key`
-atributo1DeLaEntidadSubtipo
-...
-atributoNDeLaEntidadSubtipo
-}
-
-Donde:
-
-- //primero se describe sus restricciones de completitud y disyunción:
-    - `total` o `parcial`: indicar qué restricción de completitud se aplica
-    - `solapada` o `disjunta`: indicar qué restricción de disyunción se aplica
-- palabra reservada `entity`
-- NombreEntidadSubtipo es el nombre que le damos a la entidad subtipo.
-- palabra reservada `extends`para indicar que la entidad que se va a describir hereda de la entidad a continuación de `extends`
-- NombreEntidadSupertipo: nombre de la entidad supertipo de la que hereda
-- clavePrimariaEnEntidadSupertipo es el nombre de la clave primaria en la entidad supertipo de la que hereda y que será también clave primaria en el subtipo y por tanto irá seguido de la palabra reservada `key`
-- resto de atributos específicos de la entidad subtipo que no tiene el supertipo
-
-Abre el archivo EjemplosEERBigER.erd:
-
-1.- En primer lugar vamos a crear la entidad Empleado que va a ser el supertipo del resto de entidades que vamos a crear en este ejemplo:
-
-`entity` Empleado {  
-dni `key`  
-nombre  
-fecha_nacimiento  
-direccion  
-telefono  
-}
-
-2.- En segundo lugar, vamos a crear una primera especialización de Empleado en tres subtipos de acuerdo al tipo de puesto de cada Empleado donde cada subtipo tiene un atributo propio de su subtipo que no tiene el supertipo Empleado:
-
-// `parcial`, `disjunta`  
-`entity` Administrativo `extends` Empleado{  
-dni `key`  
-categoria  
-}
-
-//`parcial`, `disjunta`  
-`entity` Tecnico `extends` Empleado{  
-dni `key`
-nivel  
-}
-
-//`parcial`, `disjunta`  
-`entity` Ingeniero `extends` Empleado{  
-dni `key`  
-tipoIng  
-}
-
-Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
-
-![](../resources/BD%20-%20BigER%20Jerarquia%20Tipo%20Empleado.png)
-
-
-3.- En tercer lugar, vamos a crear una segunda especialización de Empleado en un subtipo de acuerdo a la relación dirige con una entidad denominada Proyecto que solo tienen un subtipo del supertipo Empleado al que denominaremos Gerente.
-
-Hay que tener en cuenta que al tener solo un subtipo siempre será parcial y sin restricción de disyunción:
-
-//`parcial`  
-`entity` Gerente `extends` Empleado{  
-dni `key`  
-}
-
-`entity` Proyecto{  
-cod_proyecto `key`
-}
-
-`relationship` dirige{  
-Gerente[`1..1`] -> Proyecto[`1..N`]
-}
-
-Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
-
-![](../resources/BD%20-%20BigER%20Jerarquia%20Gerente.png)
-
-4.- En tercer lugar, vamos a crear una tercera especialización de Empleado en dos subtipos de acuerdo al tipo de jornada de cada Empleado donde cada subtipo tiene un atributo propio de su subtipo que no tiene el supertipo Empleado. Además, uno de los dos subtipos posibles también mantiene una relación que no tiene el resto de empleados:
-
-//`total`, `disjunta`  
-`entity` EmpleadoTiempoCompleto `extends` Empleado{  
-    dni `key`  
-salario  
-}
-
-//`total`, `disjunta`
-`entity` EmpleadoTiempoParcial `extends` Empleado{  
- dni `key`  
-horas_semanales
-}
-
-`entity` Sindicato{  
- cod_sindicato `key`
-}
-
-`relationship` afiliadoA{  
-EmpleadoTiempoParcial[`1..1`] -> Sindicato[`1..N`]
-}
-
-Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
-
-![](../resources/BD%20-%20BigER%20Jerarquia%20Afiliado%20A.png)
-
-Puedes ver como, al estar en fase beta, BigER no es capaz de mostrar las restricciones de completitud y disyunción en el diagrama.
-
-Para poder mostrar estas restricciones, al igual que ocurría con los atributos de relación, en el diagrama final tendremos que recurrir a otras herramientas que nos permitan incluir líneas y texto sobre la imagen del diagrama cuando tengamos nuestro diagrama terminado.
-
-Como ya hemos comentado, en nuestro caso, en los distintos diagramas E/R que ves en la asignatura, estamos recurriendo a PowerPoint (también es igual de sencillo en cualquier otro editor de presentaciones) dado lo fácil que es incluir sobre una imagen tanto distintas formas como texto.
-
-Así, puedes ver a continuación este diagrama tras retocar la imagen para incluir un cuadro de texto con las iniciales de las restricciones que apliquen en la especialización/generalización ( t,d o t,s o p,d o p,s o p) cerca de las flechas de la especialización/generalización y añadir también una línea recta uniendo las flechas a las que aplica dicha especialización/generalización:
-
-![](../resources/BD%20-%20BigER%20Jerarquia%20Empleado%20retocada.png)
+Vamos, a comenzar centrándonos en los 3 primero párrafos:
 
 ---
-### Ejercicio 08 - Jerarquías (1)
+En un futuro no tan lejano, donde los humanos ya no solo sueñan con Marte, sino que habitan y explotan casi todos los rincones de nuestro sistema solar, la **OPA (Outer Planets Alliance)** ha decidido organizar el caos de sus explotaciones espaciales. Sabemos que, si hay algo que su responsable, Camina Drummer, odia más que la corrupción terrícola, es un mal control de recursos. Así que, en un intento por poner orden, la OPA te ha pedido que diseñes una base de datos para organizar los centros mineros repartidos por el sistema.
 
-Abre el archivo ModeloEERUniversidad.erd que será donde vamos a ir modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en la en la sección 7.7.A del tema 5 de la asignatura.
+Camina Drummer nos ha pedido una versión simplificada de lo que necesitan y si le convence nuestro diseño inicial nos encargarán realizar la versión completa.
 
-En primer lugar, escribe la descripción de la entidad PersonaUEx que va a ser la raíz de toda la jerarquía:
-
-`entity` PersonaUEX {  
-nif `key`  
-}
-
-A continuación vamos a hacer la primera especialización de PersonaUEx entre Empleado y Estudiante.
-
-¿Cuál es la forma correcta de describir estos dos subtipos de entidad en BigER?
-
-- Opción 1
-//`total`, `disjunta`
-`entity` Empleado `extends` PersonaUEX {
-nif `key`
-}
-//`total`, `disjunta`
-`entity` Estudiante `extends` PersonaUEX {
-nif `key`
-}
-
-- Opción 2
-///`total`, `solapada`
-`entity` Empleado `extends` PersonaUEX {
-nif `key`
-}
-//`total`, `solapada`
-`entity` Estudiante `extends` PersonaUEX {
-nif `key`
-}
-
-- Opción 3
-//`parcial`, `solapada`
-`entity` Empleado `extends` PersonaUEX {
-nif `key`
-}
-//`parcial`, `solapada`
-`entity` Estudiante `extends` PersonaUEX {
-nif `key`
-}
-
-- Opción 4
-//`parcial`, `disjunta`
-`entity` Empleado `extends` PersonaUEX {
-nif `key`
-}
-//`parcial`, `disjunta`
-`entity` Estudiante `extends` PersonaUEX {
-nif `key`
-}
+Los **centros mineros** de los **planetas** son la joya de la corona de la OPA. Cada uno tiene su propio código único, algo parecido a los tatuajes de identificación que usan los cinturonianos. Además, tienen nombre, fecha de creación y unas coordenadas exactas porque, bueno, no querrás perderte en una estación minera en algún asteroide perdido. Cada planeta puede tener más de un centro (sí, Marte está lleno de ellos), pero siempre hay uno que es el principal en cada planeta. De los planetas almacenamos un código del planeta, su nombre, nº de lunas, periodo de rotación (en horas) y órbita (en días).
 
 ---
 
-### Ejercicio 09 - Jerarquías (2)
+Básicamente todo estos párrafos se pueden resumir en que tenemos dos entidades fuertes:
+ - Planeta con un código único (candidato idóneo a ser Clave Primaria), un nombre, un número de lunas, un periodo de rotación en horas y órbita en días.
+ - Centro: con un código único (candidato idóneo a ser Clave Primaria), nombre, fecha de creación y unas coordenadas exactas.
 
-Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en  la sección 7.7.A del tema 5 de la asignatura.
+Con esta información ya podemos modelar las dos primeras entidades mencionadas, para ello, escribe el texto BigER necesario para modelar los Planetas y los Centros mineros de manera que nuestro diagrama ER tenga estas dos entidades tal y como se muestran en la siguiente imagen:
 
-Vamos a añadir lo siguiente a lo que ya llevamos:
-
-//`total`, `disjunta`
-`entity` Docente `extends` Empleado {
-nif `key`
-}
-//`total`, `disjunta`
-`entity` PTGAS `extends` Empleado {
-nif `key`
-}
-
-A continuación vamos a añadir la especialización de Docente en Catedratico y Titular (ten en cuenta que existen más subtipos de docente que no van a aparecer en nuestra jerarquía (Sustituto, Ayudante,...) aparte de estos dos antes de contestar.
-
-¿Cuál es la forma correcta de describir estos dos subtipos de la entidad Docente en BigER?
-
-- Opción 1
-//`total`, `disjunta`
-`entity` Catedratico `extends` Docente {
-nif `key`
-}
-//`total`, `disjunta`
-`entity` Titular `extends` Docente {
-nif `key`
-}
-
-- Opción 2
-///`total`, `solapada`
-`entity` Catedratico `extends` Docente {
-nif `key`
-}
-//`total`, `solapada`
-`entity` Titular `extends` Docente {
-nif `key`
-}
-
-- Opción 3
-//`parcial`, `solapada`
-`entity` Catedratico `extends` Docente {
-nif `key`
-}
-//`parcial`, `solapada`
-`entity` Titular `extends` Docente {
-nif `key`
-}
-
-- Opción 4
-//`parcial`, `disjunta`
-`entity` Catedratico `extends` Docente {
-nif `key`
-}
-//`parcial`, `disjunta`
-`entity` Titular `extends` Docente {
-nif `key`
-}
+![](resources/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%201.png)
 
 ---
 
-### Ejercicio 10 - Jerarquías (3)
+### Ejercicio 03 - Enunciado ER 2 The Expanse Simplificado  (2)
 
-Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en la sección 7.7.A del tema 5 de la asignatura.
+Vamos, a continuar centrándonos en los 3 siguientes párrafos:
 
-Vamos a añadir lo siguiente a lo que ya llevamos:
+---
+Por supuesto, en este futuro brillante (o polvoriento, dependiendo del punto de vista), la extracción de **minerales** es lo más importante. Cada mineral tiene un código, un nombre y una descripción física. Esto último es clave porque algunos minerales, como te dirá cualquier minero cinturoniano, pueden ser más volátiles de lo que parecen. Los **centros** deben llevar un control detallado de qué minerales han encontrado y, más importante aún, en qué fecha fue el primer hallazgo. Puede haber minerales que ningún centro ha tenido la suerte de hallar todavía y no todos los centros han tenido la suerte de encontrar minerales. Por otra parte, debe mantenerse información de la cantidad extraída por día de cada mineral en cada centro (puede haber minerales para los que no se extraiga nada durante algún día o en algunos períodos de tiempo).
 
-//`parcial`
-`entity` EstudiantePolitecnica `extends` Estudiante {
-nif `key`
-}
-//`total`, `disjunta`
-`entity` MayorDeEdad `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`total`, `disjunta`
-`entity` MenorDeEdad `extends` EstudiantePolitecnica {
-nif `key`
-}
+El mineral extraído no se queda flotando por ahí. Se organiza en **cargamentos** que luego son transportados a otros planetas o entre centros, dependiendo de las necesidades (y del equilibrio político entre Marte, la Tierra y el Cinturón, claro). Cada cargamento tiene un código único interno consecutivo de cargamento dentro del centro de origen asociado, (es decir, el primer cargamento empaquetado por el centro X7 de Marte tendrá el valor c1 para este campo, el segundo el C2, etc… mientras que el primer cargamento del centro T1 de Titán también tendrá el valor C1, el segundo el C2, etc..). Además, debemos saber el mineral que incluye (sólo uno) y su cantidad, así como la fecha de empaquetado, porque, como siempre, el tiempo es oro... o en este caso, platino.
 
-A continuación vamos a añadir la especialización de EstudiantePolitecnica en EstudianteInformatica, EstudianteCivil y EstudianteEdificacion y ten en cuenta que puede haber estudiantes de varias titulaciones a la vez y que hay más titulaciones en Politécnica.
-
-¿Cuál es la forma correcta de describir estos tres subtipos de la entidad EstudiantePolitecnica en BigER?
-
-- Opción 1
-//`total`, `disjunta`
-`entity` EstudianteInformatica `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`total`, `disjunta`
-`entity` EstudianteCivil `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`total`, `disjunta`
-`entity` EstudianteEdificacion `extends` EstudiantePolitecnica {
-nif `key`
-}
-
-- Opción 2
-//`total`, `solapada`
-`entity` EstudianteInformatica `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`total`, `solapada`
-`entity` EstudianteCivil `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`total`, `solapada`
-`entity` EstudianteEdificacion `extends` EstudiantePolitecnica {
-nif `key`
-}
-
-- Opción 3
-//`parcial`, `solapada`
-`entity` EstudianteInformatica `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`parcial`, `solapada`
-`entity` EstudianteCivil `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`parcial`, `solapada`
-`entity` EstudianteEdificacion `extends` EstudiantePolitecnica {
-nif `key`
-}
-
-- Opción 4
-//`parcial`, `disjunta`
-`entity` EstudianteInformatica `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`parcial`, `disjunta`
-`entity` EstudianteCivil `extends` EstudiantePolitecnica {
-nif `key`
-}
-//`parcial`, `disjunta`
-`entity` EstudianteEdificacion `extends` EstudiantePolitecnica {
-nif `key`
-}
+Pero, ¿cómo mover estos preciados cargamentos entre planetas? Aquí es donde entran en juego las **naves espaciales** de la OPA. Cada nave tiene una matrícula, un modelo, y por supuesto, una capacidad de carga, que más de un cinturoniano intentará sobrepasar en algún momento. También deben registrar el planeta al que están asignadas, para que no acaben en el lugar equivocado (una nave en el lugar equivocado en el momento equivocado puede terminar mal, pregúntale a los terrícolas). Los **vuelos** de estas naves son otro asunto. La OPA necesita saber cuándo despegan y aterrizan, desde qué centro comenzaron el viaje y a cuál llegaron, y qué cargamentos transportaron en cada vuelo.
 
 ---
 
+Aquí ya nos están dando mucha información, pero vamos a centrarnos por ahora en buscar más entidades fuertes como eran Centro y Planeta.
 
+En una primera lectura podemos pensar que tenemos cuatro entidades fuertes más:
+	- Mineral: con un código único (candidato idóneo a ser Clave Primaria), nombre y descripción de sus propiedades.
+	- Cargamento: código único interno consecutivo y fecha del empaquetado. 
+		- Ten cuidado de no confundirte con esta entidad, el mineral que transporta es una relación que tendrá con mineral y la cantidad un atributo de dicha relación.
+	- NaveEspacial: con una matrícula, modelo y capacidad.
+	- Vuelo: con fecha de inicio del vuelo, hora de inicio del vuelo, fecha de fin del vuelo y hora del fin del vuelo.
+		- Ten cuidado de no confundirte con esta entidad, los centros entre los que vuela y los cargamentos que transportan son relaciones de la entidad.
+
+Pero, ¿qué ocurre con los Cargamentos? Tal y como nos dice el enunciado no tienen un atributo que permita actuar como Clave Primaria ya ese código interno único es solo único para cada centro. Además, ¿qué pasaría con la información de los Cargamentos si desapareciera el Centro donde se almacena?
+
+Del mismo modo, ¿qué ocurre con los Vuelos? Tal y como nos dice el enunciado no tienen un atributo que permita distinguir vuelos que despeguen y aterricen a la misma hora.. Además, ¿qué pasaría con la información de los Vuelos si desapareciera la Nave Espacial que los realiza?
+
+En resumen, Cargamento y Vuelo no son entidades fuertes y las modelaremos después, por ahora vamos a modelar las entidades fuertes de estos tres párrafos, es decir, Mineral y Nave Espacial.
+
+Escribe el texto BigER necesario para modelarlas de manera que nuestro diagrama ER tenga estas dos nuevas entidades tal y como se muestran en la siguiente imagen:
+
+![](resources/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%202.png)
+
+---
+### Ejercicio 03 - Enunciado ER 2 The Expanse Simplificado  (3)
+
+Vamos a modelar alguna de las relaciones del diagrama con las entidades que tenemos hasta ahora:
+	- En primer lugar, vamos a modelar la relación **ubicadoEn** entre Centros y Planetas. Por lo que nos dice el enunciado, podemos entender que un Centro solo puede estar en un Planeta mientras que un Planeta que guardemos en nuestra Base de Datos siempre tendrá, como mínimo un Centro en él.
+	- En segundo lugar, vamos a modelar la relación **esPrincipalEn** entre Centro y Planeta. Por lo que dice el enunciado, un Planeta tendrá siempre un Centro como principal y solo uno, mientras que un Centro no tiene por qué ser principal.
+	- En tercer lugar, la relación **encontradoPor** entre Centro y Mineral.  Por lo que nos dice el enunciado, puede que haya centros que nunca hallen un mineral y otros que hallen muchos, mientras que puede haber minerales que nunca sean hallados por ningún centro y otros que sean hallados por muchos. Además, de esta relación tenemos que guardar un atributo llamado fechaHallazgo ya que no tiene sentido que ese atributo sea del Centro o del Mineral.
+	- Por último, vamos a modelar la relación **asignadaA** entre NaveEspacial y Planeta. Por lo que nos dice el enunciado, una instancia de NaveEspacial solo puede estar asociado a un planeta mientras que una instancia de Planeta estará relacionada, como mínimo, con una instancia de NaveEspacial y, como máximo, con muchas instancias de NaveEspacial.
+
+Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
+
+---
+### Ejercicio 04 - Enunciado ER 2 The Expanse Simplificado  (4)
+
+Vamos a tratar de modelar la entidad Vuelo que dejamos sin modelar al modelar las entidades fuertes en los ejercicios previos.
+
+Ya vimos que, tal y como nos dice el enunciado no tienen un atributo que permita distinguir vuelos que despeguen y aterricen a la misma hora.. Además, ¿qué pasaría con la información de los Vuelos si desapareciera la Nave Espacial que los realiza?
+
+Todo esto nos tiene que llevar a modelar Vuelo como **Entidad débil** que va a depender de NaveEspacial. ¿Cuál será la clave parcial que aportan los vuelos para, junto con la clave de la entidad fuerte NaveEspacial, poder distinguir un vuelo de cualquier otro en la Base de Datos? Podríamos pensar que con la fecha de despegue del vuelo es suficiente pero, ¿qué pasa si una nave realiza más de un vuelo el mismo día? Con la fecha de despegue ya vemos que no es suficiente pero si además de la fecha de despegue, incluimos la hora del despegue ya sí tenemos los suficientes atributos para distinguir cualquier vuelo de otro.
+
+Con todo esto, en nuestro diagrama ER tendemos que:
+
+1.- Añadir la **Entidad débil** **Vuelo** que está formada por los atributos:
+- fechaIni: clave parcial aportada por Vuelo que tenemos que combinar como clave parcial para formar la clave primaria.
+- horaIni: clave parcial aportada por Vuelo que tenemos que combinar como clave parcial para formar la clave primaria.
+- fechaFin
+- horaFin
+
+2.- Añadir la **relación débil** **realizadoPor** entre Vuelo y NaveEspacial. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD  Naves que todavía no hayan realizado vuelos y tiene sentido que sí tengamos dado que un Planeta cada vez que reciba una Nave nueva esta todavía no habrá volado.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
+
+---
+
+### Ejercicio 05 - Enunciado ER 2 The Expanse Simplificado  (5)
+
+Ahora que tenemos la entidad débil Vuelo, podemos acabar de modelar el resto de sus relaciones:
+	- En primer lugar, vamos a modelar la relación **origenDe** entre Vuelo y Centro. Por lo que nos dice el enunciado, podemos entender que puede haber todavía algún Centro que no haya sido el origen de ningún Vuelo, pero un Vuelo siempre debe tener un Centro de Origen.
+	- En segundo lugar, vamos a modelar la relación **destinoDe** entre Vuelo y Centro. Por lo que nos dice el enunciado, podemos entender que puede haber todavía algún Centro que no haya sido destino de ningún Vuelo, pero un Vuelo siempre debe tener un Centro de Destino (vamos a suponer que un Vuelo no tiene ningún incidente que le haya impedido alcanzar su destino).
+
+Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
+
+---
+
+### Ejercicio 06 - Enunciado ER 2 The Expanse Simplificado  (6)
+
+Vamos ahora a tratar de modelar la entidad Cargamento que dejamos sin modelar al modelar las entidades fuertes en los ejercicios previos.
+
+Ya vimos que, tal y como nos dice el enunciado, un Cargamento no tiene un atributo que permita distinguir entre los distintos cargamentos de los distintos centros ya que ese código interno único es solo único para cada centro. Además, ¿qué pasaría con la información de los Cargamentos si desapareciera el Centro donde se almacena?
+
+Todo esto nos tiene que llevar a modelar Cargamento como **Entidad débil** que va a depender de Centro. ¿Cuál será la clave parcial que aportan los cargamentos para, junto con la clave de la entidad fuerte Centro, poder distinguir un vuelo de cualquier otro en la Base de Datos? En este caso con el código único interno para cada centro ya sí sería suficiente.
+
+Con todo esto, en nuestro diagrama ER tendemos que:
+
+1.- Añadir la **Entidad débil** **Cargamento** que está formada por los atributos:
+- codCargam: clave parcial aportada por Cargamento para formar la clave primaria.
+- fechaCargam
+
+2.- Añadir la **relación débil** **almacenadoEn** entre Cargamento y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya tenido un Cargamento y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 07 - Enunciado ER 2 The Expanse Simplificado  (7)
+
+Ahora que tenemos la entidad débil Cargamento, podemos acabar de modelar el resto de sus relaciones:
+	- En primer lugar, vamos a modelar la relación **formaParteDe** entre Cargamento y Mineral. Por lo que nos dice el enunciado, puede que un mineral todavía no haya formado parte de ningún cargamento y otros que estén en muchos. Además, esta relación tiene un atributo llamado cantidad.
+	- En segundo lugar, vamos a modelar la relación **transportadoEn** entre Cargamento y Vuelo. Por lo que nos dice el enunciado, puede que haya cargamentos que todavía no hayan sido transportados pero los vuelos, al menos, transportarán un cargamento cada vez que se producen.
+
+Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
+
+---
+### Ejercicio 08 - Enunciado ER 2 The Expanse Simplificado (8)
+
+Para terminar, nos falta modelar esta parte del cuarto párrafo del enunciado:
+
+---
+Por otra parte, debe mantenerse información de la cantidad extraída por día de cada mineral en cada centro (puede haber minerales para los que no se extraiga nada durante algún día o en algunos períodos de tiempo).
+
+---
+
+Esto nos dice que para cada centro y mineral extraído por ese centro, debemos saber la cantidad concreta extraída de cada uno cada día. Es decir, un mineral concreto (oro, platino, etc) puede ser extraído el mismo día por distintos centros (Titán1, Marte2, Saturno3, etc..) y un centro  (Titán1, Marte2, Saturno3, etc..) puede extraer distintos minerales  (oro, platino, etc) el mismo día. Es decir es una relación con cardinalidad máxima N en ambos lados. 
+
+Además, podemos ver que esta relación entre Centro y Mineral no es estática, cambia con el tiempo. Si probamos a escribir ejemplos de esta relación, por ejemplo, el centro Titán1 extrae 10 kilos de platino el 25/11/2235, el centro Titán1 extrae 20 kilos de platino el 26/11/2235, el centro Titán1 extrae 15 kilos de platino el 27/11/2235, etc, vemos que el mismo par (Centro, Mineral) se puede repetir por lo que los atributos de la relación, fecha y cantidad, realmente sería multivaluado.
+
+Este caso se corresponde con lo visto para Entidades Débiles en el apartado 5.4.2 "Caso 2: Para gestionar atributos multivaluados en una relación M:N con repetición de relaciones entre instancias" del Tema 5.
+
+Si recordamos ese apartado, esto significa convertir la interacción a lo largo del tiempo en una **entidad débil con repetición** (o histórica). Esta nueva entidad guardará cada "evento" de la relación, y su clave primaria casi siempre incluirá un atributo de tiempo (como `curso`o `fecha`).
+
+En nuestro ejemplo de un Centro extrae Mineral, vamos a convertir la relación en una entidad débil llamada **HistoricoExtraccion**. Dado que en una fecha concreta, una instancia de Centro puede relacionarse con **varias** instancias de Mineral, y, varias instancias de Mineral estar relacionadas con **varias** de Centro, esta entidad depende tanto de Centro como de Mineral. 
+
+¿Cuál será la clave parcial que aporta la relación para, junto con la clave de la entidad fuerte Centro y la clave de la entidad fuerte Mineral, poder distinguir una extracción de cualquier otra en la Base de Datos? En este caso usaremos la fecha ya que con ella es suficiente.
+
+Con todo esto, en nuestro diagrama ER tendemos que:
+
+1.- Añadir la **Entidad débil** **HistoricoExtraccion** que está formada por los atributos:
+- fecha: clave parcial aportada por la relación que permite distinguir la extracción de un día de Mineral por un Centro de la extracción de ese mismo mineral por ese mismo Centro cualquier otro día
+- cantidad
+
+2.- Añadir la **relación débil** **extraidoPor** entre HistoricoExtraccion y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya extraído ningún Mineral y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
+
+3.- Añadir la **relación débil** **incluidoEn** entre HistoricoExtraccion y Mineral. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Mineral que todavía no haya estado incluido en ninguna extracción de ningún Centro y tiene sentido que sí.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
+
+---
+### Fin
+
+¡Enhorabuena! Has modelado correctamente el diagrama Entidad Relación para el enunciado Enunciado 2 ER The Expanse v1 simplificado.
+
+![](resources/BD%20-%20ERD%20resuelto%20por%20Bender.png)
+
+Imagen generada por IA (Gemini Pro 2.5)
+
+---
 
