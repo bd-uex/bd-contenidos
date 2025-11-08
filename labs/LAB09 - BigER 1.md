@@ -334,7 +334,7 @@ Escribe el texto BigER necesario para modelarlas de manera que nuestro diagrama 
 ![](https://github.com/bd-uex/bd-contenidos/raw/main/resources/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%202.png)
 
 ---
-### Ejercicio 03 - Enunciado ER 2 The Expanse Simplificado  (3)
+### Ejercicio 04 - Enunciado ER 2 The Expanse Simplificado  (3)
 
 Vamos a modelar alguna de las relaciones del diagrama con las entidades que tenemos hasta ahora:
 	- En primer lugar, vamos a modelar la relación **ubicadoEn** entre Centros y Planetas. Por lo que nos dice el enunciado, podemos entender que un Centro solo puede estar en un Planeta mientras que un Planeta que guardemos en nuestra Base de Datos siempre tendrá, como mínimo un Centro en él.
@@ -345,7 +345,7 @@ Vamos a modelar alguna de las relaciones del diagrama con las entidades que tene
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
 
 ---
-### Ejercicio 04 - Enunciado ER 2 The Expanse Simplificado  (4)
+### Ejercicio 05 - Enunciado ER 2 The Expanse Simplificado  (4)
 
 Vamos a tratar de modelar la entidad Vuelo que dejamos sin modelar al modelar las entidades fuertes en los ejercicios previos.
 
@@ -367,7 +367,7 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 
 ---
 
-### Ejercicio 05 - Enunciado ER 2 The Expanse Simplificado  (5)
+### Ejercicio 06 - Enunciado ER 2 The Expanse Simplificado  (5)
 
 Ahora que tenemos la entidad débil Vuelo, podemos acabar de modelar el resto de sus relaciones:
 	- En primer lugar, vamos a modelar la relación **origenDe** entre Vuelo y Centro. Por lo que nos dice el enunciado, podemos entender que puede haber todavía algún Centro que no haya sido el origen de ningún Vuelo, pero un Vuelo siempre debe tener un Centro de Origen.
@@ -377,7 +377,7 @@ Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el 
 
 ---
 
-### Ejercicio 06 - Enunciado ER 2 The Expanse Simplificado  (6)
+### Ejercicio 07 - Enunciado ER 2 The Expanse Simplificado  (6)
 
 Vamos ahora a tratar de modelar la entidad Cargamento que dejamos sin modelar al modelar las entidades fuertes en los ejercicios previos.
 
@@ -396,7 +396,7 @@ Con todo esto, en nuestro diagrama ER tendemos que:
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
 ---
-### Ejercicio 07 - Enunciado ER 2 The Expanse Simplificado  (7)
+### Ejercicio 08 - Enunciado ER 2 The Expanse Simplificado  (7)
 
 Ahora que tenemos la entidad débil Cargamento, podemos acabar de modelar el resto de sus relaciones:
 	- En primer lugar, vamos a modelar la relación **formaParteDe** entre Cargamento y Mineral. Por lo que nos dice el enunciado, puede que un mineral todavía no haya formado parte de ningún cargamento y otros que estén en muchos. Además, esta relación tiene un atributo llamado cantidad.
@@ -405,7 +405,7 @@ Ahora que tenemos la entidad débil Cargamento, podemos acabar de modelar el res
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
 
 ---
-### Ejercicio 08 - Enunciado ER 2 The Expanse Simplificado (8)
+### Ejercicio 09 - Enunciado ER 2 The Expanse Simplificado (8)
 
 Para terminar, nos falta modelar esta parte del cuarto párrafo del enunciado:
 
