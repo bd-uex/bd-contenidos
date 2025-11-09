@@ -21,6 +21,7 @@
 - 2.- Relaciones entre Entidades
 - 3.- Entidades Dependientes y Relaciones Débiles
 - 4.- Roles
+### Resolución del Enunciado ER 2 The Expanse Simplificado
 
 ---
 ## Instalación y uso de BigER en VSCode
@@ -31,7 +32,7 @@ Si no lo has hecho ya, instala BigER en VSCode siguiendo la guía que tenemos pr
 
 ##  Introducción a la notación textual de BigER (1) Entidades y atributos
 
-La notación textual **BigER** es una representación textual que permite describir **diagramas Entidad-Relación** (E/R) de forma estructurada y comprensible.
+La notación textual **BigER** (resumen completo de la notación disponible [aquí](https://github.com/bd-uex/bd-contenidos/blob/main/Resumen%20BigER.md)) es una representación textual que permite describir **diagramas Entidad-Relación** (E/R) de forma estructurada y comprensible.
 
 Esta notación es especialmente útil en entornos donde es más fácil trabajar con texto en lugar de crear diagramas visuales manualmente, como es el caso de la extensión **BigER** para Visual Studio Code. A través de esta sesión, aprenderemos gradualmente a utilizar esta notación con ejemplos que van desde lo más básico hasta lo más avanzado.
 
@@ -275,6 +276,11 @@ Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo
 Puedes ver como ahora en cada extremo de la relación esMentorDe aparece el rol tomado en cada extremo de la relación por el Estudiante.
 
 ---
+## Resolución del Enunciado ER 2 The Expanse Simplificado
+
+Los ejercicios a continuación están orientados a resolver el Enunciado ER 2 The Expanse Simplificado disponible [aquí](https://github.com/bd-uex/bd-contenidos/blob/main/Enunciados%20ER/Enunciado%20ER%202%20The%20Expanse%20Simplificado.md)
+
+---
 ### Ejercicio 02 - Enunciado ER 2 The Expanse Simplificado  (1)
 
 Abre el archivo ModeloTheExpanseV1Simplificado.erd que será donde vamos a ir modelando el enunciado Enunciado 2 ER The Expanse v1 simplificado.
@@ -420,7 +426,7 @@ Además, podemos ver que esta relación entre Centro y Mineral no es estática, 
 
 Este caso se corresponde con lo visto para Entidades Débiles en el apartado 5.4.2 "Caso 2: Para gestionar atributos multivaluados en una relación M:N con repetición de relaciones entre instancias" del Tema 5.
 
-Si recordamos ese apartado, esto significa convertir la interacción a lo largo del tiempo en una **entidad débil con repetición** (o histórica). Esta nueva entidad guardará cada "evento" de la relación, y su clave primaria casi siempre incluirá un atributo de tiempo (como `curso`o `fecha`).
+Si recordamos ese apartado, esto significa convertir la interacción a lo largo del tiempo en una **entidad débil con repetición** (o histórica). Esta nueva entidad guardará cada "evento" de la relación, y su clave primaria casi siempre incluirá un atributo de tiempo (como curso o fecha).
 
 En nuestro ejemplo de un Centro extrae Mineral, vamos a convertir la relación en una entidad débil llamada **HistoricoExtraccion**. Dado que en una fecha concreta, una instancia de Centro puede relacionarse con **varias** instancias de Mineral, y, varias instancias de Mineral estar relacionadas con **varias** de Centro, esta entidad depende tanto de Centro como de Mineral. 
 
