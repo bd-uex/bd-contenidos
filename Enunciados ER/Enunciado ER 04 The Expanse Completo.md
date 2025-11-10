@@ -2,7 +2,7 @@
 
 _La primera versión del diagrama E/R ha convencido a Camina Drummer así que nos ha encargado el diseño de la versión completa._
 
-_Veremos que hay partes que son tal y como nos comentó para la primera versión pero hay nuevas partes e incluso alguna parte que ha sufrido alguna modificación. Aparecen en cursiva las novedades con respecto a dicho enunciado:_
+_Veremos que hay partes que son tal y como se nos informó para la primera versión pero hay nuevas partes e incluso alguna parte que ha sufrido alguna modificación. Aparecen en cursiva las novedades con respecto a dicho enunciado:_
 
 Los **centros mineros** de los **planetas** son la joya de la corona de la OPA. Cada uno tiene su propio código único, algo parecido a los tatuajes de identificación que usan los cinturonianos. Además, tienen nombre, fecha de creación y unas coordenadas exactas porque, bueno, no querrás perderte en una estación minera en algún asteroide perdido. Cada planeta puede tener más de un centro (sí, Marte está lleno de ellos), pero siempre hay uno que es el principal en cada planeta. De los planetas almacenamos un código del planeta, su nombre, nº de lunas, periodo de rotación (en horas) y órbita (en días).
 
