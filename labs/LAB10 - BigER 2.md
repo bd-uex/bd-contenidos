@@ -153,7 +153,7 @@ Así, puedes ver a continuación este diagrama tras retocar la imagen para inclu
 
 Crea el archivo ModeloEERUniversidad.erd que será donde vamos a ir modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en la en la sección 7.7.A del tema 5 de la asignatura.
 
-![](resources/BD%20-%20BigER%20Jerarquia%20Universidad.png)
+![](../resources/BD%20-%20BigER%20Jerarquia%20Universidad.png)
 
 En primer lugar, escribe la descripción de la entidad PersonaUEx que va a ser la raíz de toda la jerarquía:
 
@@ -170,6 +170,9 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 ### Ejercicio 02 - Jerarquías (2)
 
 Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en  la sección 7.7.A del tema 5 de la asignatura.
+
+![](../resources/BD%20-%20BigER%20Jerarquia%20Universidad.png)
+
 
 Vamos a añadir lo siguiente a lo que ya llevamos:
 
@@ -191,6 +194,9 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 ### Ejercicio 03 - Jerarquías (3)
 
 Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en la sección 7.7.A del tema 5 de la asignatura.
+
+![](../resources/BD%20-%20BigER%20Jerarquia%20Universidad.png)
+
 
 Vamos a añadir lo siguiente a lo que ya llevamos:
 
