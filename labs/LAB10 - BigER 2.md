@@ -14,7 +14,7 @@
 ### Notación BigER
 
 - 1.- Herencia y Especialización
-### Resolución del Enunciado ER 4 The Expanse Completo
+### Resolución del Enunciado ER 04 The Expanse Completo
 
 ---
 ## Introducción a la notación textual de BigER (5) Jerarquías de herencia
@@ -32,7 +32,7 @@ Esta es una característica que en el momento de redactar este contenido está t
 
 La notación utilizada en BigER es la siguiente:
 
-1.- En primer lugar, la notación para una entidad dependiente o débil es la siguiente:
+1.- En primer lugar, la notación para una entidad subtipo de otra es la siguiente:
 
 //`total` o `parcial`, `solapada`o `disjunta`
 `entity` NombreEntidadSubtipo `extends` NombreEntidadSupertipo{
