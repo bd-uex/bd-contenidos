@@ -1,6 +1,6 @@
 La **Agrupación Universal de Superhéroes** ha decidido que ya es hora de modernizarse y llevar un control más organizado de sus integrantes, superpoderes y las misiones que llevan a cabo. Como parte del equipo encargado de esta misión, tu tarea es diseñar un modelo de base de datos que permita gestionar toda la información sobre los superhéroes que forman parte de la agrupación y las actividades que realizan.
 
-Cada superhéroe tiene un **nombre** único, ya que no queremos confundir a Superman con Superlópez. También queremos saber la **fecha en que se dieron a conocer**, ¡porque los nuevos talentos deben ser bienvenidos! Ah, y, cuando en algunos casos, provienen de otro **planeta**, mejor que nos digan cuál.
+Cada superhéroe tiene un **nombre** único, ya que no queremos confundir a Superman con Superlópez. También queremos saber la **fecha en que se dieron a conocer**, ¡porque los nuevos talentos deben ser bienvenidos! Ah, y, cuando en algunos casos, provienen de otro **planeta** que no sea la Tierra, queremos saber cuál.
 
 Cada **planeta** debe tener un **código de planeta** (para no confundir Tatooine con Marte) y, obviamente, su **nombre**, el **sistema planetario** al que pertenece y las **coordenadas** (para que Google Maps intergaláctico pueda ubicarlos).
 
