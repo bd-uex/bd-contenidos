@@ -6,7 +6,7 @@ Bienvenidos al 2015 alternativo en la ciudad de **Hill Valley** que imaginó la 
 
 **PATINETE-VOLANTE** cuenta con una flota de patinetes voladores, cada uno identificado con su matrícula. Además, se desea registrar la fecha en que el patinete fue comprado, la marca y el modelo, la fecha de la última revisión (no queremos accidentes en pleno vuelo), su precio de alquiler por minuto y su estado actual.
 
-Cada patinete está asignado a una **zona** específica en Hill Valley, pero puede circular por varias zonas dependiendo de las restricciones de tráfico aéreo. La ciudad está dividida en zonas y, de cada una, necesitamos almacenar un identificador único, el nombre, el número aproximado de habitantes y la tarifa de alquiler por minuto (sí, volar cuesta, aunque sea sin gasolina). Cada zona tiene un límite de patinetes permitidos para evitar un caos aéreo.
+Cada patinete está asignado a una **zona** específica en Hill Valley, pero puede circular por varias zonas dependiendo de las restricciones de tráfico aéreo. La ciudad está dividida en zonas y, de cada una, necesitamos almacenar un identificador único, el nombre, el número aproximado de habitantes. Cada zona tiene un límite de patinetes permitidos para evitar un caos aéreo.
 
 El ayuntamiento de Hill Valley ha instalado varios **puntos de aterrizaje** en cada zona, con el fin de que los patinetes voladores puedan aterrizar y estacionar de forma segura. Cada punto de aterrizaje está identificado por la zona en la que se encuentra y un número consecutivo, además de contar con una dirección física y el número de plazas disponibles.
 
