@@ -181,12 +181,12 @@ Las similitudes son:
 	- Son personas adultas de las que hay que guardar nif (candidato idóneo a ser Clave Primaria), nombre, apellido1, apellido2, teléfono y dirección.
 
 Las diferencias son :
-	- De las Personas Tutoras hay que guardar su profesión y además van a tener una relación (aCargode) con los Estudiantes.
+	- De las Personas Tutoras hay que guardar su profesión y además van a tener una relación (a_cargo_de) con los Estudiantes.
 	- De los Personas Docentes hay que guardar su salario y su cuenta. Además, van a tener algunas relaciones específicas que modelaremos cuando lleguemos a los párrafos correspondientes.
 	
 Con todo esto ya podemos suponer que vamos a crear una jerarquía para Persona, Tutora y Docente. Con los datos que nos han dado deberíamos ser capaces de indicar correctamente sus características.
 
-Escribe el texto BigER necesario para modelar todas estas entidades y la relación aCargoDe y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
+Escribe el texto BigER necesario para modelar todas estas entidades y la relación a_cargo_de y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
 ---
 ### Ejercicio 03 - Enunciado ER 11 Colegio de Enseñanza de Primaria  (2)
@@ -203,7 +203,7 @@ Para cada curso se desea tener almacenados una serie de objetivos de aprendizaje
 En primer lugar, parece claro que tenemos la entidad fuerte Curso:
  - Curso, con número de curso, (candidato idóneo a ser Clave Primaria) y descripción.
 
-Además, hay que establecer la relación **responsableDe** entre esta nueva entidad y la entidad Docentes. El inferir correctamente las cardinalidades de ambos lados de la relación a partir del enunciado ya no debería suponernos un problema.
+Además, hay que establecer la relación **responsable_de** entre esta nueva entidad y la entidad Docentes. El inferir correctamente las cardinalidades de ambos lados de la relación a partir del enunciado ya no debería suponernos un problema.
 
 Vamos ahora a tratar de modelar la entidad Objetivo. Tal y como nos dice el enunciado, un Objetivo no tiene un atributo que permita distinguir entre los distintos objetivos de los distintos cursos ya que tiene una descripción y un código interno único es solo único para cada curso. Además, ¿qué pasaría con la información de los Objetivos si desapareciera el Curso que **tiene** dichos objetivos?
 
@@ -229,7 +229,7 @@ En primer lugar, parece que tenemos dos nuevas entidades fuertes:
 - Asignatura: de forma similar a Departamento, tendremos una Clave Primaria como codigo_asignatura y un atributo nombre_asignatura.
     
 El primer párrafo también define dos nuevas relaciones:
-- Una relación para modelar que  Docente **perteneceA** Departamento.
+- Una relación para modelar que  Docente **pertenece_a** Departamento.
 - Una relación para modelar que cada Departamento **organiza** Asignatura.
     
 El inferir correctamente las cardinalidades de ambos lados de estas relaciones a partir del enunciado ya no debería suponernos un problema.
@@ -247,8 +247,8 @@ La solución es transformar la relación entre Curso y Asignatura en una entidad
 		- Tendrá además como atributo a horas
 
 Además, necesitamos crear las dos relaciones con las entidades que estaba uniendo mientras estábamos considerándola como relación:
-	- Curso **consta de** Asoc_Asignaturas_Curso
-	- Asignatura **seImpartenEn** Asoc_Asignaturas_Curso
+	- Curso **consta_de** Asoc_Asignaturas_Curso
+	- Asignatura **se_imparten_en** Asoc_Asignaturas_Curso
 
 Deberíamos poder inferir correctamente las cardinalidades de ambos lados de estas relaciones casi de forma mecánica.
 
