@@ -11,7 +11,7 @@
 ---
 ## Resolución del Enunciado ER 13 Todas Tus Series.
 
-Los ejercicios a continuación están orientados a resolver el Enunciado 13 Todas Tus Series disponible [aquí](https://github.com/bd-uex/bd-contenidos/blob/main/Enunciados%20ER/Enunciado%20ER%2011%20Todas%20Tus%20Series.md)
+Los ejercicios a continuación están orientados a resolver el Enunciado 13 Todas Tus Series disponible [aquí](https://github.com/bd-uex/bd-contenidos/blob/main/Enunciados%20ER/Enunciado%20ER%2013%20Todas%20Tus%20Series.md)
 
 Crea el archivo EnunciadoER13TodasTusSeries.erd que será donde vamos a ir modelando el Enunciado 13 Todas Tus Series.
 
