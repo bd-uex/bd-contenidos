@@ -176,11 +176,11 @@ Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejem
 
 Vamos a añadir lo siguiente a lo que ya llevamos:
 
-//`total`, `disjunta`
+//`total`, `solapada`
 `entity` Docente `extends` Empleado {
 nif `key`
 }
-//`total`, `disjunta`
+//`total`, `solapada`
 `entity` PTGAS `extends` Empleado {
 nif `key`
 }
