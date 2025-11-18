@@ -130,7 +130,7 @@ Este es el caso más común para una relación 1:1.
 	- E2(<u>id_E2</u>, resto_atributos_E2, id_E1, atributos_RE1E2)
 		- id_E1 `NOT NULL`,`UNIQUE`->  E1(id_E1) [B:R,M:C]
 
-![600](BD%20-%20MapeoER03_01a11.png)
+![600](resources/BD%20-%20MapeoER03_01a11.png)
 
 - **Ejemplo**:
 	- ![200](resources/BD%20-%20BigER%20Relación%2001%2011%20Crows%20Foot.png)
@@ -493,7 +493,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
     - La clave primaria `k` de la superclase es la **Clave Primaria (PK)** de **TODAS** las relaciones.
     - En cada relación de subclase, esta `k` también actúa como **Clave Foránea (FK)** que referencia a la relación de la superclase.
     
-    ![](resources/BD%20-%20MapeoER15_Jerarquia%208A.png)
+    ![600](resources/BD%20-%20MapeoER15_Jerarquia%208A.png)
 - **Ventajas**:
     - **Funciona SIEMPRE**: Es la única opción válida para _cualquier_ tipo de especialización (total, parcial, disjunta o solapada).
     - **Sin redundancia**: Los atributos comunes se almacenan una sola vez.
@@ -546,7 +546,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 - **Esquema Lógico**:
     - Esta relación contiene los atributos comunes **MÁS** todos los atributos específicos de **TODAS** las subclases.
     - Se añade un atributo especial **discriminante** (o "de tipo", `t`) que indica a qué subclase pertenece cada fila (ej: `TipoTrabajo = 'Ingeniero'`) .
-	![600](BD%20-%20MapeoER15_Jerarquia%208C.png)
+	![600](resources/BD%20-%20MapeoER15_Jerarquia%208C.png)
 - **Ventajas**:
     - **Muy eficiente**: No se necesitan `JOIN`s ni `UNION`s.
         
@@ -556,7 +556,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 - **Cuándo usarla**: **SOLO** funciona para especializaciones **DISJUNTAS** (sean totales o parciales).
 
 - **Ejemplo TipoTrabajo**:
-	![400](BD%20-%20BigER%20Ejemplo%20Tipo%20Trabajo.png)
+	![400](resources/BD%20-%20BigER%20Ejemplo%20Tipo%20Trabajo.png)
 	- EMPLEADO(<u>dni</u>, nombre, fecha_nacimiento, direccion, telefono, **tipo_trabajo**, categoria, nivel, tipoIng)
 
 ---
