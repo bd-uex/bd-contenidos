@@ -85,8 +85,7 @@ Para ver la aplicabilidad del algoritmo, usaremos el diagrama de la base de dato
 	- La **clave parcial** de `D` de la entidad débil.
         
 
-![600](resources/BD%20-%20MapeoER02_EntidadDebil.png)
-
+![600](BD%20-%20MapeoER02_EntidadDebil.png)
 
 ---
 #### Aplicación al ejemplo `EMPRESA`:
@@ -574,7 +573,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 
 - **Cuándo usarla**: Es la unica opción de relación única con especializaciones **SOLAPADAS** (también sirve para **DISJUNTAS**).
     
-- **Ejemplo TipoTrabajo**:
+- **Ejemplo Persona**:
 	![350](resources/BD%20-%20BigER%20Jerarquia%20Universidad%20Sencilla.png)
 	- PERSONA(<u>dni</u>, nombre, apellido1,apellido2, **estudiante**, **empleado**, notaSelectividad, puesto, salario)
 
