@@ -131,7 +131,7 @@ horas_semanales
 }
 
 `relationship` afiliadoA{  
-EmpleadoTiempoParcial[`1..1`] -> Sindicato[`1..N`]
+EmpleadoTiempoParcial[`1..N`] -> Sindicato[`1..1`]
 }
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:

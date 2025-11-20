@@ -42,12 +42,9 @@ El objetivo de este algoritmo no es solo traducir, sino hacerlo bien. Nuestros o
 
 ## 2 El Algoritmo de Mapeo (Pasos E/R)
 
-Usaremos el diagrama de la base de datos **EMPRESA** como guía para cada paso.
-
-![BD Empresa versión final - BigER](BD%20Empresa%20versión%20final%20-%20BigER.md)
+Para ver la aplicabilidad del algoritmo, usaremos el diagrama de la base de datos [EMPRESA](BD%20Empresa%20versión%20final%20-%20BigER.md) como ejemplo a desarrollar cuando corresponda en el paso correspondiente.
 
 ---
-
 ### Paso 1: Mapear Tipos de Entidad Fuertes (Regulares)
 
 **Regla:** Por cada entidad fuerte `E`, se crea una nueva **Relación** `R`.
@@ -199,6 +196,7 @@ No se da muy a menudo. Implica que las dos entidades deben existir siempre junta
 		- En resumen:
 			- RE1E2(<u>id_E1</u>, ==id_E2==, resto_atributos_E1, resto_atributos_E2, atributos_RE1E2)
 				- id_E2 `NOT NULL`,`UNIQUE`
+		![600](resources/BD%20-%20MapeoER05_11a11%20excepcional.png)
 		- Por ejemplo:
 		- ![200](resources/BD%20-%20BigER%20Relación%2011%2011%20Crows%20Foot.png)
 			- Un `AUTOMOVIL` debe tener _un_ `SEGURO` (`[1..1]`).
@@ -223,7 +221,7 @@ Suponiendo que:
 	- existe en ER relación binaria `RE1E2` entre `E1[X..1]` ↔ `E2[X..N]` (donde X puede ser 0 o 1) y con atributos de relación (atributos_RE1E2)
 
 ---
-#### Caso General: Participación total o opcional con pocos nulos
+#### Caso General: Participación total u opcional con pocos nulos
 - **¿Cuándo usar esta alternativa?**
        1. **Participación total u opcionalidad con pocos `NULL`s**: Si la participación de `E2` (lado N) es total o, siendo opcional, se espera que la mayoría de instancias de E2 estén relacionadas con instancias de E1.
        2. **No se espera evolución Futura a M:N**: Si no se prevé que la relación 1:N pueda convertirse en M:N en el futuro.
@@ -465,7 +463,7 @@ Este escenario es muy similar al mapeo de relaciones M:N y ==**se aplica el Enfo
 	- PROVEEDOR(<u>id_proveedor</u>, resto_atributos_proveedor)
 	- PROYECTO(<u>id_proyecto</u>, resto_atributos_proyecto)
 	- REPUESTO(<u>id_repuesto</u>, resto_atributos_repuesto)
-	- Dado que la cardinalidad máxima es N en todos los lados la clave primaria estará compuesta por todas las claves de las entidades que asocia:
+	- Dado que la cardinalidad máxima es N en todos los lados, la clave primaria estará compuesta por todas las claves de las entidades que asocia:
 		- SUMINISTRA(<u>id_proveedor</u>, <u>id_proyecto</u>, <u>id_repuesto</u>, cantidad)
 			- id_proveedor -> PROVEEDOR(id_proveedor) [B:C,M:C]
 			- id_proyecto -> PROYECTO(id_proyecto) [B:C,M:C]
