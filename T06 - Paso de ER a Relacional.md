@@ -85,7 +85,7 @@ Para ver la aplicabilidad del algoritmo, usaremos el diagrama de la base de dato
 	- La **clave parcial** de `D` de la entidad débil.
         
 
-![600](BD%20-%20MapeoER02_EntidadDebil.png)
+![600](resources/BD%20-%20MapeoER02_EntidadDebil.png)
 
 ---
 #### Aplicación al ejemplo `EMPRESA`:
