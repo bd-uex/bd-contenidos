@@ -124,10 +124,10 @@ ASOC_REQUISITO_DE_PUESTO[0..N] -> VALIDADOR[1..1]
 }  
 
 **En el diagrama generado por BigER lo veremos gráficamente como una entidad normal**
-![](BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Crows%20Foot.png)
+![](resources/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Crows%20Foot.png)
 
 **Cuando lo dibujemos a mano, pondremos un rombo dentro del rectángulo de la entidad asociativa**
-![](BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
+![](resources/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
 
 **El Modelo Final y su Significado:** El diagrama final representa la realidad de forma lógica y correcta:
 
@@ -146,7 +146,7 @@ Es crucial entender que este patrón funciona porque asumimos que la relación M
 
 Crea el archivo EntidadAsociativa.erd y modela el ejemplo que hemos visto antes y que se muestra en la siguiente imagen.
 
-![](BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
+![](resources/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 

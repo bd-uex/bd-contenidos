@@ -365,7 +365,7 @@ Una entidad asociativa se mapea **inicialmente de forma idéntica a la relación
 
 Usaremos el ejemplo de la sección 5.5 del Tema 5 donde teníamos `PUESTO_DE_TRABAJO` ↔ `ASOC_REQUISITO_DE_PUESTO` ↔ `COMPETENCIA`, donde la entidad asociativa `ASOC_REQUISITO_DE_PUESTO` se relaciona a su vez con `VALIDADOR`.
 
-![](BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
+![](resources/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
 
 **Regla:** El mapeo se hace en dos etapas:
 
