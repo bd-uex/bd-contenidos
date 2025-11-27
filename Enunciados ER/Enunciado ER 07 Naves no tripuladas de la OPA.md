@@ -1,10 +1,10 @@
 Tras nuestro éxito diseñando la base de datos de la OPA (Outer Planet Alliance), Camina Drummer nos ha encargado el diseño de una nueva base de datos. En concreto, la OPA está trabajando en el diseño de diferentes naves espaciales no tripuladas que sean capaces de volar entre planetas sin necesidad de astronautas pilotando dichas naves. Algunas de las pruebas que han realizado han tenido ya como consecuencia accidentes graves, lo que ha hecho enfadar bastante a Camina y, por este motivo, nos ha encargado el diseño una base de datos que permita tener un mayor control tanto de las naves como de las pruebas que están realizando. 
 
-Para empezar, la OPA quiere que la base de datos mantenga la información de todos sus empleados (ingenieros, astronautas, directivos, mecánicos, administrativos, etc..) involucrados en el desarrollo de las naves y la realización de las pruebas. En concreto quiere almacenar su número único de empleado, nombre, apellidos y su categoría profesional. 
-
-De cada nave no tripulada hay que almacenar el código que la identifica, su nombre, peso, longitud, anchura, velocidad teórica que puede alcanzar y la capacidad prevista. 
+Para empezar, de cada nave no tripulada hay que almacenar el código que la identifica, su nombre, peso, longitud, anchura, velocidad teórica que puede alcanzar y la capacidad prevista. 
 
 Es muy importante saber la etapa actual de desarrollo en que se encuentra cada nave y desde cuando. Las naves se desarrollan siguiendo una serie de etapas estandarizadas (1.  Conceptualización inicial, 2. Diseño, 3. Modelo a escala,.., 9. En producción) de forma secuencial, es decir, cada nave solo pasa por cada etapa una vez a lo largo de su desarrollo. De cada una de estas etapas habrá que guardar su código único y su nombre. Además, la OPA nos ha pedido que, para la correcta gestión de su planificación, también es necesario mantener en la base de datos las etapas completadas por las que ha pasado cada nave almacenando la fecha de inicio y la fecha de fin de cada etapa completada. 
+
+La OPA quiere que la base de datos mantenga la información de todos sus empleados (ingenieros, astronautas, directivos, mecánicos, administrativos, etc..) involucrados en el desarrollo de las naves y la realización de las pruebas. En concreto quiere almacenar su número único de empleado, nombre, apellidos y su categoría profesional. 
 
 Cada nave tiene un único ingeniero aeroespacial como empleado responsable de su desarrollo, que solo es responsable de esa nave. Además, hay algunas naves que han surgido como evolución de otra previa (sólo de una) y esta relación desea conocerse. Hay que tener en cuenta que una nave puede haber evolucionado hacia varias naves diferentes. 
 
