@@ -39,9 +39,6 @@ Existen múltiples formas de realizar la persistencia de datos, clasificándose 
 ---
 ## Programación de bases de datos
 
-Empezar pensando en la representación de los datos en el código. 2 opciones:
-- tablas
-- objetos
 ### Introducción
 
 Una **aplicación de base de datos** es un _software_ diseñado para permitir a los **usuarios finales** interactuar con la información persistente almacenada en un sistema de gestión de bases de datos (DBMS). A diferencia de interactuar directamente con el sistema de base de datos, estas aplicaciones facilitan el acceso y la manipulación de datos a través de interfaces amigables y transacciones predefinidas.
@@ -305,9 +302,9 @@ Estás consultas pueden ser **precompiladas y cacheadas por la base de datos**. 
 - **Curva de Aprendizaje**. Para los desarrolladores nuevos puede tener una curva de aprendizaje significativa.
 - **Mantenimiento y Escalabilidad**. El código JDBC es **difícil de mantener y escalar** debido a la cantidad de código SQL y la falta de herramientas avanzadas que proporcionan frameworks de mayor nivel, como los ORMs (Object-Relational Mappers).
 
-### Desajuste de impedancia (impedance mismatch)
+### Desajuste de impedancias (impedance mismatch)
 
-El impedance mismatch se refiere a las dificultades que surgen al intentar mapear el modelo relacional de una base de datos (tablas, filas y columnas) con el modelo orientado a objetos utilizado en lenguajes de programación como Java (clases, objetos, herencia, etc.). 
+El [[desajuste de impedancias]] se refiere a las dificultades que surgen al intentar mapear el modelo relacional de una base de datos (tablas, filas y columnas) con el modelo orientado a objetos utilizado en lenguajes de programación como Java (clases, objetos, herencia, etc.). 
 Este desajuste ocurre porque las bases de datos relacionales y la programación orientada a objetos manejan y representan los datos de manera fundamentalmente diferente.
 
 Ejemplo de representación de datos en SQL:
@@ -383,7 +380,7 @@ while (rs.next()) {
 
 #### Manejo de Valores Nulos y Tipos de Datos
 Para solucionar el desajuste de Tipos de Datos entre SQL y Java, JDBC proporciona métodos como `getString(), getInt(), getDate()`, etc., para manejar la conversión de tipos entre SQL y Java. 
-Pero es r**esponsabilidad del desarrollador tener cuidado con los desajustes de tipos y manejar explícitamente los valores null** para que no se mapeen directamente a tipos primitivos de Java.
+Pero es **responsabilidad del desarrollador tener cuidado con los desajustes de tipos y manejar explícitamente los valores null** para que no se mapeen directamente a tipos primitivos de Java.
 
 >[!note] Ejemplo
 >Si una columna en la base de datos es NULL, `getInt()` devuelve 0 por defecto, que puede no ser el comportamiento deseado desde la lógica de negocio. Para poder manejar los valores nulos, se necesitaría usar `wasNull()` para verificar si el valor era NULL.
@@ -533,7 +530,7 @@ public class UserQuery {
 ```java
 // Crear un objeto UserQuery y configurar los filtros
 UserQuery query = new UserQuery()
-			.withName("John") // Filtrar usuarios con el nombre "John"
+			.withLastName("Smith") // Filtrar usuarios con el nombre "John"
 			.onlyActive(); // Solo usuarios activos
 
 // Ejecutar la consulta y obtener los resultados
