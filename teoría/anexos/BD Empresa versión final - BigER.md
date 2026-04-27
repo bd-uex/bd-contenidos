@@ -104,7 +104,7 @@ DEPARTAMENTO[1..1] -> UBICACION_DPTO[1..N]
 ---
 ### Diagrama resultante en notación crow's foot
 
-![](resources/BD%20Empresa%20versión%20final%20Crows%20Foot.png)
+![](BD%20Empresa%20versión%20final%20Crows%20Foot.png)
 
 >[!tip] Atributos de relaciones
 >Recuerda que, aunque en la notación textual sí están incluidos los atributos de relación horas en TRABAJA_EN y fechaIngresoDirector en DIRIGE, al mostrarlo de forma gráfica no aparecen y se han añadido de forma manual al diagrama

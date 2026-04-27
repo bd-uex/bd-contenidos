@@ -88,7 +88,7 @@ tipoIng
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](../resources/BD%20-%20BigER%20Jerarquia%20Tipo%20Empleado.png)
+![](BD%20-%20BigER%20Jerarquia%20Tipo%20Empleado.png)
 
 
 3.- En tercer lugar, vamos a crear una segunda especialización de Empleado en un subtipo de acuerdo a la relación dirige con una entidad denominada Proyecto que solo tienen un subtipo del supertipo Empleado al que denominaremos Gerente.
@@ -110,7 +110,7 @@ Gerente[`1..1`] -> Proyecto[`1..N`]
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](../resources/BD%20-%20BigER%20Jerarquia%20Gerente.png)
+![](BD%20-%20BigER%20Jerarquia%20Gerente.png)
 
 4.- En tercer lugar, vamos a crear una tercera especialización de Empleado en dos subtipos de acuerdo al tipo de jornada de cada Empleado donde cada subtipo tiene un atributo propio de su subtipo que no tiene el supertipo Empleado. Además, uno de los dos subtipos posibles también mantiene una relación que no tiene el resto de empleados:
 
@@ -136,7 +136,7 @@ EmpleadoTiempoParcial[`1..N`] -> Sindicato[`1..1`]
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
-![](../resources/BD%20-%20BigER%20Jerarquia%20Afiliado%20A.png)
+![](BD%20-%20BigER%20Jerarquia%20Afiliado%20A.png)
 
 Puedes ver como, al estar en fase beta, BigER no es capaz de mostrar las restricciones de completitud y disyunción en el diagrama.
 
@@ -146,14 +146,14 @@ Como ya hemos comentado, en nuestro caso, en los distintos diagramas E/R que ves
 
 Así, puedes ver a continuación este diagrama tras retocar la imagen para incluir un cuadro de texto con las iniciales de las restricciones que apliquen en la especialización/generalización ( t,d o t,s o p,d o p,s o p) cerca de las flechas de la especialización/generalización y añadir también una línea recta uniendo las flechas a las que aplica dicha especialización/generalización:
 
-![](../resources/BD%20-%20BigER%20Jerarquia%20Empleado%20retocada.png)
+![](BD%20-%20BigER%20Jerarquia%20Empleado%20retocada.png)
 
 ---
 ### Ejercicio 01 - Jerarquías (1)
 
 Crea el archivo ModeloEERUniversidad.erd que será donde vamos a ir modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en la en la sección 7.7.A del tema 5 de la asignatura.
 
-![](../resources/BD%20-%20BigER%20Jerarquia%20Universidad.png)
+![](BD%20-%20BigER%20Jerarquia%20Universidad.png)
 
 En primer lugar, escribe la descripción de la entidad PersonaUEx que va a ser la raíz de toda la jerarquía:
 
@@ -171,7 +171,7 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 
 Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en  la sección 7.7.A del tema 5 de la asignatura.
 
-![](../resources/BD%20-%20BigER%20Jerarquia%20Universidad.png)
+![](BD%20-%20BigER%20Jerarquia%20Universidad.png)
 
 
 Vamos a añadir lo siguiente a lo que ya llevamos:
@@ -195,7 +195,7 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 
 Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejemplo de jerarquía de especialización/generalización de la Universidad que se ve en la sección 7.7.A del tema 5 de la asignatura.
 
-![](../resources/BD%20-%20BigER%20Jerarquia%20Universidad.png)
+![](BD%20-%20BigER%20Jerarquia%20Universidad.png)
 
 
 Vamos a añadir lo siguiente a lo que ya llevamos:

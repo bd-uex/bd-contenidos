@@ -26,7 +26,7 @@
 ---
 ## Instalación y uso de BigER en VSCode
 
-Si no lo has hecho ya, instala BigER en VSCode siguiendo la guía que tenemos preparada en el repositorio de la asignatura: [Instalación y uso de BigER en VSCode](Instalaci%C3%B3n%20y%20uso%20de%20BigER%20en%20VSCode.md)
+Si no lo has hecho ya, instala BigER en VSCode siguiendo la guía que tenemos preparada en el repositorio de la asignatura: [AL09.1 - Instalación y uso de BigER en VSCode](AL09.1%20-%20Instalación%20y%20uso%20de%20BigER%20en%20VSCode.md)
 
 ---
 
@@ -132,7 +132,7 @@ Como puedes observar, BigER por defecto usa una notación gráfica distinta a la
 Hay dos maneras de conseguir que BigER nos muestre el diagrama E/R en notación Crow's foot:
 
 - Incluyendo `notation`=crowsfoot justo en al línea a continuación del inicio del fichero donde aparece `erdiagram` NombreModelo
-- Seleccionando dicha notación al hacer clic en el botón de cambio de notación ![](../resources/BD%20-%20BigER%20Botón%20Notación.png) y eligiendo Crow's foot
+- Seleccionando dicha notación al hacer clic en el botón de cambio de notación ![](BD%20-%20BigER%20Botón%20Notación.png) y eligiendo Crow's foot
 
 Tanto si lo haces de una forma como de otra ya deberías poder ver así el diagrama:
 
