@@ -21,7 +21,7 @@ date: 2025-09-22
 ## 1. Introducción
 ### 1.1. El Origen del Modelo Entidad-Relación: Las Cuestiones Abiertas por el Modelo Relacional
 
-El [Modelo Relacional](T02%20-%20Modelo%20Relacional.md#Modelo%20Relacional) propuesto por Edgar F. Codd, fue una revolución. Ofreció una forma matemática, consistente y robusta de almacenar y gestionar datos, superando el [problema de la rigidez](Problema%20Modelo%20Jerárquico.md) del [Modelo Jerárquico](Historia%20Bases%20de%20Datos.md#Modelo%20Jerárquico)  y el  [el problema de la complejidad](Problema%20Modelo%20Red.md) del [Modelo en Red](Historia%20Bases%20de%20Datos.md#Modelo%20de%20Red%20(o%20grafo)). 
+El [Modelo Relacional](T02%20-%20Modelo%20Relacional.md#Modelo%20Relacional) propuesto por Edgar F. Codd, fue una revolución. Ofreció una forma matemática, consistente y robusta de almacenar y gestionar datos, superando el [problema de la rigidez](anexos/Problema%20Modelo%20Jerárquico.md) del [Modelo Jerárquico](anexos/Historia%20Bases%20de%20Datos.md#Modelo%20Jerárquico)  y el  [el problema de la complejidad](anexos/Problema%20Modelo%20Red.md) del [Modelo en Red](anexos/Historia%20Bases%20de%20Datos.md#Modelo%20de%20Red%20(o%20grafo)). 
 
 Sin embargo, su enfoque estaba en la **implementación** y la **consistencia lógica** de los datos, no en el proceso de diseño conceptual previo. Esto dejó abiertos varios desafíos importantes:
 
