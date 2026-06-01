@@ -1,4 +1,5 @@
 # Temas de teoría
+
 - [T01 - Fundamentos](teoria/T01%20-%20Fundamentos.md)
 - [T02 - Modelo Relacional](teoria/T02%20-%20Modelo%20Relacional.md)
 - [T03 - Algebra Relacional](teoiia/T03%20-%20Algebra%20Relacional.md)
@@ -9,6 +10,7 @@
 
 ---
 # Seminarios de laboratorio
+
 - [LAB01 - tools select basico](labs/LAB01%20-%20tools%20select%20basico.md)
 - [LAB02 - select basico](labs/LAB02%20-%20select%20basico.md)
 - [LAB03 - LDD](labs/LAB03%20-%20LDD.md)
@@ -27,3 +29,7 @@
 
 - [AL09.1 - Instalación y uso de BigER en VSCode](labs/anexos/AL09.1%20-%20Instalación%20y%20uso%20de%20BigER%20en%20VSCode.md)
 - [AL09.2 - Notación BigER](labs/anexos/AL09.2%20-%20Notación%20BigER.md)
+
+## Criterios de evaluación
+
+- [Criterios Evaluación SQL](evaluacion/Criterios%20Evaluación%20SQL.md)
