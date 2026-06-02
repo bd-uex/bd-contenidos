@@ -25,7 +25,7 @@
 
 ## Descripción general del proceso de diseño de bases de datos
 
-![[BD - diseno modelo relacional.png]]
+![[../imgs/BD - diseno modelo relacional.png]]
 
 ---
 
@@ -76,7 +76,7 @@ Las medidas informales para obtener un buen diseño relacional se pueden resumir
 
 Si una relación está compuesta por una mezcla de múltiples entidades, se producirá una ambigüedad semántica y la relación no podrá explicarse con claridad.
 
-![[BD - semantica attrs.png]]
+![[../imgs/BD - semantica attrs.png]]
 
 #### Información redundante en tuplas
 
@@ -87,7 +87,7 @@ Además, almacenar información redundante provoca otros problemas dentro del mo
 - Anomalías de inserción
 - Anomalías de eliminación
 
-![[BD - redundancia info.png]]
+![[../imgs/BD - redundancia info.png]]
 
 Consideremos la relación:
 $EMP\_PROY$(<u>Dni, NumProyecto</u>, NombreE, NombreP, Horas)
@@ -292,7 +292,7 @@ La primera forma normal (1FN) ahora s**e considera parte de la definición forma
 
 Considera el esquema de relación DEPARTAMENTO, cuya clave principal es `NumeroDpto`, y posee el atributo `UbicacionesDpto`, de manera que cada departamento puede tener varias ubicaciones. El esquema DEPARTAMENTO no está en 1FN porque `UbicacionesDpto` no es un atributo atómico, como lo ilustra la primera tupla en (b). 
 
-![[BD - 1FN.png]]
+![[../imgs/BD - 1FN.png]]
 
 Existen **tres técnicas principales para lograr la primera forma normal** para dicha relación:
 1. Eliminar el atributo `UbicacionesDpto` que infringe la 1FN y colocarlo en una r**elación independiente, LOCALIZACIONES_DPTO**, junto con la clave primaria `NumeroDpto` de DEPARTAMENTO. La clave primaria de esta nueva relación es la combinación {`NumeroDpto`, `UbicacionesDpto`}, como en la [[BD Empresa - Ejemplo completo|Base de datos Empresa]]. Existe una tupla distinta en LOCALIZACIONES_DPTO para cada ubicación de un departamento. Esto descompone la relación no-1FN en dos relaciones 1FN.
@@ -313,7 +313,7 @@ En la relación $EMP\_PROY$ siguiente, se pueden encontrar ejemplos de dependenc
 - {Dni, NumProyecto} $\to$ Horas es una dependencia funcional total; ya que ni Dni $\to$ Horas ni NumProyecto $\to$ Horas son dependencias funcionales válidas
 - {Dni, NumProyecto} $\to$ NombreE es una dependencia funcional parcial, ya que Dni $\to$ NombreE es una dependencia funcional válida (NombreE se refiere al nombre de un empleado)
 
-![[BD - 2FN.png]]
+![[../imgs/BD - 2FN.png]]
 Una relación $R$ en 1FN pero no en 2FN se puede descomponer en relaciones 2FN en las que los atributos no primos aparecen con la parte de la clave primaria de la que son completa y funcionalmente dependientes sin pérdida de información y de dependencias. Por lo tanto, las dependencias funcionales FD1, FD2 y FD3 en la figura anterior conducen a la descomposición de EMP_PROJ en los tres esquemas de relación EP1, EP2 y EP3, cada uno de los cuales está en 2FN.
 
 Dicho de otra forma, para pasar una tabla en 1FN a 2FN hay que eliminar las dependencias parciales de la clave primaria. Para ello, se **eliminan los atributos que presentan dependencia funcional parcial y se ponen en una nueva tabla con una copia de su determinante**. Su determinante estará formado por los atributos de la clave primaria de los que depende.
@@ -325,7 +325,7 @@ En la relación $EMP\_DEPT$ siguiente, se pueden encontrar ejemplos de dependenc
 - Dni $\to$ DniDirector es una dependencia funcional transitiva, dado que se cumplen Dni $\to$ NumeroDpto y NumeroDpto $\to$ DniDirector. Y NumeroDpto no es clave ni subconjunto de clave.
 - Dni $\to$ NombreE no es transitivo, dado que no existe un conjunto de atributos $X$ donde Dni $\to X$ y $X \to$ NombreE
 
-![[BD - 3FN.png]]
+![[../imgs/BD - 3FN.png]]
 
 Para pasar una relación en 2FN a 3FN hay que eliminar las dependencias transitivas. Para
 ello, se eliminan los atributos que dependen transitivamente y se ponen en una nueva relación con una copia de su determinante (el atributo o atributos no clave de los que depende). El esquema de relación `EMP_DEPT` de la figura anterior está en 2FN, ya que no existen dependencias parciales de una clave. Sin embargo, `EMP_DEPT` no está en 3FN debido a la dependencia transitiva de DniDirector (y también de NombreDtpo) de Dni a través de NumeroDpto. Se puede normalizar `EMP_DEPT` descomponiéndola en los dos esquemas de relación en 3FN ED1 y ED2. Intuitivamente,  se puede ver que ED1 y ED2 representan datos independientes sobre empleados y departamentos, ambos entidades por derecho propio. Una operación `NATURAL JOIN` en ED1 y ED2 recuperará la relación original `EMP_DEPT` sin generar tuplas espurias.
@@ -367,7 +367,7 @@ Se construye $PARCELAS1$ eliminando el atributo Impuestos que infringe la 2FN de
 
 La FD4 en $PARCELAS1$ viola la 3FN porque Área no es una superclave y Precio no es un atributo primo en $PARCELAS1$. Para $PARCELAS1$ LOTS1 en 3FN, se descompone en los esquemas de relación $PARCELAS1A$ y $PARCELAS1B$. Se construye $PARCELAS1A$ eliminando el atributo Precio que viola la 3FN de $PARCELAS1$ y colocándolo con Área (el lado izquierdo de la FD4 que causa la dependencia transitiva) en otra relación $PARCELAS1B$. Tanto $PARCELAS1A$ como $PARCELAS1B$ están en 3FN.
 
-![[BD - FNG.png]]
+![[../imgs/BD - FNG.png]]
 
 **Definición alternativa de 3FN**. Un esquema de relación $R$ está en 3FN si cada atributo no primo en $R$ cumple estas dos condiciones:
 - Tiene dependencia funcional completa de cada clave de R
