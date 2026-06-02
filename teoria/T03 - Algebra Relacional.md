@@ -728,8 +728,8 @@ Para que una tupla $t$ aparezca en el resultado $T$ de la DIVISIÓN, los valores
 >PEREZ_PNOS = pi NumProy (Trabaja_En join DniEmpleado = Dni (sigma Apellido1 = 'Perez' (Empleado)))
 >DNI_PNOS division PEREZ_PNOS
 >```
->![[../imgs/BD - Algebra Relacional - Division.png]]
-
+>
+>![](../imgs/BD%20-%20Algebra%20Relacional%20-%20Division.png)
 ## 5. Operaciones relacionales adicionales
 Hay algunos tipos de consulta que no se pueden expresar en el álgebra relacional básica:
 - Funciones matemáticas de agregación sobre colecciones de valores
