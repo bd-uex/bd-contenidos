@@ -110,7 +110,7 @@ Esta formalización matemática es lo que hace que el modelo relacional sea tan 
 | Definición tabla | Esquema relación |
 | Datos tabla      | Estado relación  |
 
-![[BD - Modelo Relacional - Ejemplo base.png]]
+![[../imgs/BD - Modelo Relacional - Ejemplo base.png]]
 ### Esquema de una relación
 
 - El **esquema** (o descripción) de una relación:
@@ -179,7 +179,7 @@ Esta formalización matemática es lo que hace que el modelo relacional sea tan 
 
 Ordenación de las tuplas en una relación r(R). Las tuplas **no se consideran ordenadas**, aunque parezcan estar en forma tabular.
 
-![[BD - Modelo Relacional - Orden tuplas.png]]
+![[../imgs/BD - Modelo Relacional - Orden tuplas.png]]
 
 Ordenación de atributos en un esquema de relación $R$ (y de valores dentro de cada tupla)
 Los **atributos** en $R(A_1, A_2, \dots, A_n)$ y los **valores** en $t = (v_1, v_2, \dots, v_n)$ están **ordenados**.
@@ -420,7 +420,7 @@ CREATE TABLE LOCALIZACIONES_DPTO (
 
 #### Ejemplo de estado de la base de datos EMPRESA
 
-![[BD Empresa - Estado]]
+![[anexos/BD Empresa - Estado]]
 
 ---
 # 2. Restricciones del modelo relacional
