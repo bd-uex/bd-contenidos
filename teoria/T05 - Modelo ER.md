@@ -103,7 +103,7 @@ En resumen, **Chen no creó una alternativa al modelo relacional, sino el puente
 | **Claridad Visual** | Muy explícito pero puede ser denso.         | Compacto y estándar en la industria.                 |
 >
 >###### 5. Instalación y uso de BigER en VSCode
->En esta nota tienes disponible una pequeña guía para empezar a usar BigER en VSCode: [AL09.1 - Instalación y uso de BigER en VSCode](AL09.1%20-%20Instalación%20y%20uso%20de%20BigER%20en%20VSCode.md)
+>En esta nota tienes disponible una pequeña guía para empezar a usar BigER en VSCode: [AL09.1 - Instalación y uso de BigER en VSCode](../labs/anexos/AL09.1%20-%20Instalación%20y%20uso%20de%20BigER%20en%20VSCode.md)
 
 ---
 > [!example] Ejemplo simple: EMPRESA
@@ -931,9 +931,7 @@ Es crucial entender que este patrón funciona porque asumimos que la relación M
 
 Con los nuevos conocimientos, ya podemos hacer el diagrama ER de Empresa completamente correcto.
 
-![BD Empresa versión final - BigER](BD%20Empresa%20versión%20final%20-%20BigER.md)
-
-
+![BD Empresa versión final - BigER](../imgs/BD%20Empresa%20versión%20final%20Crows%20Foot.png)
 >[!exercise] Ejercicio
 > Prueba la solución propuesta en  [BigER]( https://marketplace.visualstudio.com/items?itemName=BIGModelingTools.erdiagram) en Visual Code y prueba a mostrar la solución con las distintas notaciones además de en Crow's foot. Intenta ver las diferencias más significativas entre cada notación soportada.
 
@@ -1295,10 +1293,11 @@ Las relaciones superclase/subclase pueden organizarse de dos maneras:
 ---
 ## 8. El Arte del Buen Diseño - Principios Fundamentales y Errores a Evitar
 
-![El Arte del Buen Diseño - Principios Fundamentales y Errores a Evitar](El%20Arte%20del%20Buen%20Diseño%20-%20Principios%20Fundamentales%20y%20Errores%20a%20Evitar.md)
+![El Arte del Buen Diseño - Principios Fundamentales y Errores a Evitar](../evaluacion/El%20Arte%20del%20Buen%20Diseño%20-%20Principios%20Fundamentales%20y%20Errores%20a%20Evitar.md)
 
 ---
 
 ## Anexo I. Resumen BigER
 
-![AL09.2 - Notación BigER](AL09.2%20-%20Notación%20BigER.md)
+![AL09.2 - Notación BigER](../labs/anexos/AL09.2%20-%20Notación%20BigER.md)
+

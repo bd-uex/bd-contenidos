@@ -1,7 +1,7 @@
 # Historia de la Tecnología de Bases de Datos
 
 Este vídeo de 5 minutos del [Computer History Museum](https://computerhistory.org/) proporciona una revisión rápida (en inglés) de la historia de las bases de datos desde 1960 a 1990.
-![History of Databases](https://youtu.be/KG-mqHoXOXY?si=9FO22pMOblmx4LX5)
+[![▶ History of Databases](https://img.youtube.com/vi/KG-mqHoXOXY/hqdefault.jpg)](https://youtu.be/KG-mqHoXOXY)
 (parcialmente generada por Gemini 2.5 Pro)
 ## 1. Era Pre-Bases de Datos (1950s - principios 1960s)
 
