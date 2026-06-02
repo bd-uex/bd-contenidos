@@ -88,7 +88,7 @@ FAMILIAR[1..N] -> EMPLEADO[0..1]
 ---
 ### Diagrama resultante en notación crow's foot
 
-![](imgs/BD%20Empresa%20versión%20inicial%20incorrecta%20Crows%20Foot.png)
+![](../../imgs/BD%20Empresa%20versión%20inicial%20incorrecta%20Crows%20Foot.png)
 
 >[!tip] Atributos de relaciones
 >Recuerda que, aunque en la notación textual sí están incluidos los atributos de relación horas en TRABAJA_EN y fechaIngresoDirector en DIRIGE, al mostrarlo de forma gráfica no aparecen y se han añadido de forma manual al diagrama
