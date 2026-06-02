@@ -124,10 +124,10 @@ ASOC_REQUISITO_DE_PUESTO[0..N] -> VALIDADOR[1..1]
 }  
 
 **En el diagrama generado por BigER lo veremos gráficamente como una entidad normal**
-![](BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Crows%20Foot.png)
+![](../imgs/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Crows%20Foot.png)
 
 **Cuando lo dibujemos a mano, pondremos un rombo dentro del rectángulo de la entidad asociativa**
-![](BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
+![](../imgs/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
 
 **El Modelo Final y su Significado:** El diagrama final representa la realidad de forma lógica y correcta:
 
@@ -146,14 +146,14 @@ Es crucial entender que este patrón funciona porque asumimos que la relación M
 
 Crea el archivo EntidadAsociativa.erd y modela el ejemplo que hemos visto antes y que se muestra en la siguiente imagen.
 
-![](BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
+![](../imgs/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
 ---
 ## Resolución del Enunciado ER 11 Colegio de Enseñanza de Primaria
 
-Los ejercicios a continuación están orientados a resolver el Enunciado ER 11 Colegio de Enseñanza de Primaria disponible [aquí](https://github.com/bd-uex/bd-contenidos/blob/main/Enunciados%20ER/Enunciado%20ER%2011%20Colegio%20de%20Ense%C3%B1anza%20de%20Primaria.md)
+Los ejercicios a continuación están orientados a resolver el Enunciado ER 11 Colegio de Enseñanza de Primaria disponible [aquí](../ejercicios/entidad-relacion/Enunciado%20ER%2011%20Colegio%20de%20Ense%C3%B1anza%20de%20Primaria.md)
 
 Crea el archivo EnunciadoER11ColegioEnseñanzaPrimaria.erd que será donde vamos a ir modelando el Enunciado 11 Colegio de Enseñanza de Primaria.
 
@@ -275,7 +275,7 @@ Escribe el texto BigER necesario para modelar lo indicado en ese párrafo. Antes
 
 ¡Enhorabuena! Has modelado correctamente el diagrama Entidad Relación para el enunciado Enunciado 11 Colegio de Enseñanza de Primaria.
 
-![](https://github.com/bd-uex/bd-contenidos/raw/main/resources/BD%20-%20ERD%20resuelto%20por%20Bender.png)
+![](../imgs/BD%20-%20ERD%20resuelto%20por%20Bender.png)
 
 Imagen generada por IA (Gemini Pro 2.5)
 

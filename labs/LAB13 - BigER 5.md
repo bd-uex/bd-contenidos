@@ -11,7 +11,7 @@
 ---
 ## Resolución del Enunciado ER 13 Todas Tus Series.
 
-Los ejercicios a continuación están orientados a resolver el Enunciado 13 Todas Tus Series disponible [aquí](https://github.com/bd-uex/bd-contenidos/blob/main/Enunciados%20ER/Enunciado%20ER%2013%20Todas%20Tus%20Series.md)
+Los ejercicios a continuación están orientados a resolver el Enunciado 13 Todas Tus Series disponible [aquí](../ejercicios/entidad-relacion/Enunciado%20ER%2013%20Todas%20Tus%20Series.md)
 
 Crea el archivo EnunciadoER13TodasTusSeries.erd que será donde vamos a ir modelando el Enunciado 13 Todas Tus Series.
 
@@ -96,7 +96,7 @@ Escribe el texto BigER necesario para modelar lo indicado en ese párrafo. Antes
 ---
 ¡Enhorabuena! Has modelado correctamente el diagrama Entidad Relación para el enunciado Enunciado 13 Todas Tus Series.
 
-![](https://github.com/bd-uex/bd-contenidos/raw/main/resources/BD%20-%20ERD%20resuelto%20por%20Bender.png)
+![](../imgs/BD%20-%20ERD%20resuelto%20por%20Bender.png)
 
 Imagen generada por IA (Gemini Pro 2.5)
 
