@@ -455,7 +455,7 @@ Generalmente, el producto cartesiano **no es una operación significativa**, dad
 > | Juana           | Sainz              | Alfonso                  |
 
 >[!note] Aviso
->Puedes revisar el estado de la [[BD Empresa - Estado]] para entender mejor el ejemplo.
+>Puedes revisar el estado de la [BD Empresa - Estado](anexos/BD%20Empresa%20-%20Estado.md) para entender mejor el ejemplo.
 
 #### Representación en SQL
 
@@ -677,7 +677,7 @@ La operación de FULL OUTER JOIN mantiene todas las tuplas en ambas relaciones e
 - Si no se encuentra ninguna tupla coincidente en $R$ o en $S$, entonces los atributos de $R$ o de $S$ en el resultado de la concatenación se rellenan con valores nulos.
 
 >[!error] BD Empresa no tiene datos suficientes
-> La BD Enpresa no tiene datos para poder mostrar un ejemplo de este tipo.
+> La BD Empresa no tiene datos para poder mostrar un ejemplo de este tipo.
 
 #### Representación en SQL
 
@@ -728,7 +728,7 @@ Para que una tupla $t$ aparezca en el resultado $T$ de la DIVISIÓN, los valores
 >PEREZ_PNOS = pi NumProy (Trabaja_En join DniEmpleado = Dni (sigma Apellido1 = 'Perez' (Empleado)))
 >DNI_PNOS division PEREZ_PNOS
 >```
->![[BD - Algebra Relacional - Division.png]]
+>![[../imgs/BD - Algebra Relacional - Division.png]]
 
 ## 5. Operaciones relacionales adicionales
 Hay algunos tipos de consulta que no se pueden expresar en el álgebra relacional básica:
