@@ -304,7 +304,7 @@ Estás consultas pueden ser **precompiladas y cacheadas por la base de datos**. 
 
 ### Desajuste de impedancias (impedance mismatch)
 
-El [[desajuste de impedancias]] se refiere a las dificultades que surgen al intentar mapear el modelo relacional de una base de datos (tablas, filas y columnas) con el modelo orientado a objetos utilizado en lenguajes de programación como Java (clases, objetos, herencia, etc.). 
+El [desajuste de impedancias](anexos/desajuste%20de%20impedancias.md) se refiere a las dificultades que surgen al intentar mapear el modelo relacional de una base de datos (tablas, filas y columnas) con el modelo orientado a objetos utilizado en lenguajes de programación como Java (clases, objetos, herencia, etc.). 
 Este desajuste ocurre porque las bases de datos relacionales y la programación orientada a objetos manejan y representan los datos de manera fundamentalmente diferente.
 
 Ejemplo de representación de datos en SQL:
@@ -371,7 +371,7 @@ while (rs.next()) {
 #### Manejo de Relaciones Complejas
 - Relaciones Uno a Muchos y Muchos a Muchos. Los desarrolladores deben escribir consultas SQL adicionales y gestionar las estructuras de datos manualmente para manejar estas relaciones. Por ejemplo: Si un objeto `Student` tiene una lista de objetos `Grade`, necesitarás escribir consultas separadas para obtener, por un lado, el estudiante y, por otro lado, las calificaciones y luego asociarlas manualmente con el estudiante.
 
-![[BD - programacion relaciones.png]]
+![](../imgs/BD%20-%20programacion%20relaciones.png)
 
 #### Falta de Soporte de Herencia
 - Las bases de Datos Relacionales no (suelen) soportar la herencia de forma nativa. Mientras que los lenguajes de programación orientados a objetos, como Java, admiten la herencia entre datos.
@@ -548,7 +548,7 @@ El patrón de organización en capas es una arquitectura de software que estruct
 
 La figura siguiente es un ejemplo de del modelo de tres capas (instancia del patrón capas).
 
-![[BD - 3layermodel.png]]
+![](../imgs/BD%20-%203layermodel.png)
 
 Este diseño promueve la **separación de intereses** (_Separation of Concerns_), permitiendo que los cambios internos en un nivel (por ejemplo, cambiar el motor de base de datos en la capa inferior) no afecten a los niveles superiores, lo que mejora drásticamente la modularidad, la facilidad de pruebas y el mantenimiento del sistema a largo plazo.
 
@@ -562,11 +562,11 @@ No confundir con biblioteca/librería de clases (class library, aka API) que es 
 
 Para entender el concepto de framework de desarrollo software, puedes pensar en el problema de construir una casa a partir de los componentes de construcción más simples, como ladrillos, tuberías, cables, etc. Este problema es muy complejo y requiere de gran experiencia y el seguimiento de soluciones probadas por parte de los desarrolladores. Tal y como, sucede en el desarrollo software cuando tratamos de construir sistemas software complejos sobre plataformas tecnológicas complejas usando simplemente los elementos que nos proporciona un lenguaje de programación y sus librerías de código.
 
-![[BD - framework.png]]
+![](../imgs/BD%20-%20framework.png)
 
 El uso de frameworks de desarrollo software se asemeja más al uso de módulos prefabricados para la construcción de casas, como se ilustra en la figura. Estos módulos ya están  probados y están específicamente diseñados para integrarse unos con otros en la construcción de casas más complejas. Los módulos prefabricados necesitan adaptarse y configurarse para su uso correcto en un proyecto: no están completos. Como resultado del uso de estos módulos prefabricados, la construcción de una casa es un problema mucho más sencillo y eficiente de resolver porque reutilizamos todo el conocimiento y experiencia implícito en el diseño de esos módulos. Si bien, el uso de estos módulos prefabricados no permite la construcción de cualquier casa, sino solo de aquellas que puedan montarse a partir de la composición de los mismos. Del mismo modo, al usar un framework de desarrollo software, estamos perdiendo algo de libertad en el desarrollo de la solución final.
 
-![[BD - framework2.jpg]]
+![](../imgs/BD%20-%20framework2.jpg)
 
 #### Frameworks ORM (Object-Relational Mapping)
 
