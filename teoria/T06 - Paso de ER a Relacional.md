@@ -59,7 +59,7 @@ Para ver la aplicabilidad del algoritmo, usaremos el diagrama de la base de dato
     
 - A esta relación se podrán añadir más atributos para representar asociaciones 1:N o 1:1 en las que intervenga.
 
-![600](imgs/BD%20-%20MapeoER01_EntidadRegular.png)
+![600](../imgs/BD%20-%20MapeoER01_EntidadRegular.png)
 
 ---
 #### Aplicación al ejemplo `EMPRESA`
@@ -85,7 +85,7 @@ Para ver la aplicabilidad del algoritmo, usaremos el diagrama de la base de dato
 	- La **clave parcial** de `D` de la entidad débil.
         
 
-![600](imgs/BD%20-%20MapeoER02_EntidadDebil.png)
+![600](../imgs/BD%20-%20MapeoER02_EntidadDebil.png)
 
 ---
 #### Aplicación al ejemplo `EMPRESA`:
@@ -126,10 +126,10 @@ Este es el caso más común para una relación 1:1.
 	- E2(<u>id_E2</u>, resto_atributos_E2, id_E1, atributos_RE1E2)
 		- id_E1 `NOT NULL`,`UNIQUE`->  E1(id_E1) [B:R,M:C]
 
-![600](imgs/BD%20-%20MapeoER03_01a11.png)
+![600](../imgs/BD%20-%20MapeoER03_01a11.png)
 
 - **Ejemplo**:
-	- ![200](imgs/BD%20-%20BigER%20Relación%2001%2011%20Crows%20Foot.png)
+	- ![200](../imgs/BD%20-%20BigER%20Relación%2001%2011%20Crows%20Foot.png)
 	- Una `PROVINCIA` debe tener de capital _un_ `MUNICIPIO` (`[1..1]`).
 	- Un `MUNICIPIO` puede ser capital o no de _una_ `PROVINCIA` (`[0..1]`).
 	- MUNICIPIO(<u>id_municipio</u>, resto_atributos_municipio)
@@ -160,10 +160,10 @@ Este es el caso más común para una relación 1:1.
 		- id_E1 ->  E1(id_E1) [B:C,M:C]
 		- id_E2 `NOT NULL`,`UNIQUE`->  E2(id_E2) [B:C,M:C]
 
-![600](imgs/BD%20-%20MapeoER04_01a01.png)
+![600](../imgs/BD%20-%20MapeoER04_01a01.png)
 
 - **Ejemplo**:
-	- ![200](imgs/BD%20-%20BigER%20Relación%2001%2001%20Crows%20Foot.png)
+	- ![200](../imgs/BD%20-%20BigER%20Relación%2001%2001%20Crows%20Foot.png)
 	- Un `TRABAJADOR` puede tener asignada(o no) _una_ `PLAZA_APARCAMIENTO` (`[0..1]`).
 	- Una `PLAZA_APARCAMIENTO` puede estar asignada (o no) a _un_ `TRABAJADOR` (`[0..1]`).
 	- TRABAJADOR(<u>id_trabajador</u>, resto_atributos_trabajador)
@@ -182,9 +182,9 @@ No se da muy a menudo. Implica que las dos entidades deben existir siempre junta
 - **Regla**: Tienes dos opciones válidas:
     
     1. Opción habitual: ==**Enfoque de Clave Externa**==. Similar al Caso A con la diferencia de que se puede elegir entre que la PK de `E1` migre como FK a `E2` o viceversa, que la PK de `E2` migre como FK a `E1` , da igual. Al igual que en caso A la FK debe ser `NOT NULL` y `UNIQUE` para mantener la cardinalidad máxima en 1 y la relación que reciba la FK también recibe los atributos de la relación `RE1E2`. 
-    ![600](imgs/BD%20-%20MapeoER05_11a11.png)
+    ![600](../imgs/BD%20-%20MapeoER05_11a11.png)
 		- Por ejemplo:
-		- ![200](imgs/BD%20-%20BigER%20Relación%2011%2011%20Crows%20Foot.png)
+		- ![200](../imgs/BD%20-%20BigER%20Relación%2011%2011%20Crows%20Foot.png)
 			- Un `AUTOMOVIL` debe tener _un_ `SEGURO` (`[1..1]`).
 			- Un `SEGURO` solo pertenece a _un_ `AUTOMOVIL` (`[1..1]`).
 			- SEGURO(<u>id_seguro</u>, resto_atributos_seguro)
@@ -195,9 +195,9 @@ No se da muy a menudo. Implica que las dos entidades deben existir siempre junta
 		- En resumen:
 			- RE1E2(<u>id_E1</u>, ==id_E2==, resto_atributos_E1, resto_atributos_E2, atributos_RE1E2)
 				- id_E2 `NOT NULL`,`UNIQUE`
-		![600](imgs/BD%20-%20MapeoER05_11a11%20excepcional.png)
+		![600](../imgs/BD%20-%20MapeoER05_11a11%20excepcional.png)
 		- Por ejemplo:
-		- ![200](imgs/BD%20-%20BigER%20Relación%2011%2011%20Crows%20Foot.png)
+		- ![200](../imgs/BD%20-%20BigER%20Relación%2011%2011%20Crows%20Foot.png)
 			- Un `AUTOMOVIL` debe tener _un_ `SEGURO` (`[1..1]`).
 			- Un `SEGURO` solo pertenece a _un_ `AUTOMOVIL` (`[1..1]`).
 			- AUTOMOVIL_CON_SEGURO(<u>id_automovil</u>, ==id_seguro==, resto_atributos_automovil, resto_atributos_seguro}
@@ -240,10 +240,10 @@ Suponiendo que:
 			- E2(<u>id_E2</u>, resto_atributos_E2, id_E1, atributos_RE1E2)
 				- id_E1 `NOT NULL`->  E1(id_E1) [B:R,M:C]
 
-		![600](imgs/BD%20-%20MapeoER06_11a0NyER07_11a1N.png)
+		![600](../imgs/BD%20-%20MapeoER06_11a0NyER07_11a1N.png)
 		
 		- **Ejemplo**:
-			- ![200](imgs/BD%20-%20BigER%20Relación%2011%201N%20Crows%20Foot.png)
+			- ![200](../imgs/BD%20-%20BigER%20Relación%2011%201N%20Crows%20Foot.png)
 			- Una `PROVINCIA` puede tener _muchos_ `MUNICIPIO` (`[1..N]`).
 			- Un `MUNICIPIO` debe pertenecer a _una_ `PROVINCIA` (`[1..1]`).
 			- PROVINCIA(<u>id_provincia</u>,resto_atributos_provincia)
@@ -256,10 +256,10 @@ Suponiendo que:
 			- E1(<u>id_E1</u>, resto_atributos_E1)
 			- E2(<u>id_E2</u>, resto_atributos_E2, id_E1, atributos_RE1E2)
 				- id_E1 ->  E1(id_E1) [B:N,M:C]
-		![](imgs/BD%20-%20MapeoER08_01a0NyER09_01a1N_NORMAL.png)
+		![](../imgs/BD%20-%20MapeoER08_01a0NyER09_01a1N_NORMAL.png)
 		
 		- **Ejemplo**:
-			- ![200](imgs/BD%20-%20BigER%20Relación%2001%200N%20Crows%20Foot.png)
+			- ![200](../imgs/BD%20-%20BigER%20Relación%2001%200N%20Crows%20Foot.png)
 			- Un `SOCIO` puede tener (o no) _muchos_ `EJEMPLAR` en préstamo (`[0..N]`). 
 			- Un `EJEMPLAR` puede estar (o no) prestado a _un_ `SOCIO` (`[0..1]`). 
 			- Se esperan mayoría de ejemplares prestados
@@ -290,9 +290,9 @@ Suponiendo que:
 	- RE1E2(id_E1, <u>id_E2</u>, atributos_RE1E2)
 		- id_E1 `NOT NULL`-> E1(id_E1) [B:C,M:C]
 		- id_E2 -> E2(id_E2) [B:C,M:C]
-	![600](imgs/BD%20-%20MapeoER08_01a0NyER09_01a1N_EXCEPCIONAL.png)
+	![600](../imgs/BD%20-%20MapeoER08_01a0NyER09_01a1N_EXCEPCIONAL.png)
 	- **Ejemplo**:
-		- ![200](imgs/BD%20-%20BigER%20Relación%2001%200N%20Crows%20Foot.png)
+		- ![200](../imgs/BD%20-%20BigER%20Relación%2001%200N%20Crows%20Foot.png)
 		- Un `SOCIO` puede tener (o no) _muchos_ `EJEMPLAR` en préstamo (`[0..N]`). 
 		- Un `EJEMPLAR` puede estar (o no) prestado a _un_ `SOCIO` (`[0..1]`).
 		- Se esperan muchos ejemplares sin prestar
@@ -336,10 +336,10 @@ Suponiendo que:
 	- RE1E2(<u>id_E1</u>, <u>id_E2</u>, atributos_RE1E2)
 		- id_E1 -> E1(id_E1) [B:C,M:C]
 		- id_E2 -> E2(id_E2) [B:C,M:C]
-	![600](imgs/BD%20-%20MapeoER10_XMaXN.png)
+	![600](../imgs/BD%20-%20MapeoER10_XMaXN.png)
 
 	- **Ejemplo**:
-		- ![200](imgs/BD%20-%20BigER%20Relación%200N%200N%20Crows%20Foot.png)
+		- ![200](../imgs/BD%20-%20BigER%20Relación%200N%200N%20Crows%20Foot.png)
 		- Un `TURISTA` puede visitar (o no) _muchos_ `MONUMENTO` (`[0..N]`). 
 		- Un `MONUMENTO` puede ser visitado (o no) por _muchos_ `TURISTA` (`[0..N]`).
 		- TURISTA(id_turista, resto_atributos_turista)
@@ -365,7 +365,7 @@ Una entidad asociativa se mapea **inicialmente de forma idéntica a la relación
 
 Usaremos el ejemplo de la sección 5.5 del Tema 5 donde teníamos `PUESTO_DE_TRABAJO` ↔ `ASOC_REQUISITO_DE_PUESTO` ↔ `COMPETENCIA`, donde la entidad asociativa `ASOC_REQUISITO_DE_PUESTO` se relaciona a su vez con `VALIDADOR`.
 
-![](imgs/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
+![](../imgs/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
 
 **Regla:** El mapeo se hace en dos etapas:
 
@@ -436,26 +436,26 @@ Este escenario es muy similar al mapeo de relaciones M:N y ==**se aplica el Enfo
 	- Cardinalidad máxima N en todos los lados:
 		- Será necesario usar todas las Claves Externas como Clave Primaria:
 			- (id_E1, id_E2, id_E3).
-	- ![600](imgs/BD%20-%20MapeoER11_XMaXN_XP.png)
+	- ![600](../imgs/BD%20-%20MapeoER11_XMaXN_XP.png)
 		
 	- Cardinalidad máxima 1 en un lado y N en el resto:
 		- Bastará con usar las claves de los lados con cardinalidad máxima N como clave compuesta. Así, suponiendo que la cardinalidad máxima 1 se da en el lado de la entidad E3:
 			- (id_E1, id_E2).
-	- ![600](imgs/BD%20-%20MapeoER12_XMaXN_X1.png)
+	- ![600](../imgs/BD%20-%20MapeoER12_XMaXN_X1.png)
 	- Cardinalidad máxima 1 en dos lados y N en el otro:
 		- En este caso hay más de una posibilidad, ya que serán validas las Claves Primarias formadas por la clave del lado con cardinalidad máxima N y cualquiera de las otras claves. Así, suponiendo que la cardinalidad máxima N se da en el lado de la entidad E1:
 			- (id_E1, id_E2).
 			- (id_E1, id_E3).
-	- ![](imgs/BD%20-%20MapeoER13_XNaX1_X1.png)
+	- ![](../imgs/BD%20-%20MapeoER13_XNaX1_X1.png)
 	- Cardinalidad máxima 1 en todos los lados:
 		- En este caso hay más de una posibilidad, ya que serán validas las Claves Primarias formadas por cualquier combinación de 2 de las 3 claves disponibles:
 			- (id_E1, id_E2).
 			- (id_E1, id_E3).
 			- (id_E2, id_E3).
-	- ![600](imgs/BD%20-%20MapeoER14_X1aX1_X1.png)
+	- ![600](../imgs/BD%20-%20MapeoER14_X1aX1_X1.png)
 
 - **Ejemplo SUMINISTRA**:
-	![600](imgs/BD%20-%20BigER%20Ternaria%20Proveedor%20Proyecto%20Suministro%20Crows%20Foot.png)
+	![600](../imgs/BD%20-%20BigER%20Ternaria%20Proveedor%20Proyecto%20Suministro%20Crows%20Foot.png)
 	- Un `PROVEEDOR` puede suministrar _muchos_ `REPUESTO[1..N]` a _muchos_ `PROYECTO([1..N]`).
 	- A `PROYECTO` le suministran _muchos_ `PROVEEDOR([1..N]`)  _muchos_ `REPUESTO[1..N]`.
 	- Un `REPUESTO` es suministrado a _muchos_ `PROYECTO([1..N]`) por _muchos_ `PROVEEDOR[1..N]`.
@@ -490,7 +490,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
     - La clave primaria `k` de la superclase es la **Clave Primaria (PK)** de **TODAS** las relaciones.
     - En cada relación de subclase, esta `k` también actúa como **Clave Foránea (FK)** que referencia a la relación de la superclase.
     
-    ![600](imgs/BD%20-%20MapeoER15_Jerarquia%208A.png)
+    ![600](../imgs/BD%20-%20MapeoER15_Jerarquia%208A.png)
 - **Ventajas**:
     - **Funciona SIEMPRE**: Es la única opción válida para _cualquier_ tipo de especialización (total, parcial, disjunta o solapada).
     - **Sin redundancia**: Los atributos comunes se almacenan una sola vez.
@@ -499,7 +499,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 - **Desventajas**:
     - Requiere `JOIN`s: Para obtener la información completa de una entidad (ej: un Ingeniero), se necesita una operación `JOIN` entre `EMPLEADO` e `INGENIERO`.
 - **Ejemplo TipoTrabajo**:
-	![400](imgs/BD%20-%20BigER%20Ejemplo%20Tipo%20Trabajo.png)
+	![400](../imgs/BD%20-%20BigER%20Ejemplo%20Tipo%20Trabajo.png)
 	
 	- EMPLEADO(<u>dni</u>, nombre, fecha_nacimiento, direccion, telefono)
 	- ADMINISTRATIVO(<u>dni</u>, categoria)
@@ -518,7 +518,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
     - Cada relación de subclase contiene:
 	    - sus atributos específicos
 	    - todos los atributos comunes heredados de la superclase.
-    ![600](imgs/BD%20-%20MapeoER15_Jerarquia%208B.png)
+    ![600](../imgs/BD%20-%20MapeoER15_Jerarquia%208B.png)
 - **Ventajas**:
     - Cero `NULL`s.
     - Consultas a una subclase específica son rápidas (no hay `JOIN`s).
@@ -530,7 +530,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 - **Cuándo usarla**: **SOLO** funciona si la especialización es **TOTAL y DISJUNTA**
 
 - **Ejemplo Vehículo**:
-	![400](imgs/BD%20-%20Big%20ER%20Jerarquia%20Vehiculo.png)
+	![400](../imgs/BD%20-%20Big%20ER%20Jerarquia%20Vehiculo.png)
 	- COCHE(<u>id_vehiculo</u>, matricula, precio, max_velocidad, num_pasajeros)
 	- CAMION(<u>id_vehiculo</u>, matricula, precio, tonelaje, numero_ejes)
       
@@ -543,7 +543,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 - **Esquema Lógico**:
     - Esta relación contiene los atributos comunes **MÁS** todos los atributos específicos de **TODAS** las subclases.
     - Se añade un atributo especial **discriminante** (o "de tipo", `t`) que indica a qué subclase pertenece cada fila (ej: `TipoTrabajo = 'Ingeniero'`) .
-	![600](imgs/BD%20-%20MapeoER15_Jerarquia%208C.png)
+	![600](../imgs/BD%20-%20MapeoER15_Jerarquia%208C.png)
 - **Ventajas**:
     - **Muy eficiente**: No se necesitan `JOIN`s ni `UNION`s.
         
@@ -553,7 +553,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 - **Cuándo usarla**: **SOLO** funciona para especializaciones **DISJUNTAS** (sean totales o parciales).
 
 - **Ejemplo TipoTrabajo**:
-	![400](imgs/BD%20-%20BigER%20Ejemplo%20Tipo%20Trabajo.png)
+	![400](../imgs/BD%20-%20BigER%20Ejemplo%20Tipo%20Trabajo.png)
 	- EMPLEADO(<u>dni</u>, nombre, fecha_nacimiento, direccion, telefono, **tipo_trabajo**, categoria, nivel, tipoIng)
 
 ---
@@ -564,7 +564,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 - **Esquema Lógico**:
     - Esta relación contiene los atributos comunes **MÁS** todos los atributos específicos de **TODAS** las subclases.
     - En lugar de _un_ atributo de tipo, se usan **múltiples atributos booleanos (flags)** (`t1`, `t2`...), uno por cada subclase, para indicar pertenencia .
-	![600](imgs/BD%20-%20MapeoER15_Jerarquia%208D.png)
+	![600](../imgs/BD%20-%20MapeoER15_Jerarquia%208D.png)
 - **Ventajas**:
     - **Muy eficiente**: No se necesitan `JOIN`s ni `UNION`s.
         
@@ -574,7 +574,7 @@ Esta es la **estrategia más limpia, flexible y recomendada en general**.
 - **Cuándo usarla**: Es la unica opción de relación única con especializaciones **SOLAPADAS** (también sirve para **DISJUNTAS**).
     
 - **Ejemplo Persona**:
-	![350](imgs/BD%20-%20BigER%20Jerarquia%20Universidad%20Sencilla.png)
+	![350](../imgs/BD%20-%20BigER%20Jerarquia%20Universidad%20Sencilla.png)
 	- PERSONA(<u>dni</u>, nombre, apellido1,apellido2, **estudiante**, **empleado**, notaSelectividad, puesto, salario)
 
  ---
@@ -612,4 +612,4 @@ La transformación del esquema E/R al esquema relacional se puede representar me
  - Atributos que admiten nulos: asterisco
 		 
 El grafo relacional de nuestro ejemplo EMPRESA quedaría así:
-![](imgs/BD%20-%20Grafo%20Relacional%20EMPRESA.png)
+![](../imgs/BD%20-%20Grafo%20Relacional%20EMPRESA.png)
