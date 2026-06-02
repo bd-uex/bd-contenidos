@@ -512,7 +512,7 @@ A veces, una característica no describe a una entidad, sino a la **interacción
 
 Con lo que sabemos hasta ahora, si tuvierámos que modelar el Diagrama Entidad Relación de la Empresa, podríamos obtener el siguiente diagrama que, aunque se acerca bastante a la versión final, no está completo ni es totalmente correcto.
 
-![BD Empresa versión inicial incorrecta - BigER](BD%20Empresa%20versión%20inicial%20incorrecta%20-%20BigER.md)
+![BD Empresa versión inicial incorrecta - BigER](anexos/BD%20Empresa%20versión%20inicial%20incorrecta%20-%20BigER.md)
 
 
 
