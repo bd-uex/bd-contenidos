@@ -94,7 +94,7 @@ Los recientes **cambios tecnológicos**, a menudo caracterizados por el término
  
 Junto a estas nuevas fuentes, se produce una **avalancha de datos no estructurados**, que incluyen texto, audio, vídeo y datos sin procesar de sensores. El **gran volumen y la velocidad** de estos datos a menudo superan las capacidades de los sistemas de bases de datos tradicionales. Esta presión ha impulsado directamente la **innovación y la adopción de una amplia gama de nuevos modelos de datos**, en particular las diversas categorías bajo el paraguas de NoSQL (Not only SQL), así como otros modelos especializados diseñados para abordar estos desafíos contemporáneos de los datos. La prominencia de estos nuevos modelos no es un desarrollo arbitrario, sino una adaptación impulsada por el mercado a este ecosistema de datos en constante evolución.
 
-Para una comprensión más profunda de los modelos de datos comentados, revisa el [[Ejemplo modelo de datos]].
+Para una comprensión más profunda de los modelos de datos comentados, revisa el  [Ejemplo modelo de datos](anexos/Ejemplo%20modelo%20de%20datos.md).
 
 ### 2.3. Niveles de los modelos de datos
 El modelado de datos generalmente se aborda en tres niveles distintos de abstracción, cada uno de los cuales cumple un propósito y una audiencia diferentes:
@@ -226,7 +226,7 @@ erDiagram
 #### Estado
 
 Un posible estado de esta base de datos podría ser el siguiente:
-![[BD Universidad - Estado]]
+![BD Universidad - Estado](anexos/BD%20Universidad%20-%20Estado.md)
 
 
 ## 4. Sistemas Gestores de Bases de Datos
@@ -369,8 +369,7 @@ Además, esto permite tener **múltiples vistas de los datos**:
 ### 4.2. Arquitectura modular de un SGBD
 
 Estos sistemas se encuentran entre los tipos de software más complejos disponibles. La siguiente imagen representa la arquitectura modular fundamental de estos sistemas:
-
-![[BD - Fundamentos - SGBD-overview.png]]
+![](../imgs/BD%20-%20Fundamentos%20-%20SGBD-overview.png)
 
 Esta imagen muestra la arquitectura modular de un Sistema de Gestión de Base de Datos (SGBD) dividida en dos niveles principales:
 
