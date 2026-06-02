@@ -42,7 +42,7 @@ El objetivo de este algoritmo no es solo traducir, sino hacerlo bien. Nuestros o
 
 ## 2 El Algoritmo de Mapeo (Pasos E/R)
 
-Para ver la aplicabilidad del algoritmo, usaremos el diagrama de la base de datos [EMPRESA](BD%20Empresa%20versión%20final%20-%20BigER.md) como ejemplo a desarrollar cuando corresponda en el paso correspondiente.
+Para ver la aplicabilidad del algoritmo, usaremos el diagrama de la base de datos [EMPRESA](anexos/BD%20Empresa%20versión%20final%20-%20BigER.md) como ejemplo a desarrollar cuando corresponda en el paso correspondiente.
 
 ---
 ### Paso 1: Mapear Tipos de Entidad Fuertes (Regulares)
