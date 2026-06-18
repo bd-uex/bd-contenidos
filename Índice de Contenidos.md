@@ -2,7 +2,7 @@
 
 - [T01 - Fundamentos](teoria/T01%20-%20Fundamentos.md)
 - [T02 - Modelo Relacional](teoria/T02%20-%20Modelo%20Relacional.md)
-- [T03 - Algebra Relacional](teoiia/T03%20-%20Algebra%20Relacional.md)
+- [T03 - Lenguajes Relacionales - Algebra Relacional y SQL](T03%20-%20Lenguajes%20Relacionales%20-%20Algebra%20Relacional%20y%20SQL.md)
 - [T04 - Normalizacion](teoria/T04%20-%20Normalizacion.md)
 - [T05 - Modelo ER](teoria/T05%20-%20Modelo%20ER.md)
 - [T06 - Paso de ER a Relacional](teoria/T06%20-%20Paso%20de%20ER%20a%20Relacional.md)

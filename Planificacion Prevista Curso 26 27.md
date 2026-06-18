@@ -2,11 +2,11 @@
 | Sem. | Fecha       | Teoría Lunes                     | Teoría Miércoles          | Teoría Jueves | Laboratorio                            | Evaluación                                              |
 | :--- | :---------- | :------------------------------- | :------------------------ | :------------ | :------------------------------------- | :------------------------------------------------------ |
 | 1    | 10/09       |                                  |                           | Presentación  |                                        |                                                         |
-| 2    | 14/09-18/09 | Temas 1 y 2                      | Tema 2                    | Tema 2        | LAB01 - tools select basico            |                                                         |
+| 2    | 14/09-18/09 | Tema 1                           | Tema 1                    | Tema 1        | LAB01 - tools select basico            |                                                         |
 | 3    | 21/09-25/09 | Tema 2                           | Tema 2                    | Tema 2        | LAB02 - select basico                  |                                                         |
-| 4    | 28/09-02/10 | Tema 3                           | Tema 3                    | Tema 3        | LAB03 - LDD                            |                                                         |
+| 4    | 28/09-02/10 | Tema 2                           | Tema 2                    | Tema 2        | LAB03 - LDD                            |                                                         |
 | 5    | 05/10-09/10 | Tema 3                           | Tema 3                    | Tema 3        | LAB04 - Fechas y Combinadas            |                                                         |
-| 6    | 12/10-16/10 | FIESTA                           | Tema 4                    | Tema 4        | LAB05 - JOIN                           |                                                         |
+| 6    | 12/10-16/10 | FIESTA                           | Tema 3                    | Tema 3        | LAB05 - JOIN                           |                                                         |
 | 7    | 19/10-23/10 | Tema 4                           | Tema 4                    | Tema 4        | LAB06 - Subconsultas                   |                                                         |
 | 8    | 26/10-30/10 | Tema 5                           | Tema 5                    | Tema 5        | LAB07 - Repaso SQL                     |                                                         |
 | 9    | 02/11-06/11 | FIESTA                           | Tema 5                    | Tema 5        | LAB08 - BigER 1                        |                                                         |
