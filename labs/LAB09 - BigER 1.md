@@ -54,12 +54,12 @@ Una **entidad** representa un objeto del mundo real o conceptual que tiene una e
 
 Ve al archivo EjemplosNotacionBigER y escribe lo siguiente:
 
-entity NombreEntidad {  
-    atributo1 key  
-    atributo2  
-    atributo3  
-    atributo4  
-    atributo5  
+entity Nombre_Entidad {  
+    atributo_1 key  
+    atributo_2  
+    atributo_3  
+    atributo_4  
+    atributo_5  
 }
 
 Deberías ver algo similar a lo que se muestra en la siguiente pantalla:
@@ -69,7 +69,7 @@ Deberías ver algo similar a lo que se muestra en la siguiente pantalla:
 Tenemos varios elementos en los que fijarnos:
 
 - palabra reservada `entity` (ojo, todas las palabras reservadas se escriben en minúsculas): especifica que vamos a definir una nueva entidad.
-- **NombreEntidad**: es el nombre de la entidad.
+- **Nombre_Entidad**: es el nombre de la entidad.
 - { : llave de inicio para indicar que pasamos a describir el contenido de la entidad.
 - Lista de atributos, uno en cada línea:
     - Aquel atributo (o conjunto de atributos) que sean clave primaria habrá que indicarlo usando la palabra reservada `key` y aparecerá subrayado en el diagrama
@@ -78,7 +78,7 @@ Tenemos varios elementos en los que fijarnos:
 ---
 ### Ejercicio 01 - Entidades y atributos (1)
 
-Modifica el contenido de la entidad NombreEntidad anterior para que pase a ser la entidad **Estudiante**, con los atributos **numExpediente** (**Clave Primaria**), **nombre**, **apellido1** y **apellido2** para que se visualice dicha entidad de esta forma:
+Modifica el contenido de la entidad Nombre_Entidad anterior para que pase a ser la entidad **Estudiante**, con los atributos **numero_expediente** (**Clave Primaria**), **nombre**, **apellido_1** y **apellido_2** para que se visualice dicha entidad de esta forma:
 ![](../imgs/BD%20-%20BigER%20Entidad%20Estudiante.png)
 
 Escribe en la notación BigER cómo modelar la entidad **Estudiante**
@@ -93,19 +93,19 @@ Una **relación** describe una interacción entre dos o más entidades. Además,
 
 La notación utilizada en BigER es la siguiente:
 
-**relationship** NombreRelacion {
+**relationship** nombre_relacion {
 
-Entidad1[`cardMin..cardMax`] `->` Entidad2[`cardMin..cardMax`]
-atributo1DeLaRelacion
-atributo2DeLaRelacion
+Entidad_1[`cardinalidad_minima..cardinalidad_maxima`] `->` Entidad_2[`cardinalidad_minima..cardinalidad_maxima`]
+atributo_1_de_la_relacion
+atributo_2_de_la_relacion
 ...
-atributoZDeLaRelacion
+atributo_n_de_la_relacion
 }
 
 - palabra reservada **relationship**
-- NombreRelacion: es el nombre que le damos a la relación.
-- Entidad1 y Entidad2: son las entidades involucradas en la relación.
-- **cardMin**..**cardMax**: indica el número de instancias que pueden participar en la relación. Puede ser:
+- nombre_relacion: es el nombre que le damos a la relación.
+- Entidad_1 y Entidad_2: son las entidades involucradas en la relación.
+- **cardinalidad_minima**..**cardinalidad_maxima**: indica el número de instancias que pueden participar en la relación. Puede ser:
     - 0..1: mínimo cero, máximo uno.
     - 1..1: una y solo una instancia.
     - 0..N: desde cero a muchas instancias.
@@ -115,17 +115,16 @@ atributoZDeLaRelacion
 Vuelve de nuevo al archivo EjemplosNotacionBigER y añade lo siguiente:
 
 `entity` Titulacion {
-codTitulacion `key`
+codigo `key`
 nombre
 }
 
-`relationship` matriculadoEn {
+`relationship` matriculado_en {
 Estudiante[`1..N`] `->` Titulacion[`1..1`]
-fechaMatriculacion
+fecha_matriculacion
 }
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
-
 ![](../imgs/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Chen.png)
 
 Como puedes observar, BigER por defecto usa una notación gráfica distinta a la notación Crow's foot que queremos en nuestros diagramas.
@@ -137,13 +136,12 @@ Hay dos maneras de conseguir que BigER nos muestre el diagrama E/R en notación 
 
 Tanto si lo haces de una forma como de otra ya deberías poder ver así el diagrama:
 
-![](../../imgs/BD%20-%20BigER%20Estudiante%20Titulacion%20Matriculado%20En.png)
+![](../imgs/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Crow%20Foot.png)
 
 Como acabamos de ver, aunque BigER admite atributos al describir una relación, no los muestra.
 
 Si pasas el ratón por encima del rombo que modela la relación, verás que aunque no lo muestre, sí lo está incluyendo como atributo en la relación tal y como se ve en la siguiente imagen:
-
-![](../imgs/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En.png)
+![](../imgs/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Mostrando%20Atributo%20Relacion.png)
 
 Para poder mostrar este, y cualquier otro atributo de relación, en el diagrama final tendremos que recurrir a otras herramientas que nos permitan incluir líneas y texto sobre la imagen del diagrama cuando tengamos nuestro diagrama terminado.
 
@@ -152,19 +150,18 @@ Cualquier editor de texto, de presentaciones o de imagen suele soportar ese tipo
 En nuestro caso, en los distintos diagramas E/R que ves en la asignatura, estamos recurriendo a PowerPoint (también es igual de sencillo en cualquier otro editor de presentaciones) dado lo fácil que es incluir sobre una imagen tanto distintas formas como texto.
 
 Así, puedes ver a continuación el diagrama tan incluir su imagen (rápidamente mediante captura de pantalla) en una diapositiva de Powerpoint, incluir el nombre del atributo como cuadro de texto y unir el rombo y el texto insertando una línea recta:
-
-![](../imgs/BD%20-%20BigER%20Atributo%20en%20Matriculado%20En%20Retocado.png)
+![](../imgs/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Mostrando%20Atributo%20Relacion%20Powerpoint.png)
 
 Antes de pasar a realizar ejercicios con relaciones, indicar que es posible modelar relaciones ternarias entre tres entidades. La única diferencia es que en este caso la sintaxis sería:
 
-`relationship` NombreRelacion {
-Entidad1[`cardMin..cardMax`] `->` 
-Entidad2[`cardMin..cardMax`] `->` 
-Entidad3[`cardMin..cardMax`]
-atributo1DeLaRelacion
-atributo2DeLaRelacion
+`relationship` nombre_relacion {
+Entidad_1[`cardinalidad_minima..cardinalidad_maxima`] `->` 
+Entidad_2[`cardinalidad_minima..cardinalidad_maxima`] `->` 
+Entidad_3[`cardinalidad_minima..cardinalidad_maxima`]
+atributo_1_de_la_relacion
+atributo_2_de_la_relacion
 ...
-atributoZDeLaRelacion
+atributo_n_de_la_relacion
 }
 
 ---
@@ -178,37 +175,37 @@ La notación utilizada en BigER es la siguiente:
 
 1.- En primer lugar, la notación para una entidad dependiente o débil es la siguiente:
 
-`weak entity` NombreEntidadDebil {
-clavePrimariaParcialEnEntidadDebil `partial-key`
-atributo1DeLaEntidadDebil
+`weak entity` Nombre_Entidad_Debil {
+clave_primaria_parcial_en_entidad_debil `partial-key`
+atributo_1_de_la_entidad_debil
 ...
-atributoNDeLaEntidadDebil
+atributo_n_de_la_entidad_debil
 }
 
 Donde:
 
 - palabra reservada `weak entity`
-- clavePrimariaParcialEnEntidadDebil es el nombre del atributo de la entidad débil que, en la mayoría de los casos, se combinará con la clave o claves primarias de la/s entidad/es fuerte/s de la/s que depende seguido de la palabra reservada `partial-key`
+- clave_primaria_parcial_en_entidad_debil  es el nombre del atributo de la entidad débil que, en la mayoría de los casos, se combinará con la clave o claves primarias de la/s entidad/es fuerte/s de la/s que depende seguido de la palabra reservada `partial-key`
 - resto de atributos de la entidad débil
 
 2.- En segundo lugar, toda entidad dependiente o débil se relaciona con, al menos, una entidad fuerte mediante una relación débil cuya notación es la siguiente:
 
-`weak relationship` NombreRelacionDebil {
-EntidadDebil[`0..N`] (o [`1..N`]) **->** EntidadFuerte[`1..1`]
+`weak relationship` nombre_relacion_debil {
+Entidad_Debil[`0..N`] (o [`1..N`]) **->** Entidad_Fuerte[`1..1`]
 }
 
 o dependiendo **si por el nombre de la relación se entiende mejor cambiando el orden:**
 
-`weak relationship` NombreRelacionDebil {
-EntidadFuerte[`1..1`] -> EntidadDebil[`0..N`] (o [`1..N`])
+`weak relationship` nombre_relacion_debil {
+Entidad_Fuerte[`1..1`] -> Entidad_Debil[`0..N`] (o [`1..N`])
 }
 
 Donde:
 
 - palabra reservada `weak relationship`
-- NombreRelacionDebil: es el nombre que le damos a la relación débil.
-- EntidadDebil: aparece siempre con cardinalidad [`0..N`] o [`1..N`] dependiendo del caso.
-- EntidadFuerte: aparece siempre con cardinalidad [`1..1`].
+- nombre_relacion_debil: es el nombre que le damos a la relación débil.
+- Entidad_Debil: aparece siempre con cardinalidad [`0..N`] o [`1..N`] dependiendo del caso.
+- Entidad_Fuerte: aparece siempre con cardinalidad [`1..1`].
 - Lista de atributos específicos de la relación, cada uno en una línea.
 
 Hay que tener en cuenta que en caso de que la entidad dependiente o débil dependa de más de una entidad tendremos que tener una relación débil con cada una de esas entidades fuertes.
@@ -216,19 +213,19 @@ Hay que tener en cuenta que en caso de que la entidad dependiente o débil depen
 Vuelve de nuevo al archivo EjemplosNotacionBigER y añade lo siguiente:
 
 `weak entity` Asignatura {
-codAsignatura `partial-key` //atributo aportado a la clave primaria por la entidad débil Asignatura
-nombreAsignatura
+codigo_asignatura `partial-key` //atributo aportado a la clave primaria por la entidad débil Asignatura
+nombre
 }
 
-`weak relationship` compuestaDe {
+`weak relationship` compuesta_de {
 Titulacion[`1..1`] -> Asignatura[`1..N`]
 }
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente imagen:
 
-![](../imgs/BD%20-%20BigER%20Debil%20Titulacion%20Asignatura%20Crows%20Foot.png)
+![](../imgs/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Asignatura%20Crow%20Foot.png)
 
-Puedes ver como tanto la entidad dependiente Asignatura como la relación débil compuestaDe aparecen con borde negro más grueso para indicar que son débiles. Cuando las dibujemos a mano normalmente usaremos doble borde en lugar de un borde grueso negro para que se distingan mejor.
+Puedes ver como tanto la entidad dependiente Asignatura como la relación débil compuesta_de aparecen con borde negro más grueso para indicar que son débiles. Cuando las dibujemos a mano normalmente usaremos doble borde en lugar de un borde grueso negro para que se distingan mejor.
 
 ---
 
@@ -240,41 +237,42 @@ A veces, las entidades en una relación pueden desempeñar distintos **roles**. 
 
 La notación utilizada en BigER es la siguiente:
 
-`relationship` NombreRelacionConRoles {
+`relationship` Nombre_Relacion_Con_Roles {
 
-Entidad1[`cardMin..cardMax` | `"rol1"`] -> Entidad2[`cardMin..cardMax` | `"rol2"`]
-AtributoDeLaRelacion1
-AtributoDeLaRelacion2
+Entidad_1[`cardinalidad_minima..cardinalidad_maxima` | `"rol_1"`] -> Entidad_2[`cardinalidad_minima..cardinalidad_maxima` | `"rol_2"`]
+atributo_1_de_la_relacion
+atributo_2_de_la_relacion
 ...
-AtributoDeLaRelacionZ
+atributo_n_de_la_relacion
 }
 
 Donde:
 
 - palabra reservada `relationship`
-- NombreRelacionConRoles: es el nombre que le damos a la relación débil.
-- Entidad1 y Entidad2: son las entidades involucradas en la relación. Normalmente serán la misma relación dado que solo se suelen usar roles en relaciones recursivas  
+- Nombre_Relacion_Con_Roles: es el nombre que le damos a la relación débil.
+- Entidad_1 y Entidad_2: son las entidades involucradas en la relación. Normalmente serán la misma relación dado que solo se suelen usar roles en relaciones recursivas  
     
 - Entidad: aparece siempre en primer lugar con cardinalidad [`0..N`] o [`1..N`] dependiendo del caso.
-- `cardMin..cardMax`: indica el número de instancias que pueden participar en la relación. Puede ser:
+- `cardinalidad_minima..cardinalidad_maxima`: indica el número de instancias que pueden participar en la relación. Puede ser:
     - 0..1: mínimo cero, máximo uno. Habitual en uno de los dos lados de la relación recursiva
     - 1..1: una y solo una instancia. No suele ser habitual en relaciones recursivas.
     - 0..N: desde cero a muchas instancias. Habitual en uno de los dos lados de la relación recursiva
     - 1..N: mínimo una instancia, máximo muchas instancias.No suele ser habitual en relaciones recursivas.
-- rol1: rol tomado por la Entidad1 en la relación
-- rol2: rol tomado por la Entidad1 en la relación
+- rol_1: rol tomado por la Entidad_1 en la relación
+- rol_2: rol tomado por la Entidad_2 en la relación
 - Lista de atributos específicos de la relación, cada uno en una línea.
 
 Vuelve de nuevo al archivo EjemplosNotacionBigER y añade lo siguiente:
 
-**relationship** esMentorDe {
+**relationship** es_mentor_de {
 Estudiante[`0..1`| `"Mentor"`] -> Estudiante[`0..N`|`"Mentorizado"`]
 }
 
-Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
+Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla
 
-![](../imgs/BD%20-%20BigER%20Relacion%20Estudiante%20con%20Roles.png)
-Puedes ver como ahora en cada extremo de la relación esMentorDe aparece el rol tomado en cada extremo de la relación por el Estudiante.
+![](../imgs/BD%20-%20BigER%20Relacion%20Estudiante%20Titulacion%20Asignatura%20Mentor%20Crow%20Foot.png)
+
+Puedes ver como ahora en cada extremo de la relación es_mentor_de aparece el rol tomado en cada extremo de la relación por el Estudiante.
 
 ---
 ## Resolución del Enunciado ER 02 The Expanse Simplificado
@@ -305,6 +303,7 @@ Con esta información ya podemos modelar las dos primeras entidades mencionadas,
 
 ![](../imgs/BD%20-%20BigER%20Enunciado%202%20ER%20The%20Expanse%20v1%20simplificado%20Lab09%20parte%201.png)
 
+
 ---
 
 ### Ejercicio 03 - Enunciado ER 02 The Expanse Simplificado  (2)
@@ -326,7 +325,7 @@ En una primera lectura podemos pensar que tenemos cuatro entidades fuertes más:
 	- Mineral: con un código único (candidato idóneo a ser Clave Primaria), nombre y descripción de sus propiedades.
 	- Cargamento: código único interno consecutivo y fecha del empaquetado. 
 		- Ten cuidado de no confundirte con esta entidad, el mineral que transporta es una relación que tendrá con mineral y la cantidad un atributo de dicha relación.
-	- NaveEspacial: con una matrícula (candidato idóneo a ser Clave Primaria), modelo y capacidad.
+	- Nave_Espacial: con una matrícula (candidato idóneo a ser Clave Primaria), modelo y capacidad.
 	- Vuelo: con fecha de inicio del vuelo, hora de inicio del vuelo, fecha de fin del vuelo y hora del fin del vuelo.
 		- Ten cuidado de no confundirte con esta entidad, los centros entre los que vuela y los cargamentos que transportan son relaciones de la entidad.
 
@@ -344,10 +343,10 @@ Escribe el texto BigER necesario para modelarlas de manera que nuestro diagrama 
 ### Ejercicio 04 - Enunciado ER 02 The Expanse Simplificado  (3)
 
 Vamos a modelar alguna de las relaciones del diagrama con las entidades que tenemos hasta ahora:
-	- En primer lugar, vamos a modelar la relación **ubicadoEn** entre Centros y Planetas. Por lo que nos dice el enunciado, podemos entender que un Centro solo puede estar en un Planeta mientras que un Planeta que guardemos en nuestra Base de Datos siempre tendrá, como mínimo un Centro en él.
-	- En segundo lugar, vamos a modelar la relación **esPrincipalEn** entre Centro y Planeta. Por lo que dice el enunciado, un Planeta tendrá siempre un Centro como principal y solo uno, mientras que un Centro no tiene por qué ser principal.
-	- En tercer lugar, la relación **encontradoPor** entre Centro y Mineral.  Por lo que nos dice el enunciado, puede que haya centros que nunca hallen un mineral y otros que hallen muchos, mientras que puede haber minerales que nunca sean hallados por ningún centro y otros que sean hallados por muchos. Además, de esta relación tenemos que guardar un atributo llamado fechaHallazgo ya que no tiene sentido que ese atributo sea del Centro o del Mineral.
-	- Por último, vamos a modelar la relación **asignadaA** entre NaveEspacial y Planeta. Por lo que nos dice el enunciado, una instancia de NaveEspacial solo puede estar asociado a un planeta mientras que una instancia de Planeta estará relacionada, como mínimo, con una instancia de NaveEspacial y, como máximo, con muchas instancias de NaveEspacial.
+	- En primer lugar, vamos a modelar la relación **ubicado_en** entre Centros y Planetas. Por lo que nos dice el enunciado, podemos entender que un Centro solo puede estar en un Planeta mientras que un Planeta que guardemos en nuestra Base de Datos siempre tendrá, como mínimo un Centro en él.
+	- En segundo lugar, vamos a modelar la relación **es_principal_en** entre Centro y Planeta. Por lo que dice el enunciado, un Planeta tendrá siempre un Centro como principal y solo uno, mientras que un Centro no tiene por qué ser principal.
+	- En tercer lugar, la relación **encontrado_por** entre Centro y Mineral.  Por lo que nos dice el enunciado, puede que haya centros que nunca hallen un mineral y otros que hallen muchos, mientras que puede haber minerales que nunca sean hallados por ningún centro y otros que sean hallados por muchos. Además, de esta relación tenemos que guardar un atributo llamado fecha_hallazgo ya que no tiene sentido que ese atributo sea del Centro o del Mineral.
+	- Por último, vamos a modelar la relación **asignada_a** entre Nave_Espacial y Planeta. Por lo que nos dice el enunciado, una instancia de Nave_Espacial solo puede estar asociado a un planeta mientras que una instancia de Planeta estará relacionada, como mínimo, con una instancia de Nave_Espacial y, como máximo, con muchas instancias de Nave_Espacial.
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
 
@@ -358,17 +357,17 @@ Vamos a tratar de modelar la entidad Vuelo que dejamos sin modelar al modelar la
 
 Ya vimos que, tal y como nos dice el enunciado no tienen un atributo que permita distinguir vuelos que despeguen y aterricen a la misma hora.. Además, ¿qué pasaría con la información de los Vuelos si desapareciera la Nave Espacial que los realiza?
 
-Todo esto nos tiene que llevar a modelar Vuelo como **Entidad débil** que va a depender de NaveEspacial. ¿Cuál será la clave parcial que aportan los vuelos para, junto con la clave de la entidad fuerte NaveEspacial, poder distinguir un vuelo de cualquier otro en la Base de Datos? Podríamos pensar que con la fecha de despegue del vuelo es suficiente pero, ¿qué pasa si una nave realiza más de un vuelo el mismo día? Con la fecha de despegue ya vemos que no es suficiente pero si además de la fecha de despegue, incluimos la hora del despegue ya sí tenemos los suficientes atributos para distinguir cualquier vuelo de otro.
+Todo esto nos tiene que llevar a modelar Vuelo como **Entidad débil** que va a depender de Nave_Espacial. ¿Cuál será la clave parcial que aportan los vuelos para, junto con la clave de la entidad fuerte Nave_Espacial, poder distinguir un vuelo de cualquier otro en la Base de Datos? Podríamos pensar que con la fecha de despegue del vuelo es suficiente pero, ¿qué pasa si una nave realiza más de un vuelo el mismo día? Con la fecha de despegue ya vemos que no es suficiente pero si además de la fecha de despegue, incluimos la hora del despegue ya sí tenemos los suficientes atributos para distinguir cualquier vuelo de otro.
 
 Con todo esto, en nuestro diagrama ER tendemos que:
 
 1.- Añadir la **Entidad débil** **Vuelo** que está formada por los atributos:
-- fechaIni: clave parcial aportada por Vuelo que tenemos que combinar como clave parcial para formar la clave primaria.
-- horaIni: clave parcial aportada por Vuelo que tenemos que combinar como clave parcial para formar la clave primaria.
-- fechaFin
-- horaFin
+- fecha_inicio: clave parcial aportada por Vuelo que tenemos que combinar como clave parcial para formar la clave primaria.
+- hora_inicio: clave parcial aportada por Vuelo que tenemos que combinar como clave parcial para formar la clave primaria.
+- fecha_fin
+- hora_fin
 
-2.- Añadir la **relación débil** **realizadoPor** entre Vuelo y NaveEspacial. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD  Naves que todavía no hayan realizado vuelos y tiene sentido que sí tengamos dado que un Planeta cada vez que reciba una Nave nueva esta todavía no habrá volado.
+2.- Añadir la **relación débil** **realizado_por** entre Vuelo y Nave_Espacial. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD  Naves que todavía no hayan realizado vuelos y tiene sentido que sí tengamos dado que un Planeta cada vez que reciba una Nave nueva esta todavía no habrá volado.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
@@ -377,8 +376,8 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 ### Ejercicio 06 - Enunciado ER 02 The Expanse Simplificado  (5)
 
 Ahora que tenemos la entidad débil Vuelo, podemos acabar de modelar el resto de sus relaciones:
-	- En primer lugar, vamos a modelar la relación **origenDe** entre Vuelo y Centro. Por lo que nos dice el enunciado, podemos entender que puede haber todavía algún Centro que no haya sido el origen de ningún Vuelo, pero un Vuelo siempre debe tener un Centro de Origen.
-	- En segundo lugar, vamos a modelar la relación **destinoDe** entre Vuelo y Centro. Por lo que nos dice el enunciado, podemos entender que puede haber todavía algún Centro que no haya sido destino de ningún Vuelo, pero un Vuelo siempre debe tener un Centro de Destino (vamos a suponer que un Vuelo no tiene ningún incidente que le haya impedido alcanzar su destino).
+	- En primer lugar, vamos a modelar la relación **origen_de** entre Vuelo y Centro. Por lo que nos dice el enunciado, podemos entender que puede haber todavía algún Centro que no haya sido el origen de ningún Vuelo, pero un Vuelo siempre debe tener un Centro de Origen.
+	- En segundo lugar, vamos a modelar la relación **destino_de** entre Vuelo y Centro. Por lo que nos dice el enunciado, podemos entender que puede haber todavía algún Centro que no haya sido destino de ningún Vuelo, pero un Vuelo siempre debe tener un Centro de Destino (vamos a suponer que un Vuelo no tiene ningún incidente que le haya impedido alcanzar su destino).
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
 
@@ -395,10 +394,10 @@ Todo esto nos tiene que llevar a modelar Cargamento como **Entidad débil** que 
 Con todo esto, en nuestro diagrama ER tendemos que:
 
 1.- Añadir la **Entidad débil** **Cargamento** que está formada por los atributos:
-- codCargam: clave parcial aportada por Cargamento para formar la clave primaria.
-- fechaCargam
+- codigo: clave parcial aportada por Cargamento para formar la clave primaria.
+- fecha
 
-2.- Añadir la **relación débil** **almacenadoEn** entre Cargamento y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya tenido un Cargamento y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
+2.- Añadir la **relación débil** **almacenado_en** entre Cargamento y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya tenido un Cargamento y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
@@ -406,8 +405,8 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 ### Ejercicio 08 - Enunciado ER 02 The Expanse Simplificado  (7)
 
 Ahora que tenemos la entidad débil Cargamento, podemos acabar de modelar el resto de sus relaciones:
-	- En primer lugar, vamos a modelar la relación **formaParteDe** entre Cargamento y Mineral. Por lo que nos dice el enunciado, puede que un mineral todavía no haya formado parte de ningún cargamento y otros que estén en muchos. Además, esta relación tiene un atributo llamado cantidad.
-	- En segundo lugar, vamos a modelar la relación **transportadoEn** entre Cargamento y Vuelo. Por lo que nos dice el enunciado, puede que haya cargamentos que todavía no hayan sido transportados pero los vuelos, al menos, transportarán un cargamento cada vez que se producen.
+	- En primer lugar, vamos a modelar la relación **forma_parte_de** entre Cargamento y Mineral. Por lo que nos dice el enunciado, puede que un mineral todavía no haya formado parte de ningún cargamento y otros que estén en muchos. Además, esta relación tiene un atributo llamado cantidad.
+	- En segundo lugar, vamos a modelar la relación **transportado_en** entre Cargamento y Vuelo. Por lo que nos dice el enunciado, puede que haya cargamentos que todavía no hayan sido transportados pero los vuelos, al menos, transportarán un cargamento cada vez que se producen.
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente cada relación.
 
@@ -429,19 +428,19 @@ Este caso se corresponde con lo visto para Entidades Débiles en el apartado 5.4
 
 Si recordamos ese apartado, esto significa convertir la interacción a lo largo del tiempo en una **entidad débil con repetición** (o histórica). Esta nueva entidad guardará cada "evento" de la relación, y su clave primaria casi siempre incluirá un atributo de tiempo (como curso o fecha).
 
-En nuestro ejemplo de un Centro extrae Mineral, vamos a convertir la relación en una entidad débil llamada **HistoricoExtraccion**. Dado que en una fecha concreta, una instancia de Centro puede relacionarse con **varias** instancias de Mineral, y, varias instancias de Mineral estar relacionadas con **varias** de Centro, esta entidad depende tanto de Centro como de Mineral. 
+En nuestro ejemplo de un Centro extrae Mineral, vamos a convertir la relación en una entidad débil llamada **Historico_Extraccion**. Dado que en una fecha concreta, una instancia de Centro puede relacionarse con **varias** instancias de Mineral, y, varias instancias de Mineral estar relacionadas con **varias** de Centro, esta entidad depende tanto de Centro como de Mineral. 
 
 ¿Cuál será la clave parcial que aporta la relación para, junto con la clave de la entidad fuerte Centro y la clave de la entidad fuerte Mineral, poder distinguir una extracción de cualquier otra en la Base de Datos? En este caso usaremos la fecha ya que con ella es suficiente.
 
 Con todo esto, en nuestro diagrama ER tendemos que:
 
-1.- Añadir la **Entidad débil** **HistoricoExtraccion** que está formada por los atributos:
+1.- Añadir la **Entidad débil** **Historico_Extraccion** que está formada por los atributos:
 - fecha: clave parcial aportada por la relación que permite distinguir la extracción de un día de Mineral por un Centro de la extracción de ese mismo mineral por ese mismo Centro cualquier otro día
 - cantidad
 
-2.- Añadir la **relación débil** **extraidoPor** entre HistoricoExtraccion y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya extraído ningún Mineral y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
+2.- Añadir la **relación débil** **extraido_por** entre Historico_Extraccion y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya extraído ningún Mineral y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
 
-3.- Añadir la **relación débil** **incluidoEn** entre HistoricoExtraccion y Mineral. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Mineral que todavía no haya estado incluido en ninguna extracción de ningún Centro y tiene sentido que sí.
+3.- Añadir la **relación débil** **incluido_en** entre Historico_Extraccion y Mineral. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Mineral que todavía no haya estado incluido en ninguna extracción de ningún Centro y tiene sentido que sí.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
