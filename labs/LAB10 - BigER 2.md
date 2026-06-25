@@ -35,11 +35,11 @@ La notación utilizada en BigER es la siguiente:
 1.- En primer lugar, la notación para una entidad subtipo de otra es la siguiente:
 
 //`total` o `parcial`, `solapada`o `disjunta`
-`entity` NombreEntidadSubtipo `extends` NombreEntidadSupertipo{
-clavePrimariaEnEntidadSupertipo `key`
-atributo1DeLaEntidadSubtipo
+`entity` Nombre_Entidad_Subtipo `extends` Nombre_Entidad_Supertipo{
+clave_primaria_en_entidad_supertipo `key`
+atributo_1_de_la_entidad_subtipo
 ...
-atributoNDeLaEntidadSubtipo
+atributo_n_de_la_entidad_subtipo
 }
 
 Donde:
@@ -48,10 +48,10 @@ Donde:
     - `total` o `parcial`: indicar qué restricción de completitud se aplica
     - `solapada` o `disjunta`: indicar qué restricción de disyunción se aplica
 - palabra reservada `entity`
-- NombreEntidadSubtipo es el nombre que le damos a la entidad subtipo.
+- Nombre_Entidad_Subtipo es el nombre que le damos a la entidad subtipo.
 - palabra reservada `extends`para indicar que la entidad que se va a describir hereda de la entidad a continuación de `extends`
-- NombreEntidadSupertipo: nombre de la entidad supertipo de la que hereda
-- clavePrimariaEnEntidadSupertipo es el nombre de la clave primaria en la entidad supertipo de la que hereda y que será también clave primaria en el subtipo y por tanto irá seguido de la palabra reservada `key`
+- Nombre_Entidad_Supertipo: nombre de la entidad supertipo de la que hereda
+- clave_primaria_en_entidad_supertipo es el nombre de la clave primaria en la entidad supertipo de la que hereda y que será también clave primaria en el subtipo y por tanto irá seguido de la palabra reservada `key`
 - resto de atributos específicos de la entidad subtipo que no tiene el supertipo
 
 Crea el archivo EjemplosEERBigER.erd:
@@ -90,7 +90,6 @@ Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo
 
 ![](../imgs/BD%20-%20BigER%20Jerarquia%20Tipo%20Empleado.png)
 
-
 3.- En tercer lugar, vamos a crear una segunda especialización de Empleado en un subtipo de acuerdo a la relación dirige con una entidad denominada Proyecto que solo tienen un subtipo del supertipo Empleado al que denominaremos Gerente.
 
 Hay que tener en cuenta que al tener solo un subtipo siempre será parcial y sin restricción de disyunción:
@@ -101,7 +100,7 @@ dni `key`
 }
 
 `entity` Proyecto{  
-cod_proyecto `key`
+codigo_proyecto `key`
 }
 
 `relationship` dirige{  
@@ -112,26 +111,27 @@ Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo
 
 ![](../imgs/BD%20-%20BigER%20Jerarquia%20Gerente.png)
 
+
 4.- En tercer lugar, vamos a crear una tercera especialización de Empleado en dos subtipos de acuerdo al tipo de jornada de cada Empleado donde cada subtipo tiene un atributo propio de su subtipo que no tiene el supertipo Empleado. Además, uno de los dos subtipos posibles también mantiene una relación que no tiene el resto de empleados:
 
 //`total`, `disjunta`  
-`entity` EmpleadoTiempoCompleto `extends` Empleado{  
+`entity` Empleado_Tiempo_Completo `extends` Empleado{  
     dni `key`  
 salario  
 }
 
 //`total`, `disjunta`
-`entity` EmpleadoTiempoParcial `extends` Empleado{  
+`entity` Empleado_Tiempo_Parcial `extends` Empleado{  
  dni `key`  
 horas_semanales
 }
 
 `entity` Sindicato{  
- cod_sindicato `key`
+ codigo_sindicato `key`
 }
 
-`relationship` afiliadoA{  
-EmpleadoTiempoParcial[`1..N`] -> Sindicato[`1..1`]
+`relationship` afiliado_a{  
+Empleado_Tiempo_Parcial[`1..N`] -> Sindicato[`1..1`]
 }
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
@@ -155,13 +155,13 @@ Crea el archivo ModeloEERUniversidad.erd que será donde vamos a ir modelando el
 
 ![](../imgs/BD%20-%20BigER%20Jerarquia%20Universidad.png)
 
-En primer lugar, escribe la descripción de la entidad PersonaUEx que va a ser la raíz de toda la jerarquía:
+En primer lugar, escribe la descripción de la entidad Persona_UEx que va a ser la raíz de toda la jerarquía:
 
-`entity` PersonaUEX {  
+`entity` Persona_UEX {  
 nif `key`  
 }
 
-A continuación vamos a hacer la primera especialización de PersonaUEx entre Empleado y Estudiante.
+A continuación vamos a hacer la primera especialización de Persona_UEx entre Empleado y Estudiante.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
@@ -198,22 +198,23 @@ Seguimos con el archivo ModeloEERUniversidad.erd donde estamos modelando el ejem
 ![](../imgs/BD%20-%20BigER%20Jerarquia%20Universidad.png)
 
 
+
 Vamos a añadir lo siguiente a lo que ya llevamos:
 
 //`parcial`
-`entity` EstudiantePolitecnica `extends` Estudiante {
+`entity` Estudiante_Politecnica `extends` Estudiante {
 nif `key`
 }
 //`total`, `disjunta`
-`entity` MayorDeEdad `extends` EstudiantePolitecnica {
+`entity` Mayor_De_Edad `extends` Estudiante_Politecnica {
 nif `key`
 }
 //`total`, `disjunta`
-`entity` MenorDeEdad `extends` EstudiantePolitecnica {
+`entity` Menor_De_Edad `extends` Estudiante_Politecnica {
 nif `key`
 }
 
-A continuación vamos a añadir la especialización de EstudiantePolitecnica en EstudianteInformatica, EstudianteCivil y EstudianteEdificacion y ten en cuenta que puede haber estudiantes de varias titulaciones a la vez y que hay más titulaciones en Politécnica.
+A continuación vamos a añadir la especialización de Estudiante_Politecnica en Estudiante_Informatica, Estudiante_Civil y Estudiante_Edificacion y ten en cuenta que puede haber estudiantes de varias titulaciones a la vez y que hay más titulaciones en Politécnica.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
@@ -246,8 +247,8 @@ En primer lugar, tenemos una nueva entidad fuerte:
  - Clase_Mineral, con un código de clase de mineral (candidato idóneo a ser Clave Primaria) y un nombre de clase de mineral.
 
 Tenemos que modelar también las relaciones contenidas en la información dada:
-	- En primer lugar, vamos a modelar la relación **agrupaA** entre Mineral y Clase_Mineral. Por lo que nos dice el enunciado, podemos entender que un Mineral solo puede pertenecer a una de las clases mientras que una Clase_MIneral que guardemos en nuestra Base de Datos siempre tendrá, como mínimo un Mineral en él.
-	- En segundo lugar, vamos a modelar la relación recursiva **relacionadoCon** de Mineral consigo misma. Por lo que dice el enunciado, un Mineral puede estar o no relacionado con minerales. Como es una relación recursiva debemos poner un rol a cada lado de la relación pero dado que ambos lados de la relación tienen la misma cardinalidad los roles son conmutativos por lo que vamos simplemente a darle a un rol el nombre Mineral_A y al otro Mineral_B.
+	- En primer lugar, vamos a modelar la relación **agrupa_a** entre Mineral y Clase_Mineral. Por lo que nos dice el enunciado, podemos entender que un Mineral solo puede pertenecer a una de las clases mientras que una Clase_Mineral que guardemos en nuestra Base de Datos siempre tendrá, como mínimo un Mineral en él.
+	- En segundo lugar, vamos a modelar la relación recursiva **relacionado_con** de Mineral consigo misma. Por lo que dice el enunciado, un Mineral puede estar o no relacionado con minerales. Como es una relación recursiva debemos poner un rol a cada lado de la relación pero dado que ambos lados de la relación tienen la misma cardinalidad los roles son conmutativos por lo que vamos simplemente a darle a un rol el nombre Mineral_A y al otro Mineral_B.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
@@ -276,7 +277,7 @@ Por tanto, debemos modificar el diagrama para:
 	- Modificar la entidad Nave_Espacial:
 		- Indicar que pasa a extender a Vehículo (dado que es la única subclase de vehículo, es fácil suponer qué comentario hay que añadir antes de declararla).
 		- Como atributos pasa a tener solo la Clave Primaria que comparte con Vehículo y el atributo capacidad que es exclusivo suyo. El atributo Modelo solo estará en Vehículo. (Naves Espaciales hereda este atributo de manera implícita al extender a Vehículo).
-		- Modificar la relación asignadaA de manera que ahora son los Vehículos los que están relacionados con los Planetas (Naves Espaciales hereda esta relación de manera implícita al extender a Vehículo).
+		- Modificar la relación asignado_a de manera que ahora son los Vehículos los que están relacionados con los Planetas (Naves Espaciales hereda esta relación de manera implícita al extender a Vehículo).
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
@@ -292,9 +293,9 @@ _Como otra gran novedad, la OPA, siempre buscando mantener el orden en sus opera
 ---
 
 En primer lugar, parece claro que vamos a tener una nueva entidad fuerte para representar al personal:
- - Personal, con un numero de personal (candidato idóneo a ser Clave Primaria), pasaporte (también candidado a ser Clave Primaria pero lo dejaremos como Clave Alternativa), nombreCompleto (como no nos dan más detalles lo dejaremos como un único atributo), su fecha de alta y su puesto. Las cardinalidades de la relación deberían ser ya fáciles de suponer.
+ - Personal, con un numero de personal (candidato idóneo a ser Clave Primaria), pasaporte (también candidado a ser Clave Primaria pero lo dejaremos como Clave Alternativa), nombre_completo (como no nos dan más detalles lo dejaremos como un único atributo), su fecha de alta y su puesto. Las cardinalidades de la relación deberían ser ya fáciles de suponer.
 
-Además, asociado a esta nueva entidad tendremos la relación **trabajaEn** para almacenar la información de qué personal trabaja en cada Centro. Por lo que nos dice el enunciado, podemos entender que el Personal solo trabaja en un Centro mientras que un Centro que guardemos en nuestra Base de Datos siempre tendrá, como mínimo un Personal  en él.
+Además, asociado a esta nueva entidad tendremos la relación **trabaja_en** para almacenar la información de qué personal trabaja en cada Centro. Por lo que nos dice el enunciado, podemos entender que el Personal solo trabaja en un Centro mientras que un Centro que guardemos en nuestra Base de Datos siempre tendrá, como mínimo un Personal  en él.
 
 Posteriormente, nos indican que todos los centros deben tener un coordinador que solo puede ser alguien con un puesto de Directivo. Es decir, nos están diciendo que hay una parte del Personal que va a tener una relación que no tiene el resto del Personal, por lo que tendremos que crear una subclase de Personal llamada Directivo que solo se distingue del resto del Personal en que tiene una relación, que llamaremos **coordina** con los Centros. Además, necesitamos almacenar en la relación la fecha de inicio de esta coordinación. Las cardinalidades de la relación deberían ser ya fáciles de suponer.
 
