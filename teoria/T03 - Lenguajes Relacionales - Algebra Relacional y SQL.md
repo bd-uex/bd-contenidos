@@ -55,11 +55,11 @@ El álgebra relacional consta de varios grupos de operaciones
 	- **UNIÓN** ( $\cup$ )
 	- **INTERSECCIÓN** ( $\cap$ )
 	- **DIFERENCIA** (o MENOS, - )
-	- **PRODUCTO CARTESIANO** ( $\times$ )
+	- **PRODUCTO CARTESIANO** (símbolo $\times$ )
 - Operaciones relacionales binarias
-	- **CONCATENACIÓN** ( $\Join$ )
+	- **CONCATENACIÓN (INNER JOIN)** ( símbolo: $\Join$ (natural join/$\theta$-join))
 	- **DIVISIÓN**
-	- **JOIN EXTERNO** ($\unicode{x27D5}$ $\unicode{x27D6}$ $\unicode{x27D7}$)
+	- **CONCATENACIÓN EXTERNA (OUTER JOIN)** (símbolos: $\unicode{x27D5}$ $\unicode{x27D6}$ $\unicode{x27D7}$ ([left/right/full] outer join))
 	- **AGRUPAMIENTO** (símbolo:  $\gamma$ (gamma))
 	- **ORDENACIÓN** (símbolo: $\tau$ (tau))
 
@@ -861,9 +861,10 @@ Estas formas de expresar restricciones son en realidad equivalentes en lo que pu
 Por otro lado, una restricción de la primera forma, $R = \emptyset$, podría haberse escrito perfectamente como $R \subset \emptyset$. Técnicamente, $\emptyset$ no es una expresión de álgebra relacional, pero dado que existen expresiones que evalúan a $\emptyset$, como $R — R$, no hay inconveniente en usar $\emptyset$ como expresión de álgebra relacional.
 
 ### 6.1. Restricciones de integridad referencial
-Un tipo común de restricción, denominada restricción de integridad referencial, establece que un valor que aparece en un contexto también aparece en otro contexto relacionado.
+Un tipo común de restricción, denominada restricción de integridad referencial, establece que **un valor que aparece en un contexto también aparece en otro contexto relacionado**.
 
-Por ejemplo, en nuestra base de datos de Empresa, si una tupla `Familiar` incluye al empleado `123456789` en el atributo `empleado`, esperaríamos que `123456789` apareciera como el dni de alguna tupla de la relación `EMPLEADO`. 
+>[!example] Ejemplo en base de datos Empresa
+>Por ejemplo, en nuestra base de datos de Empresa, si una tupla `Familiar` incluye al empleado `123456789` en el atributo `empleado`, esperaríamos que `123456789` apareciera como el dni de alguna tupla de la relación `EMPLEADO`. 
 
 En general, si tenemos cualquier valor $v$ como componente en el atributo $A$ de alguna tupla en una relación $R$, entonces, debido a nuestras intenciones de diseño, podemos esperar que $v$ aparezca en un componente particular (por ejemplo, para el atributo $B$) de alguna tupla de otra relación $S$. Podemos expresar esta restricción de integridad en álgebra relacional como:
 $$\pi_A(R) \subseteq \pi_B (S)$$
@@ -871,7 +872,7 @@ $$\pi_A(R) \subseteq \pi_B (S)$$
 $$\pi_A(R) - \pi_B (S) = \emptyset$$
 
 ### 6.2. Restricciones de clave
-La misma notación de restricción nos permite expresar mucho más que la integridad referencial. Aquí veremos cómo podemos expresar algebraicamente la restricción de que un determinado atributo o conjunto de atributos es clave para una relación.
+La misma notación de restricción nos permite expresar mucho más que la integridad referencial. Aquí veremos **cómo podemos expresar algebraicamente la restricción de que un determinado atributo o conjunto de atributos es clave para una relación**.
 
 Recordemos que en la relación 
 
@@ -890,7 +891,7 @@ $$\rho_{D1}(Departamento)$$
 y $D2$ es otro renombrado similar.
 
 ### 6.3. Otras restricciones
-Existen muchos otros tipos de restricciones que podemos expresar en álgebra relacional y que son útiles para restringir el contenido de bases de datos. Una amplia gama de restricciones implica los valores permitidos en un dominio. Por ejemplo, el hecho de que cada atributo tenga un tipo restringe los valores de dicho atributo. A menudo, la restricción es bastante sencilla, como "solo enteros" o "cadenas de caracteres de hasta 30 caracteres". En otras ocasiones, queremos que los valores que pueden aparecer en un atributo se restrinjan a un pequeño conjunto enumerado de valores. En otras ocasiones, existen limitaciones complejas sobre los valores que pueden aparecer. Presentaremos dos ejemplos: uno de una restricción de dominio simple para un atributo y el segundo de una restricción más compleja.
+Existen muchos **otros tipos de restricciones que podemos expresar en álgebra relacional y que son útiles para restringir el contenido de bases de datos**. Una amplia gama de restricciones implica los valores permitidos en un dominio. Por ejemplo, el hecho de que cada atributo tenga un tipo restringe los valores de dicho atributo. A menudo, la restricción es bastante sencilla, como "solo enteros" o "cadenas de caracteres de hasta 30 caracteres". En otras ocasiones, queremos que los valores que pueden aparecer en un atributo se restrinjan a un pequeño conjunto enumerado de valores. En otras ocasiones, existen **limitaciones complejas sobre los valores que pueden aparecer**. Presentaremos dos ejemplos: uno de una restricción de dominio simple para un atributo y el segundo de una restricción más compleja.
 
 En el primer ejemplo, supongamos que deseamos especificar que los únicos valores legales para el atributo `sexo` de $EMPLEADO$ son 'F', 'M' y 'O'. Se puede expresar esta expresión algebraicamente de la siguiente manera:
 
