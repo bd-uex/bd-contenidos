@@ -6,82 +6,83 @@ notation=crowsfoot
 
 ---
 ### Entidades
-####  Entidad EMPLEADO
+####  Entidad Empleado
 ```code
-entity EMPLEADO {
+entity Empleado {
 dni key
 nombre
-apellido1
-apellido2
-fechaNac
+apellido_1
+apellido_2
+fecha_nacimiento
 direccion
 sexo
 sueldo
 }
 ```
-#### Entidad DEPARTAMENTO
+#### Entidad Departamento
 ```code
-entity DEPARTAMENTO {
+entity Departamento {
 numero_departamento key
 nombre //UNIQUE
+ubicaciones
 }
 ```
-#### Entidad PROYECTO
+#### Entidad Proyecto
 ```code
-entity PROYECTO {
+entity Proyecto {
 numero_proyecto key
 nombre //UNIQUE
 ubicacion
 }
 ```
-#### Entidad FAMILIAR
+#### Entidad Familiar
 ```code
-entity FAMILIAR {
+entity Familiar {
 nombre key
 sexo
-fechaNac
+fecha_nacimiento
 relacion
 }
 ```
 
 ---
 ### Relaciones
-#### Relación TRABAJA_PARA
+#### Relación trabaja_para
 ```code
-relationship TRABAJA_PARA {
-EMPLEADO[1..N] -> DEPARTAMENTO[1..1]
+relationship trabaja_para {
+Empleado[1..N] -> Departamento[1..1]
 }
 ```
-#### Relación DIRIGE
+#### Relación dirige
 ```code
-relationship DIRIGE {
-EMPLEADO[0..1] -> DEPARTAMENTO[1..1]
-fechaIngresoDirector
+relationship dirige {
+Empleado[0..1] -> Departamento[1..1]
+fecha_ingreso_director
 }
 ```
-#### Relación TRABAJA_EN
+#### Relación trabaja_en
 ```code
-relationship TRABAJA_EN {
-EMPLEADO[1..N] -> PROYECTO[1..N]
+relationship trabaja_en {
+Empleado[1..N] -> Proyecto[1..N]
 horas
 }
 ```
-#### Relación CONTROLA
+#### Relación controla
 ```code
-relationship CONTROLA {
-PROYECTO[1..N] -> DEPARTAMENTO[0..1]
+relationship controla {
+Proyecto[1..N] -> Departamento[0..1]
 }
 ```
-#### Relación SUPERVISA
+#### Relación supervisa
 ```code
-relationship SUPERVISA {
-EMPLEADO[0..1 | "Supervisor" ] -> EMPLEADO[0..N | "Supervisado"]
+relationship supervisa {
+Empleado[0..1 | "Supervisor" ] -> Empleado[0..N | "Supervisado"]
 }
 ```
-#### Relación FAMILIAR_DE 
+#### Relación familiar_de 
 ```code
-relationship FAMILIAR_DE {
-FAMILIAR[1..N] -> EMPLEADO[0..1]
+relationship familiar_de {
+Familiar[1..N] -> Empleado[0..1]
 }
 ```
 
@@ -91,4 +92,4 @@ FAMILIAR[1..N] -> EMPLEADO[0..1]
 ![](../../imgs/BD%20Empresa%20versión%20inicial%20incorrecta%20Crows%20Foot.png)
 
 >[!tip] Atributos de relaciones
->Recuerda que, aunque en la notación textual sí están incluidos los atributos de relación horas en TRABAJA_EN y fechaIngresoDirector en DIRIGE, al mostrarlo de forma gráfica no aparecen y se han añadido de forma manual al diagrama
+>Recuerda que, aunque en la notación textual sí están incluidos los atributos de relación *horas* en *trabaja_en* y *fecha_ingreso_director* en *dirige*, al mostrarlo de forma gráfica no aparecen y se han añadido de forma manual al diagrama. Del mismo modo, el subrayado discontinuo en los atributos *nombre* de *Proyecto* y *nombre* de *Departamento* se ha añadido de forma manual al diagrama para indicar que son atributos de tipo UNIQUE 

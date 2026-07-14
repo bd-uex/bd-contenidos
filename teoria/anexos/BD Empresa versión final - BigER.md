@@ -6,29 +6,29 @@ notation=crowsfoot
 
 ---
 ### Entidades
-####  Entidad EMPLEADO
+####  Entidad Empleado
 ```code
-entity EMPLEADO {
+entity Empleado {
 dni key
 nombre
-apellido1
-apellido2
-fechaNac
+apellido_1
+apellido_2
+fecha_nacimiento
 direccion
 sexo
 sueldo
 }
 ```
-#### Entidad DEPARTAMENTO
+#### Entidad Departamento
 ```code
-entity DEPARTAMENTO {
+entity Departamento {
 numero_departamento key
 nombre //UNIQUE
 }
 ```
-#### Entidad PROYECTO
+#### Entidad Proyecto
 ```code
-entity PROYECTO {
+entity Proyecto {
 numero_proyecto key
 nombre //UNIQUE
 ubicacion
@@ -37,67 +37,67 @@ ubicacion
 
 ---
 ### Relaciones
-#### Relación TRABAJA_PARA
+#### Relación trabaja_para
 ```code
-relationship TRABAJA_PARA {
-EMPLEADO[1..N] -> DEPARTAMENTO[1..1]
+relationship trabaja_para {
+Empleado[1..N] -> Departamento[1..1]
 }
 ```
-#### Relación DIRIGE
+#### Relación dirige
 ```code
-relationship DIRIGE {
-EMPLEADO[0..1] -> DEPARTAMENTO[0..1]
-fechaIngresoDirector
+relationship dirige {
+Empleado[0..1] -> Departamento[0..1]
+fecha_ingreso_director
 }
 ```
-#### Relación TRABAJA_EN
+#### Relación trabaja_en
 ```code
-relationship TRABAJA_EN {
-EMPLEADO[1..N] -> PROYECTO[0..N]
+relationship trabaja_en {
+Empleado[1..N] -> Proyecto[0..N]
 horas
 }
 ```
-#### Relación CONTROLA
+#### Relación controla
 ```code
-relationship CONTROLA {
-PROYECTO[1..N] -> DEPARTAMENTO[1..1]
+relationship controla {
+Proyecto[1..N] -> Departamento[1..1]
 }
 ```
-#### Relación SUPERVISA
+#### Relación supervisa
 ```code
-relationship SUPERVISA {
-EMPLEADO[0..1 | "Supervisor" ] -> EMPLEADO[0..N | "Supervisado"]
+relationship supervisa {
+Empleado[0..1 | "Supervisor" ] -> Empleado[0..N | "Supervisado"]
 }
 ```
 
 ---
 ### Entidades y relaciones débiles
 
-#### Entidad débil FAMILIAR
+#### Entidad débil Familiar
 ```code
-weak entity FAMILIAR {
+weak entity Familiar {
 nombre partial-key
 sexo
-fechaNac
+fecha_nacimiento
 relacion
 }
 ```
-#### Relación débil FAMILIAR_DE 
+#### Relación débil familiar_de 
 ```code
-weak relationship FAMILIAR_DE {
-FAMILIAR[0..N] -> EMPLEADO[1..1]
+weak relationship familiar_de {
+Familiar[0..N] -> Empleado[1..1]
 }
 ```
-#### Entidad débil UBICACION_DPTO
+#### Entidad débil Ubicacion_Departamento
 ```code
-weak entity UBICACION {
+weak entity Ubicacion_Departamento {
 nombre partial-key
 }
 ```
-#### Relación débil UBICADO_EN
+#### Relación débil ubicado_en
 ```code
-weak relationship UBICADO_EN {
-DEPARTAMENTO[1..1] -> UBICACION_DPTO[1..N]
+weak relationship ubicado_en {
+Departamento[1..1] -> Ubicacion_Departamento[1..N]
 }
 ```
 
@@ -106,5 +106,5 @@ DEPARTAMENTO[1..1] -> UBICACION_DPTO[1..N]
 
 ![](../../imgs/BD%20Empresa%20versión%20final%20Crows%20Foot.png)
 
->[!tip] Atributos de relaciones
->Recuerda que, aunque en la notación textual sí están incluidos los atributos de relación horas en TRABAJA_EN y fechaIngresoDirector en DIRIGE, al mostrarlo de forma gráfica no aparecen y se han añadido de forma manual al diagrama
+>[!tip] Retoques posteriores del diagrama
+>Recuerda que, aunque en la notación textual sí están incluidos los atributos de relación *horas* en *trabaja_en* y *fecha_ingreso_director* en *dirige*, al mostrarlo de forma gráfica no aparecen y se han añadido de forma manual al diagrama. Del mismo modo, el subrayado discontinuo en los atributos *nombre* de *Proyecto* y *nombre* de *Departamento* se ha añadido de forma manual al diagrama para indicar que son atributos de tipo UNIQUE 
