@@ -83,7 +83,7 @@ nivel
 //`parcial`, `disjunta`  
 `entity` Ingeniero `extends` Empleado{  
 dni `key`  
-tipoIng  
+tipo_ingeniero  
 }
 
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
@@ -110,7 +110,6 @@ Gerente[`1..1`] -> Proyecto[`1..N`]
 Tras escribir ese texto, deberías poder ver en la ventana del diagrama E/R algo similar a lo que se muestra en la siguiente pantalla:
 
 ![](../imgs/BD%20-%20BigER%20Jerarquia%20Gerente.png)
-
 
 4.- En tercer lugar, vamos a crear una tercera especialización de Empleado en dos subtipos de acuerdo al tipo de jornada de cada Empleado donde cada subtipo tiene un atributo propio de su subtipo que no tiene el supertipo Empleado. Además, uno de los dos subtipos posibles también mantiene una relación que no tiene el resto de empleados:
 

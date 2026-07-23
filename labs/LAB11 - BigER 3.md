@@ -19,58 +19,43 @@
 ---
 ## Introducción a la notación textual de BigER (6) Entidades Asociativas
 
-El modelo Entidad-Relación tiene una regla fundamental e inquebrantable: **es imposible conectar usando una relación a una otra relación directamente con una entidad**. Un verbo no puede ser el sujeto de otra acción. Pero, en el modelado de datos, a veces nos encontramos que una interacción de **muchos-a-muchos (M:N) sin repetición** es tan importante que necesitamos conectarla con otras entidades.
+El modelo Entidad-Relación tiene una regla fundamental e inquebrantable: **una relación solo puede conectar entidades: es imposible que una relación conecte directamente con otra relación.** Un verbo no puede ser el sujeto de otra acción.. Un verbo no puede ser el sujeto de otra acción. Pero, en el modelado de datos, a veces nos encontramos que una interacción de **muchos-a-muchos (M:N) sin repetición** es tan importante que necesitamos conectarla con otras entidades.
 
 #### El Problema Guiado: Asignación de Competencias a Puestos de Trabajo
 
-**El Escenario Inicial:** En el departamento de Recursos Humanos, se definen los `PUESTOS_DE_TRABAJO` y un catálogo de `COMPETENCIAS` profesionales. La relación entre ellos es de muchos-a-muchos (M:N):
+**El Escenario Inicial:** En el departamento de Recursos Humanos, se definen los `Puestos_de_Trabajo` y un catálogo de `Competencias` profesionales. La relación entre ellos es de muchos-a-muchos (M:N):
 
-- Un `PUESTO_DE_TRABAJO` (ej: "Analista de Datos") requiere **varias** `COMPETENCIAS` (ej: "SQL Avanzado", "Visualización de Datos").
+- Un `Puesto_de_Trabajo` (ej: "Analista de Datos") requiere **varias** `Competencias` (ej: "SQL Avanzado", "Visualización de Datos").
     
-- Una `COMPETENCIA` (ej: "Liderazgo de Equipos") es requerida por **varios** `PUESTOS_DE_TRABAJO`.
+- Una `Competencia` (ej: "Liderazgo de Equipos") es requerida por **varios** `Puestos_de_Trabajo`.
     
 
 La regla de negocio es que una competencia se asigna una sola vez a cada puesto. Este es el modelo inicial:
 
-**El Nuevo Requisito (El Muro Conceptual):** Ahora, RRHH necesita que cada una de estas asignaciones sea certificada. Es decir, se debe registrar qué `VALIDADOR` (un directivo o experto) ha aprobado que la competencia "SQL Avanzado" es necesaria para el puesto "Analista de Datos".
+**El Nuevo Requisito (El Muro Conceptual):** Ahora, RRHH necesita que cada una de estas asignaciones sea certificada. Es decir, se debe registrar qué `Validador` (un directivo o experto) ha aprobado que la competencia "SQL Avanzado" es necesaria para el puesto "Analista de Datos".
 
-El `VALIDADOR` no certifica el puesto en general, ni la competencia en general, sino la **regla de asignación** entre ambos. Si intentamos conectar la entidad `VALIDADOR` directamente a la relación "REQUIERE", nos topamos con el muro conceptual del modelo E/R: **es imposible conectar una relación con otra relación **.
+El `Validador` no certifica el puesto en general, ni la competencia en general, sino la **regla de asignación** entre ambos. Si intentamos conectar la entidad `Validador` directamente a la relación "requiere", nos topamos con el muro conceptual del modelo E/R: **es imposible conectar una relación con otra relación**.
 
 ---
 #### La Solución: "Cosificar" la Relación en una Entidad Asociativa
 
-La solución es transformar la relación "REQUIERE" en una entidad asociativa que actúe como un conector.
+La solución es transformar la relación "requiere" en una entidad asociativa que actúe como un conector.
 
 Una entidad asociativa es, por tanto, un híbrido: nace de una relación M:N para darle cuerpo y permitir que se conecte con otras partes del modelo. Se comporta como una **tabla `join` en el mundo real**, existiendo únicamente para conectar dos conceptos y cuya identidad es la combinación de las dos cosas que conecta.
 
-**Paso 1: Convertir la Relación en una Entidad (el Puente)** Transformamos la relación en una entidad. Es decir, la relación M:N se convierte en la entidad asociativa `REQUISITO_DE_PUESTO`. Cada instancia de esta nueva entidad representa el hecho único y no repetible de que un puesto específico requiere una competencia específica.
+**Paso 1: Convertir la Relación en una Entidad (el Puente)** Transformamos la relación en una entidad. Es decir, la relación M:N se convierte en la entidad asociativa `Requisito_de_Puesto`. Cada instancia de esta nueva entidad representa el hecho único y no repetible de que un puesto específico requiere una competencia específica.
 
-**Paso 2: Analizar la Identidad del Puente (La Clave Compuesta)** Esta nueva entidad `REQUISITO_DE_PUESTO` **no aporta ningún identificador propio**. Es, por naturaleza, una entidad débil. Su única identidad es la combinación de las claves de las entidades que une. No necesita una clave parcial propia porque la relación no se repite; un puesto solo requiere una competencia una vez.
+**Paso 2: Analizar la Identidad del Puente (La Clave Compuesta)** Esta nueva entidad `Requisito_de_Puesto` **no aporta ningún identificador propio**. Es, por naturaleza, una entidad débil. Conceptualmente es una entidad dependiente (su identidad se compone de las claves de las entidades que une), pero como BigER no soporta este constructo, la representamos como entidad normal con las dos claves y el prefijo `Asoc_`. En el dibujo a mano recuperamos su naturaleza especial con el rombo dentro del rectángulo. Su única identidad es la combinación de las claves de las entidades que une. No necesita una clave parcial propia porque la relación no se repite; un puesto solo requiere una competencia una vez.
 
 - **Clave Primaria 🔑 = {id_puesto (FK), id_competencia (FK)}**
     
 
-**Paso 3: Usar el Puente para Conectar** Ahora que `REQUISITO_DE_PUESTO` es una entidad, ya podemos conectarla con `VALIDADOR` a través de una nueva relación binaria, `ES_VALIDADO_POR`.
-
-**El Modelo Final y su Significado:** El diagrama final representa la realidad de forma lógica y correcta:
-
-Este modelo nos permite leer dos hechos de negocio distintos y conectados:
-
-1. **Hecho 1**: Se define un `REQUISITO_DE_PUESTO` (un puesto de trabajo necesita una competencia).
-    
-2. **Hecho 2**: Ese `REQUISITO` específico es certificado por un `VALIDADOR`.
+**Paso 3: Usar el Puente para Conectar** Ahora que `Requisito_de_Puesto` es una entidad, ya podemos conectarla con `Validador` a través de una nueva relación binaria, `es_validado_por`.
 
 La notación utilizada en BigER es la siguiente:
 
-_// Entidad asociativa que "cosifica" la relación M:N  
-// Su clave primaria es la combinación de id_1 e id_2  
-//**No es soportada por BigER, lo que haremos es comenzar siempre el nombre de este tipo de entidades con Asoc_ y pondremos los dos atributos claves de las entidades que asocia como claves de la entidad asociativa*_  
-`entity` ==Asoc_Entidad1_Entidad2== {  
-==id_1_ key==  
-==id_2 key==  
-resto de atributos
-}
-
+// Entidad asociativa que ==cosifica== la relación M:N <br> // Su clave primaria es la combinación de `id_entidad_1` e `id_entidad_2`<br> // **No es soportada por BigER, lo que haremos es comenzar siempre el nombre de este tipo de entidades con Asoc_ y pondremos los dos atributos claves de las entidades que asocia como claves de la entidad asociativa**  
+`entity` ==Asoc_Entidad_12== { <br> ==id_entidad_1== `key` <br> ==id_entidad_2== `key` <br> } <br> 
 Donde:
 
 - palabra reservada `entity`
@@ -79,49 +64,48 @@ Donde:
 	- nombre de la Entidad1
 	- _
 	- nombre de la Entidad2
-- ==id_1_ key==  clave de la Entidad1
-- ==id_2 key== clave de la Entidad2
+- ==id_entidad_1 key==  clave de la Entidad1
+- ==id_entidad_2 key== clave de la Entidad2
 - resto de atributos específicos de la entidad asociativa
 
 Ahora ya podemos modelar correctamente el ejemplo:
 
-entity PUESTO_DE_TRABAJO {  
-id_puesto key 
-nombre_puesto  
+entity Puesto_de_Trabajo {
+id_puesto key
+nombre_puesto
 }
 
-entity COMPETENCIA {  
-id_competencia key  
-nombre_competencia  
+entity Competencia {
+id_competencia key
+nombre_competencia
 }
 
 // Entidad asociativa que "cosifica" la relación M:N
 // Su clave primaria es la combinación de id_puesto e id_competencia
-//**No es soportada por BigER, lo que haremos es comenzar siempre el nombre de este tipo de entidades con ASOC_ y pondremos los dos atributos claves de las entidades que asocia como claves de la entidad asociativa**
-entity ASOC_REQUISITO_DE_PUESTO {  
-id_puesto key  
-id_competencia key  
+//**No es soportada por BigER, lo que haremos es comenzar siempre el nombre de este tipo de entidades con Asoc_ y pondremos los dos atributos claves de las entidades que asocia como claves de la entidad asociativa**
+entity Asoc_Requisito_Puesto {
+id_puesto key
+id_competencia key
 }
 
 // Relaciones que forman la entidad asociativa
-relationship requiere {  
-PUESTO_DE_TRABAJO[1..1] -> ASOC_REQUISITO_DE_PUESTO[1..N]  
-}  
+relationship requiere {
+Puesto_de_Trabajo[1..1] -> Asoc_Requisito_Puesto[1..N]
+}
 
-relationship es_requerida_por {  
-COMPETENCIA[1..1] -> ASOC_REQUISITO_DE_PUESTO[1..N]  
-}  
+relationship es_requerida_por {
+Competencia[1..1] -> Asoc_Requisito_Puesto[0..N]
+}
 
 // La entidad asociativa ahora puede relacionarse con otras entidades
+entity Validador {
+id_validador key
+rol_empresa
+}
 
-entity VALIDADOR {  
-id_validador key  
-rol_empresa  
-}  
-
-```relationship``` validada_por {  
-ASOC_REQUISITO_DE_PUESTO[0..N] -> VALIDADOR[1..1]  
-}  
+relationship validada_por {
+Asoc_Requisito_Puesto[0..N] -> Validador[1..1]
+}
 
 **En el diagrama generado por BigER lo veremos gráficamente como una entidad normal**
 ![](../imgs/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Crows%20Foot.png)
@@ -133,20 +117,20 @@ ASOC_REQUISITO_DE_PUESTO[0..N] -> VALIDADOR[1..1]
 
 Este modelo nos permite leer dos hechos de negocio distintos y conectados:
 
-1. **Hecho 1**: Se define un `REQUISITO_DE_PUESTO` (un puesto de trabajo necesita una competencia).
+1. **Hecho 1**: Se define un `Requisito_Puesto` (un puesto de trabajo necesita una competencia).
     
-2. **Hecho 2**: Ese `REQUISITO` específico es certificado por un `VALIDADOR`.
+2. **Hecho 2**: Ese `Requisito` específico es certificado por un `Validador`.
 
 #### Nota Importante: La Ausencia de Repetición en el Tiempo
 
-Es crucial entender que este patrón funciona porque asumimos que la relación M:N **no se repite**. Un puesto requiere una competencia una sola vez. Si la relación pudiera repetirse (por ejemplo, si se revisaran las competencias de los puestos cada año y quisiéramos guardar el histórico), la entidad `REQUISITO_DE_PUESTO` necesitaría un atributo adicional en su clave (`Año`) para distinguir las repeticiones. En ese momento, estaríamos en el caso de **modelar una relación M:N con repetición de relaciones entre instancias**, donde en este caso aplicaríamos lo que hemos visto sobre entidades y relaciones débiles que hemos visto anteriormente.
+Es crucial entender que este patrón funciona porque asumimos que la relación M:N **no se repite**. Un puesto requiere una competencia una sola vez. Si la relación pudiera repetirse (por ejemplo, si se revisaran las competencias de los puestos cada año y quisiéramos guardar el histórico), la entidad `Requisito_Puesto` necesitaría un atributo adicional en su clave (`Año`) para distinguir las repeticiones. En ese momento, estaríamos en el caso de **modelar una relación M:N con repetición de relaciones entre instancias**, donde en este caso aplicaríamos lo que hemos visto sobre entidades y relaciones débiles que hemos visto anteriormente.
 
 ---
 ### Ejercicio 01 - Entidad Asociativa (1)
 
 Crea el archivo EntidadAsociativa.erd y modela el ejemplo que hemos visto antes y que se muestra en la siguiente imagen.
 
-![](../imgs/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Foot.png)
+![](../imgs/BD%20-%20BigER%20Entidad%20Asociativa%20Ejemplo%20Rombo%20Crows%20Footd.png)
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VsCode. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 

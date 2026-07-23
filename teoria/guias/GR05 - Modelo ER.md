@@ -152,12 +152,12 @@ Cuando una característica no describe a una entidad sino a la **interacción en
 
 ### 5.3 Anatomía de una entidad débil
 
-| Elemento | Qué es | En el ejemplo |
-|---|---|---|
-| **Entidad propietaria** | La entidad fuerte de la que depende | `EMPLEADO` |
-| **Relación débil (de identificación)** | Siempre con cardinalidad `1..1` en el lado fuerte y `0..N` o `1..N` en el débil | `FAMILIAR_DE` |
-| **Clave parcial (discriminante)** | Atributo que distingue a la débil **entre sus "hermanas"** (las que dependen del mismo propietario) | `nombre` |
-| **Clave primaria completa** | Clave del propietario + clave parcial | `{dni, nombre}` |
+| Elemento                               | Qué es                                                                                              | En el ejemplo   |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------- |
+| **Entidad propietaria**                | La entidad fuerte de la que depende                                                                 | `Empleado`      |
+| **Relación débil (de identificación)** | Siempre con cardinalidad `1..1` en el lado fuerte y `0..N` o `1..N` en el débil                     | `familiar_de`   |
+| **Clave parcial (discriminante)**      | Atributo que distingue a la débil **entre sus "hermanas"** (las que dependen del mismo propietario) | `nombre`        |
+| **Clave primaria completa**            | Clave del propietario + clave parcial                                                               | `{dni, nombre}` |
 
 En BigER: `weak entity`, `partial-key` y `weak relationship`.
 
@@ -169,11 +169,11 @@ En BigER: `weak entity`, `partial-key` y `weak relationship`.
 **Caso 2 — Relaciones M:N "con historia" (con repetición).**
 Un `PROFESOR` imparte una `ASIGNATURA` en varios cursos académicos: el mismo par (profesor, asignatura) se repite, así que el atributo `curso` de la relación sería multivaluado. **Solución**: "reificar" la relación en una entidad débil histórica (`DOCENCIA`, con clave parcial `curso`). La pregunta clave es: **¿de quién debe depender la nueva entidad?** La respuesta la da la cardinalidad de la relación **en un instante de tiempo**:
 
-| Caso | Regla de negocio en una fecha dada | Dependencia | Ejemplo |
-|---|---|---|---|
-| **2.1 Doble** | Una instancia de E1 con **varias** de E2, y viceversa (M:N en el instante) | De **ambas** entidades | `MATRICULA`: un estudiante cursa varias asignaturas ese año, y una asignatura tiene varios estudiantes. Clave: `{id_estudiante, cod_asignatura, curso}` |
-| **2.2 Simple a elegir** | Una de E1 con **una** de E2, y viceversa (1:1 en el instante) | De **una u otra**, según el foco del negocio | Coche de empresa: en una fecha, un empleado tiene un coche y un coche un empleado. Clave: `{id_empleado, fecha}` **o** `{matricula, fecha}` |
-| **2.3 Simple obligatoria** | Una de E1 con **una** de E2, pero E2 con **varias** de E1 (1:N en el instante) | **Obligatoriamente** del lado "N" (el que solo tiene una relación en esa fecha) | Historial de departamentos: `{id_empleado, fecha_inicio}` es único; `{id_dpto, fecha_inicio}` no (varios empleados pueden empezar el mismo día) |
+| Caso                       | Regla de negocio en una fecha dada                                             | Dependencia                                                                     | Ejemplo                                                                                                                                                                    |
+| -------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **2.1 Doble**              | Una instancia de E1 con **varias** de E2, y viceversa (M:N en el instante)     | De **ambas** entidades                                                          | `Matricula`: un estudiante cursa varias asignaturas ese año, y una asignatura tiene varios estudiantes. Clave: `{numero_expediente, codigo, curso}`                        |
+| **2.2 Simple a elegir**    | Una de E1 con **una** de E2, y viceversa (1:1 en el instante)                  | De **una u otra**, según el foco del negocio                                    | Vehículo de empresa: en una fecha, un empleado tiene un vehículo y un vehículo un empleado. Clave: `{id_empleado, fecha_asignacion}` **o** `{matricula, fecha_asignacion}` |
+| **2.3 Simple obligatoria** | Una de E1 con **una** de E2, pero E2 con **varias** de E1 (1:N en el instante) | **Obligatoriamente** del lado "N" (el que solo tiene una relación en esa fecha) | Historial de departamentos: `{id_empleado, fecha_inicio}` es único; `{id_dpto, fecha_inicio}` no (varios empleados pueden empezar el mismo día)                            |
 
 **El test de unicidad** que hay que hacer siempre: ¿qué combinación `(clave de entidad, atributo de tiempo)` identifica de forma inequívoca cada evento? La entidad débil depende de la(s) entidad(es) que hagan única esa combinación.
 

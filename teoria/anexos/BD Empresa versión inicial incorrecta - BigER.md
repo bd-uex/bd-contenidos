@@ -56,7 +56,7 @@ Empleado[1..N] -> Departamento[1..1]
 #### Relación dirige
 ```code
 relationship dirige {
-Empleado[0..1] -> Departamento[1..1]
+Empleado[0..1] -> Departamento[0..1]
 fecha_ingreso_director
 }
 ```
