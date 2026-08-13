@@ -150,6 +150,7 @@ SELECT
  D.nombre,
  AVG(E.sueldo) AS sueldoMedio
 FROM EMPLEADO E INNER JOIN DEPARTAMENTO D ON (E.dpto = D.numero)
+GROUP BY D.numero, D.nombre
 HAVING AVG(E.sueldo) > ( SELECT AVG(Sueldo)
 						 FROM EMPLEADO
 						 WHERE Dpto = 5
@@ -221,10 +222,10 @@ SELECT
  D.nombre,
  S.SueldoMedio
 FROM DEPARTAMENTO D
-INNER JOIN ( SELECT Dpto, AVG(Sueldo) AS sueldoMedio
+INNER JOIN ( SELECT dpto, AVG(Sueldo) AS sueldoMedio
 			 FROM EMPLEADO
-			 GROUP BY Dpto
-			) AS S ON D.numero = S.numero;  
+			 GROUP BY dpto
+			) AS S ON D.numero = S.dpto;  
 ```
 
 Tabla resultado:
@@ -325,7 +326,7 @@ Las **subconsultas pueden devolver**:
 ## Devuelve solo un valor: `WHERE`
 
 ```sql
-SELECT DISTINCT e.nombre, e.apellido1
+SELECT DISTINCT e.nombre, e.apellido1, e.sueldo
 FROM EMPLEADO e
 JOIN TRABAJA_EN t1 ON e.dni = t1.empleado
 WHERE t1.horas > (
@@ -340,12 +341,11 @@ WHERE t1.horas > (
 
 Tabla resultado:
 
-| nombre | apellido1 | sueldo |
-| ------ | --------- | ------ |
-| José   | Pérez     | 30000  |
-| Alicia | Jiménez   | 25000  |
-| Aurora | Oliva     | 25000  |
-| Luis   | Pajares   | 25000  |
+| nombre   | apellido1 | sueldo |
+| -------- | --------- | ------ |
+| Fernando | Ojeda     | 38000  |
+| Luis     | Pajares   | 25000  |
+
 - subconsulta en la cláusula **`WHERE`** y devuelve solo un valor
 - el valor devuelto se usa como operando en la condición del `WHERE`
 - la **subconsulta usa una columna de la consulta principal**
@@ -644,6 +644,114 @@ Tabla resultado:
 	- `< ALL` → `< MIN`
 
 ---
+
+# EXISTS vs IN
+
+---
+
+## EXISTS vs IN
+
+`IN` y `EXISTS` permiten expresar la misma idea — _"quédate con las filas relacionadas con el resultado de la subconsulta"_ — pero funcionan de forma distinta:
+
+|                         | `IN`                                                                        | `EXISTS`                                                                                        | 
+| ----------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| **Qué compara**         | Un **valor** contra el **conjunto de valores** que devuelve la subconsulta  | Comprueba si la subconsulta **devuelve alguna fila** (no importa qué columnas devuelva)         |
+| **Tipo de subconsulta** | Normalmente **no correlacionada** (se ejecuta una vez)                      | Normalmente **correlacionada** (se evalúa por cada fila de la consulta principal)               |
+| **Evaluación**          | Materializa la lista completa y luego busca el valor                        | **Se detiene en la primera coincidencia** (cortocircuito): no necesita recorrer todas las filas |
+| **Rendimiento**         | Bien con listas **pequeñas**; puede degradarse con listas muy grandes       | Suele rendir mejor con tablas **grandes** e **índices** sobre la columna de correlación         |
+| **Negación con NULL**   | ⚠️ `NOT IN` **falla silenciosamente** si la subconsulta devuelve algún NULL | ✅ `NOT EXISTS` es **inmune a los NULL**                                                        |
+
+> [!info]+ Optimizadores modernos 
+> En consultas sencillas, los optimizadores actuales (incluido SQLite) suelen generar el mismo plan de ejecución para `IN` y `EXISTS`, así que la diferencia práctica de rendimiento puede ser nula. La diferencia que **siempre** se mantiene es la del comportamiento con NULL en la negación.
+
+---
+
+## NOT IN vs NOT EXISTS: la trampa del NULL vuelve
+
+En la lección de SELECT vimos que un `NOT IN` cuya lista contiene un `NULL` **nunca devuelve filas** (`x != NULL` es `NULL` y el `AND` nunca llega a ser verdadero). Con subconsultas, la trampa es mucho más peligrosa porque el NULL viene calculado de otra tabla y **no se ve**.
+
+**Consulta**: empleados que no supervisan a nadie.
+
+```sql
+-- ✗ INCORRECTO: devuelve 0 filas
+SELECT nombre, apellido1
+FROM EMPLEADO
+WHERE dni NOT IN (SELECT supervisor FROM EMPLEADO);
+```
+
+Tabla resultado: _(no hay resultados)_
+
+¿Por qué? La subconsulta devuelve la columna `supervisor` de todos los empleados y Eduardo, que no tiene supervisor, aporta un **NULL** a la lista:
+
+| supervisor |
+| ---------- |
+| 333445555  | 
+| 888665555  |
+| 987654321  |
+|            |
+
+Ese único NULL hace que la condición `NOT IN` nunca sea verdadera y la consulta devuelva una tabla vacía **sin dar ningún error**.
+
+Hay dos soluciones. La primera es filtrar los NULL en la subconsulta:
+
+```sql
+-- ✓ CORRECTO con NOT IN: eliminando los NULL de la lista
+SELECT nombre, apellido1
+FROM EMPLEADO
+WHERE dni NOT IN (SELECT supervisor
+                  FROM EMPLEADO
+                  WHERE supervisor IS NOT NULL);
+```
+
+La segunda, más robusta, es usar `NOT EXISTS`, que comprueba la existencia de filas y **no compara valores**, por lo que los NULL no le afectan:
+
+```sql
+-- ✓ CORRECTO y recomendado: NOT EXISTS
+SELECT nombre, apellido1
+FROM EMPLEADO E
+WHERE NOT EXISTS (SELECT 1
+                  FROM EMPLEADO S
+                  WHERE S.supervisor = E.dni);  -- CORRELACIÓN
+```
+
+Tabla resultado (idéntica en ambos casos):
+
+| nombre   | apellido1 | 
+| -------- | --------- |
+| José     | Pérez     |
+| Alicia   | Jiménez   |
+| Fernando | Ojeda     |
+| Aurora   | Oliva     |
+| Luis     | Pajares   |
+
+> [!tip]+ Regla práctica
+> 
+> - Para la forma **afirmativa**, `IN` y `EXISTS` son intercambiables: elige el más legible.
+> - Para la forma **negativa**, usa `NOT EXISTS` por defecto. Si usas `NOT IN`, asegúrate **siempre** de que la subconsulta no pueda devolver NULL (columna `NOT NULL` o filtro `IS NOT NULL` explícito).
+> - Observa que este resultado coincide con el del **LEFT Anti-JOIN** de la lección de JOIN: son tres formas (anti-join, `NOT IN` saneado, `NOT EXISTS`) de expresar la misma consulta.
+
+---
+
+## Ejercicio 07 
+
+Escribe una consulta que devuelva el `dni` de los empleados que no tienen ningún familiar registrado, ordenado por `dni`. Resuélvela con una de las siguiente opciones: (a) con `NOT IN` y (b) con `NOT EXISTS`. ¿Ha hecho falta sanear los NULL en la versión (a)? ¿Por qué?
+
+Solución:
+```sql
+
+```
+
+Tabla resultado:
+
+| dni       |
+| --------- |
+| 453453453 |
+| 666884444 |
+| 888665555 |
+| 987987987 |
+| 999887777 |
+
+---
 ## Subconsultas vs JOINs
 
 Muchas consultas pueden definirse tanto con subconsultas como mediante JOINs, obteniéndose el mismo resultado. Sin embargo, es fundamental tener en cuenta el impacto en el rendimiento y evaluar si una subconsulta es la opción más eficiente o si se puede lograr el mismo resultado mediante un **`JOIN`**. En general, podemos decir:
@@ -671,7 +779,7 @@ Muchas consultas pueden definirse tanto con subconsultas como mediante JOINs, ob
 
 ---
 
-## Ejercicio 07
+## Ejercicio 08
 
 Reescribe la siguiente consulta que utiliza JOINs para que use **subconsultas** en su lugar. Ordena los resultados por apellido y nombre.
 

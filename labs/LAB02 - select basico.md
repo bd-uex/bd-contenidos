@@ -81,7 +81,7 @@ Resultado:
 - El resultado solo contiene pingüinos en el rango de peso establecido.
 - El operador `between` permite especificar un conjunto de valores en una condición de filtrado. 
 - Los rangos pueden ser de valores numéricos, cadenas de texto, fechas, tiempos, etc.
-- El operador `between`puede usar índices eficientemente. Mejor rendimiento que la misma condición expresada con `>= AND <=`.
+- El operador `between`puede usar índices eficientemente. Mayor legibiidad que la misma condición expresada con `>= AND <=`.
 
 ---
 
@@ -113,7 +113,7 @@ Resultado:
 | Gentoo    | Biscoe |        |
 
 - **IN** comprueba si un valor se encuentra en una lista de valores
-- **NOT IN** excludes values but beware of NULL handling
+- **NOT IN** excluye valores pero cuidado con los NULL
 - Mejora la legibilidad con respecto a múltiples condiciones OR.
 - Puede tener un impacto negativo en el rendimiento con listas muy largas (evitar su uso en estos casos)
 
@@ -485,6 +485,109 @@ Resultado:
 
 ---
 
+### La trampa de NOT IN con valores NULL
+
+Al principio de la lección vimos el operador `IN`. Ahora que conocemos la lógica ternaria, podemos entender un comportamiento sorprendente de su negación, `NOT IN`, cuando hay valores NULL de por medio.
+
+Código SQL:
+
+```sql
+select 2 in (1, 2, null) as dos_en_lista;
+```
+
+Salida:
+
+| dos_en_lista |
+| ------------ |
+| 1            | 
+
+Código SQL:
+
+```sql
+select 3 not in (1, 2, null) as tres_no_en_lista;
+```
+
+Salida:
+
+| tres_no_en_lista |
+| ---------------- |
+|                  | 
+
+¿Por qué la segunda consulta devuelve NULL en vez de verdadero? Porque los operadores `IN` y `NOT IN` son azúcar sintáctico sobre comparaciones y lógica booleana:
+
+- `x IN (a, b, NULL)` equivale a `x = a OR x = b OR x = NULL`
+    - Si `x` coincide con algún valor de la lista, hay un `TRUE` y el `OR` devuelve `TRUE` (por eso la primera consulta funciona)
+    - Si no coincide con ninguno, queda `FALSE OR FALSE OR NULL`, que es `NULL`
+- `x NOT IN (a, b, NULL)` equivale a `x != a AND x != b AND x != NULL`
+    - `x != NULL` siempre es `NULL` (lógica ternaria)
+    - Por tanto, el `AND` **nunca puede ser `TRUE`**: como mucho será `NULL`
+
+**Conclusión**: si la lista de un `NOT IN` contiene algún `NULL`, la condición nunca es verdadera y **la consulta no devuelve ninguna fila**. Y recuerda: las filas cuya condición se evalúa a `NULL` no pasan el filtro del `WHERE`.
+
+---
+
+### La trampa de NOT IN en acción
+
+Comprobemos el efecto sobre la tabla `penguins` (168 machos, 165 hembras y 11 con sexo desconocido):
+
+Código SQL:
+
+```sql
+select count(*) as no_machos
+from penguins
+where sex not in ('MALE');
+```
+
+Salida:
+
+| no_machos |
+| --------- |
+| 165       | 
+
+Código SQL:
+
+```sql
+select count(*) as no_machos
+from penguins
+where sex not in ('MALE', null);
+```
+
+Salida:
+
+| no_machos |
+| --------- |
+| 0         | 
+
+Observa dos cosas:
+
+1. En la primera consulta, los 11 pingüinos de sexo desconocido **tampoco cuentan** (165, no 176): su comparación `NULL != 'MALE'` es `NULL` y no pasan el filtro. Es el mismo comportamiento que ya vimos con `!=`.
+2. En la segunda, basta **un solo NULL en la lista** para que el resultado sea vacío. Aquí el NULL está escrito a mano y salta a la vista pero, cuando veamos subconsultas, la lista del `NOT IN` vendrá calculada de otra tabla y el NULL puede colarse **sin que lo veas**. Es uno de los errores más difíciles de depurar en SQL.
+
+**Cómo protegerse**:
+
+- Si quieres incluir los NULL en el resultado, sé explícito: `where sex not in ('MALE') or sex is null`
+- O elimina los NULL antes de comparar: `where coalesce(sex, 'unknown') not in ('MALE')`
+- Cuando la lista venga de una subconsulta (lo veremos más adelante), garantiza que no contenga NULL (`... where columna is not null`) o usa `NOT EXISTS`
+
+---
+
+### Ejercicio 5 - NOT IN y NULL
+
+Escribe una consulta que cuente los pingüinos que **no** son machos, contando también aquellos cuyo sexo se desconoce.
+
+Solución:
+```sql
+
+```
+
+Resultado:
+
+| no_machos |
+| --------- |
+| 176       |
+
+---
+
 ## Funciones de agregación y cláusula de agrupación
 
 - Funciones de agregación: sum, max, min, avg, count
@@ -540,7 +643,7 @@ Salida:
 
 ---
 
-### Ejercicio 5 - Funciones agregación
+### Ejercicio 6 - Funciones agregación
 
 ¿Cuál es la masa corporal promedio de los pingüinos que pesan más de 3000,0 gramos?
 
@@ -579,7 +682,7 @@ Salida:
 
 ---
 
-### Ejercicio 6 - Contar 
+### Ejercicio 7 - Contar 
 
 ¿Cuántas masas corporales (body_mass_g) diferentes hay en el conjunto de datos de pingüinos?
 
@@ -646,7 +749,7 @@ Salida:
 
 ---
 
-### Ejercicio 7 - Agrupar
+### Ejercicio 8 - Agrupar
 
 Escriba una consulta que muestre cada masa corporal (body_mass_g) distinta en el conjunto de datos de pingüinos y la cantidad de pingüinos que pesan esa cantidad.
 
@@ -815,7 +918,7 @@ Salida:
 
 ---
 
-### Ejercicio 8 - Filtrar valores agregados
+### Ejercicio 9 - Filtrar valores agregados
 
 Escriba una consulta que cuente el número de pingüinos de cada una de las siguientes categorías:
 	- light si pesa menos de 3650g

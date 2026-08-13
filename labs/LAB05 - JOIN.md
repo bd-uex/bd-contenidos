@@ -367,7 +367,7 @@ Tabla resultado:
 
 >Es posible que vea consultas con estas uniones escritas como LEFT OUTER JOIN, RIGHT OUTER JOIN o FULL OUTER JOIN, pero la palabra clave OUTER realmente se conserva para la compatibilidad con SQL-92 y estas consultas son simplemente equivalentes a LEFT JOIN, RIGHT JOIN y FULL JOIN respectivamente.
 
->[!info]+ Sintaxis en desuso
+>[!info]+ Sintaxis propia de ORACLE
 >```sql
 >SELECT S.*, E.*
 >FROM Empleado S, Empleado E
@@ -390,6 +390,8 @@ FROM Empleado S
  RIGHT JOIN Empleado E ON (S.dni=E.supervisor);
 ```
 
+>[!info]+ Requiere SQLite >= 3.39 (2022)
+
 Tabla resultado:
 
 | supervisor | nombre   | apellido1 |
@@ -406,7 +408,7 @@ Tabla resultado:
 - `RIGHT OUTER JOIN` devuelve las **combinaciones de tuplas que cumplen la condición de concatenación y el resto de las tuplas de la segunda tabla** con valores a `NULL` en atributos de la primera
 - En este caso, se devuelven todos los empleados de la tabla E tengan o no supervisor
 
->[!info]+ Sintaxis en desuso
+>[!info]+ Sintaxis propia de ORACLE
 >```sql
 >SELECT S.*, E.*
 >FROM Empleado S, Empleado E
@@ -437,6 +439,8 @@ FULL OUTER JOIN
 --DELETE FROM LOCALIZACIONES_DPTO WHERE ubicacion='Barcelona';
 ```
 
+>[!info]+ Requiere SQLite >= 3.39 (2022)
+
 Tabla resultado:
 
 | nombre_proyecto | ubicacion_proyecto | dpto | ubicacion_oficina | 
@@ -462,7 +466,7 @@ Tabla resultado:
 
 Este ejemplo se basa en la **coincidencia de datos (nombres de ciudades)** en lugar de en una relación estructural forzada por una FK, permitiendo ilustrar el verdadero propósito del `FULL OUTER JOIN`: **crear un inventario completo de dos conjuntos de datos y encontrar tanto las coincidencias como las diferencias en ambas direcciones**.
 
->[!info]+ Sintaxis en desuso
+>[!info]+ Sintaxis propia de ORACLE
 >```sql
 >SELECT P.*, L.*
 >FROM Proyecto S, Localizaciones_Dpto L

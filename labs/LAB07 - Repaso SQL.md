@@ -16,7 +16,7 @@ En esta sesión trabajaremos con la [BD Empresa completa en SQL Snippets (Empres
 
 ---
 
-## Ejercicio 01 - SELECT básico con filtrado y ordenación
+## Ejercicio 01 - Filtrado básico de empleados
 
 **Complejidad:** ⭐ (Baja)
 
@@ -40,7 +40,7 @@ Solución:
 
 ---
 
-## Ejercicio 02 - Agregaciones y GROUP BY
+## Ejercicio 02 - Costes laborales por departamento
 
 **Complejidad:** ⭐⭐ (Baja-Media)
 
@@ -64,7 +64,7 @@ Solución:
 
 ---
 
-## Ejercicio 03 - INNER JOIN con múltiples tablas
+## Ejercicio 03 - Proyectos de cada empleado
 
 **Complejidad:** ⭐⭐ (Media)
 
@@ -90,33 +90,7 @@ Solución:
 
 ---
 
-## Ejercicio 04 - Subconsulta no correlacionada en WHERE
-
-**Complejidad:** ⭐⭐ (Media)
-
-Escribe una consulta que muestre el nombre, apellido1 y sueldo de los empleados que ganan más que el sueldo promedio de todos los empleados de la empresa. Ordena por sueldo descendente.
-
-**Columnas resultado:** nombre, apellido1, sueldo
-
-**Pista:** Usa una subconsulta para calcular el sueldo promedio.
-
-Solución:
-```sql
-
-```
-
-**Tabla resultado:**
-
-| nombre   | apellido1 | sueldo | 
-| -------- | --------- | ------ |
-| Eduardo  | Ochoa     | 55000  |
-| Juana    | Sáinz     | 43000  |
-| Alberto  | Campos    | 40000  |
-| Fernando | Ojeda     | 38000  |
-
----
-
-## Ejercicio 05 - CASE WHEN con agregaciones
+## Ejercicio 04 - Clasificación salarial de empleados
 
 **Complejidad:** ⭐⭐⭐ (Media)
 
@@ -145,7 +119,7 @@ Solución:
 
 ---
 
-## Ejercicio 06 - CTE con JOINs y agregaciones
+## Ejercicio 05 - Filtrando empleados por horas de trabajo
 
 **Complejidad:** ⭐⭐⭐ (Media-Alta)
 
@@ -179,7 +153,7 @@ Solución:
 
 ---
 
-## Ejercicio 07 - Subconsulta correlacionada con EXISTS
+## Ejercicio 06 - Departamentos con empleados multiproyecto
 
 **Complejidad:** ⭐⭐⭐ (Media-Alta)
 
@@ -203,7 +177,7 @@ Solución:
 
 ---
 
-## Ejercicio 08 - LEFT JOIN con COUNT correcto y manejo de NULL
+## Ejercicio 07 - Proyectos y familiares por empleado 
 
 **Complejidad:** ⭐⭐⭐ (Media-Alta)
 
@@ -239,37 +213,38 @@ Solución:
 
 ---
 
-## Ejercicio 09 - Consultas combinadas 
+## Ejercicio 08 - Los empleados invisibles
+**Complejidad:** ⭐⭐⭐⭐ (Alta)
+ 
+Escribe una consulta que devuelva el nombre y apellido1 de los empleados que **no supervisan a nadie, no dirigen ningún departamento y no tienen familiares registrados**, ordenados por apellido1. Resuélvelo con una CTE que calcule los `dni` mediante consultas combinadas (`EXCEPT`) y un `JOIN` final para recuperar los nombres.
 
-**Complejidad:** ⭐⭐ (Baja-Media)
+**Columnas resultado:** nombre, apellido1
 
-Escribe una consulta que devuelva una lista única de todas las ubicaciones (ciudades) mencionadas en la base de datos, ya sea como:
+**Pregunta adicional:** intenta resolver la parte de "no supervisan a nadie" con `WHERE dni NOT IN (SELECT supervisor FROM EMPLEADO)`. ¿Qué obtienes? ¿Por qué `EXCEPT` no sufre el mismo problema?
 
-- Ubicación de un proyecto
-- Ubicación de una oficina de departamento (tabla LOCALIZACIONES_DPTO)
-
-Ordena alfabéticamente y elimina duplicados.
-
-**Columna resultado:** ciudad
+**Conceptos:** CTE, EXCEPT encadenado, JOIN, trampa NOT IN + NULL (LAB04, LAB05, LAB06 y parche EXISTS vs IN)
 
 Solución:
+
 ```sql
 
 ```
 
-
+  
 **Tabla resultado:**
 
-| ciudad   | 
-| -------- |
-| Gijón    |
-| Madrid   |
-| Sevilla  |
-| Valencia |
+| nombre   | apellido1 |
+| -------- | --------- |
+| Alicia   | Jiménez   |
+| Fernando | Ojeda     |
+| Aurora   | Oliva     |
+| Luis     | Pajares   |
+
+> **Respuesta a la pregunta adicional:** la versión con `NOT IN` devuelve **0 filas** sin dar error: la columna `supervisor` contiene un NULL (Eduardo no tiene supervisor) y `NOT IN` con un NULL en la lista nunca es verdadero. `EXCEPT`, en cambio, opera con semántica de conjuntos (compara "es el mismo valor", no "es igual"), así que el NULL de la segunda consulta simplemente no coincide con ningún `dni` y no contamina el resultado. Tres formas seguras de expresar "no está en": `EXCEPT`, `NOT EXISTS`, o `NOT IN` saneado con `IS NOT NULL`.
 
 ---
 
-## Ejercicio 10 - Ejercicio integrador
+## Ejercicio 09 - Informe departamentos completo
 
 **Complejidad:** ⭐⭐⭐⭐ (Alta)
 
@@ -303,11 +278,155 @@ Solución:
 
 **Tabla resultado:**
 
-| nombre_departamento | director_completo | num_empleados | num_proyectos | promedio_horas | estado_carga | 
+| nombre_departamento | director_completo | num_empleados | num_proyectos | promedio_horas | estado_carga |
 | ------------------- | ----------------- | ------------- | ------------- | -------------- | ------------ |
 | Administración      | Juana Sáinz       | 2             | 2             | 40             | Sobrecargado |
 | Investigación       | Alberto Campos    | 3             | 3             | 40             | Sobrecargado |
-| Sede Central        | Eduardo Ochoa     | 0             | 1             |                | Baja carga   |
+| Sede Central        | Eduardo Ochoa     | 0             | 1             | 0              | Baja carga   |
+
+---
+
+## Ejercicio 10 - Calendario de cumpleaños
+**Complejidad:** ⭐⭐⭐ (Media-Alta)
+
+El departamento de RRHH quiere organizar las celebraciones de cumpleaños. Escribe una consulta que devuelva, para cada mes del año en el que al menos una persona registrada en la base de datos (empleado **o** familiar) cumpla años, el número de mes como entero y cuántas personas cumplen años ese mes. Ordena por número de personas descendente y, a igualdad, por mes ascendente.
+
+**Columnas resultado:** mes, num_personas
+
+**Pistas:** Combina ambas tablas con una consulta combinada dentro del `FROM` y extrae el mes con `strftime` + `CAST`. Piensa bien qué operador de combinación necesitas: ¿qué pasaría con el recuento si usaras `UNION` en lugar de `UNION ALL`?
+
+**Conceptos:** UNION ALL, subconsulta en FROM, strftime, CAST, GROUP BY, ORDER BY múltiple (LAB02, LAB04, LAB06)
+ 
+
+Solución:
+
+```sql
+
+```
+  
+**Tabla resultado:**
+
+| mes | num_personas |
+| --- | ------------ |
+| 5   | 3            |
+| 9   | 2            |
+| 12  | 2            |
+| 1   | 1            |
+| 2   | 1            |
+| 3   | 1            |
+| 4   | 1            |
+| 6   | 1            |
+| 7   | 1            |
+| 10  | 1            |
+| 11  | 1            | 
+
+---
+
+## Ejercicio 11 - Informe de plantilla por sexo
+**Complejidad:** ⭐⭐⭐⭐ (Alta)
+
+Escribe una consulta que muestre, para cada departamento: su nombre, el número de hombres, el número de mujeres, el porcentaje de mujeres (redondeado a 1 decimal) y el sueldo medio de las mujeres y de los hombres del departamento. Si un departamento no tiene empleados de un sexo, su sueldo medio debe mostrarse como 0. Ordena por porcentaje de mujeres descendente.
+
+**Columnas resultado:** departamento, hombres, mujeres, pct_mujeres, sueldo_medio_f, sueldo_medio_m
+
+**Pistas:** Necesitas agregaciones condicionales: `filter (where ...)` (o su equivalente con `case` dentro de la agregación). Cuidado con la división entera al calcular el porcentaje y con los NULL que devuelve `avg` cuando el grupo filtrado está vacío.
+
+**Conceptos:** JOIN, FILTER/CASE en agregaciones, COALESCE, ROUND, división entera (LAB02, LAB05)
+
+Solución:
+
+```sql
+
+```
+
+**Tabla resultado:**
+
+| departamento   | hombres | mujeres | pct_mujeres | sueldo_medio_f | sueldo_medio_m |
+| -------------- | ------- | ------- | ----------- | -------------- | -------------- |
+| Administración | 1       | 2       | 66.7        | 34000          | 25000          | 
+| Investigación  | 3       | 1       | 25.0        | 25000          | 36000          |
+| Sede Central   | 1       | 0       | 0.0         | 0              | 55000          |
+
+---
+
+## Ejercicio 12 - Parejas salariales (SELF JOIN)
+**Complejidad:** ⭐⭐⭐ (Media-Alta)
+
+Escribe una consulta que devuelva las parejas de empleados **distintos** que trabajan en el mismo departamento y cobran exactamente el mismo sueldo. Cada pareja debe aparecer **una sola vez** (si sale A–B, no debe salir B–A) y un empleado no puede emparejarse consigo mismo.
+
+**Columnas resultado:** empleado1, empleado2 (nombre y apellido1 separados por espacio), dpto, sueldo
+
+**Pista:** Necesitas concatenar la tabla EMPLEADO consigo misma con alias distintos. Para eliminar los pares duplicados y el emparejamiento consigo mismo, piensa qué operador de comparación entre los dos `dni` resuelve ambas cosas a la vez.
+
+**Conceptos:** SELF JOIN, alias, condición de deduplicación, concatenación de texto (LAB01, LAB05)
+
+Solución:
+
+```sql
+
+```
+
+**Tabla resultado:**
+
+| empleado1    | empleado2      | dpto | sueldo |
+| ------------ | -------------- | ---- | ------ |
+| Luis Pajares | Alicia Jiménez | 4    | 25000  |
+
+---
+
+## Ejercicio 13 - Proyectos sin participación femenina
+**Complejidad:** ⭐⭐⭐ (Media-Alta)
+ 
+Escribe una consulta que devuelva el nombre de los proyectos en los que **no** trabaja ninguna mujer, ordenados alfabéticamente. Usa `NOT EXISTS` con una subconsulta correlacionada.
+
+**Columna resultado:** nombre_proyecto
+
+**Pista:** la subconsulta necesita concatenar TRABAJA_EN con EMPLEADO para conocer el sexo de quien trabaja en el proyecto de la fila actual.
+
+**Conceptos:** NOT EXISTS, subconsulta correlacionada con JOIN interno, anti-join (LAB05, LAB06)
+
+Solución:
+```sql
+
+```
+
+**Tabla resultado:**
+
+| nombre_proyecto |
+| --------------- |
+| ProductoZ       | 
+
+---
+
+## Ejercicio 14 - Subida salarial selectiva (UPDATE con subconsulta)
+**Complejidad:** ⭐⭐⭐⭐ (Alta)
+
+⚠️ **Este ejercicio modifica los datos: hazlo en último lugar o recarga la base de datos después.**
+
+La empresa decide corregir desigualdades internas: sube un 5% (redondeado al entero) el sueldo de todos los empleados que ganan **menos que el sueldo medio de su propio departamento**. Escribe la sentencia `UPDATE` usando una subconsulta correlacionada y comprueba el resultado con `SELECT nombre, apellido1, sueldo FROM EMPLEADO ORDER BY apellido1;`.
+
+**Pista:** la subconsulta debe calcular la media del departamento *del empleado de la fila actual*: necesitas correlacionar con la tabla externa del UPDATE.
+
+**Conceptos:** UPDATE, subconsulta correlacionada, AVG, ROUND (LAB03, LAB06)
+
+Solución:
+
+```sql
+
+```
+
+**Tabla resultado** (tras la comprobación):
+
+| nombre   | apellido1 | sueldo |
+| -------- | --------- | ------ |
+| Alberto  | Campos    | 40000  |
+| Alicia   | Jiménez   | 26250  |
+| Eduardo  | Ochoa     | 55000  |
+| Fernando | Ojeda     | 38000  |
+| Aurora   | Oliva     | 26250  |
+| Luis     | Pajares   | 26250  |
+| José     | Pérez     | 31500  |
+| Juana    | Sáinz     | 43000  |
 
 ---
 
@@ -315,18 +434,22 @@ Solución:
 
 Esta lección de repaso ha cubierto:
 
-| Ejercicio | Conceptos principales                                                 | Laboratorios | 
+| Ejercicio | Conceptos principales                                                 | Laboratorios |
 | --------- | --------------------------------------------------------------------- | ------------ |
 | 01        | SELECT, WHERE, BETWEEN, LIKE, ORDER BY                                | LAB01        |
 | 02        | COUNT, SUM, GROUP BY, HAVING                                          | LAB02        |
 | 03        | INNER JOIN múltiple, filtrado                                         | LAB05        |
-| 04        | Subconsulta no correlacionada, AVG                                    | LAB06        |
-| 05        | CASE WHEN, agregaciones, GROUP BY                                     | LAB02        |
-| 06        | CTE (WITH), SUM, JOIN, filtrado                                       | LAB04, LAB05 |
-| 07        | EXISTS, subconsulta correlacionada, DISTINCT                          | LAB06        |
-| 08        | LEFT JOIN, COUNT correcto, manejo NULL                                | LAB05, LAB02 |
-| 09        | UNION, eliminación duplicados                                         | LAB04        |
-| 10        | Integrador: JOINs, agregaciones, CASE, COALESCE, NULLIF, subconsultas | Todos        |
+| 04        | CASE WHEN, agregaciones, GROUP BY                                     | LAB02        |
+| 05        | CTE (WITH), SUM, JOIN, filtrado                                       | LAB04, LAB05 |
+| 06        | EXISTS, subconsulta correlacionada, DISTINCT                          | LAB06        |
+| 07        | LEFT JOIN, COUNT correcto, manejo NULL                                | LAB05, LAB02 |
+| 08        | CTE, EXCEPT, trampa NOT IN + NULL                                     | LAB04, LAB06 |
+| 09        | Integrador: JOINs, agregaciones, CASE, COALESCE, NULLIF, subconsultas | Todos        |
+| 10        | Fechas (strftime, CAST), UNION ALL, subconsulta en FROM               | LAB04, LAB06 |
+| 11        | Agregación condicional (FILTER/CASE), COALESCE, división entera       | LAB02, LAB05 |
+| 12        | SELF JOIN, deduplicación de pares                                     | LAB05        |
+| 13        | NOT EXISTS, subconsulta correlacionada, anti-join                     | LAB05, LAB06 |
+| 14        | UPDATE con subconsulta correlacionada                                 | LAB03, LAB06 |
 
 ---
 

@@ -124,7 +124,12 @@ La función datetime convierte valores de fechas en cadenas de texto según el e
 ## Separando fechas y horas
 
 ```sql
-
+select 
+   nombre, 
+   director, 
+   date(fechaIngresoDirector,'localtime') as local_date,
+   time(fechaIngresoDirector,'localtime') as local_time 
+from departamento;
 ```
 
 Tabla resultado:
@@ -233,7 +238,7 @@ Puedes consultar la [lista completa de modificadores](https://www.sqlite.org/lan
 
 ## Ejercicio 03 - Intervalos
 
-Escribe una consulta para obtener el nombre, apellido1 y fechaNac de los empleados que tengan entre 60 y 70 años.
+Escribe una consulta para obtener el nombre, apellido1 y fechaNac de los empleados que tenían entre 60 y 70 años en el 1 de enero del 2025.
 
 Solución:
 ```sql
@@ -606,12 +611,12 @@ En SQLite, cuando tres o más `SELECT` simples se conectan en una consulta combi
 ## UNION y múltiples tablas en FROM
 
 ```sql
-SELECT DISTINCT P.numero, P.nombre, E.dni
+SELECT DISTINCT P.numero, P.nombre, E.nombre, E.apellido1
 FROM PROYECTO P, DEPARTAMENTO D, EMPLEADO E
 WHERE P.dpto = D.numero AND D.director = E.dni
 AND apellido1 = 'Campos'
 UNION
-SELECT DISTINCT P.numero, P.nombre, E.dni
+SELECT DISTINCT P.numero, P.nombre, E.nombre, E.apellido1
 FROM PROYECTO P, TRABAJA_EN T, EMPLEADO E
 WHERE P.numero = T.proyecto AND T.empleado = E.dni
 AND apellido1 = 'Campos';

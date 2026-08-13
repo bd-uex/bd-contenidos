@@ -31,7 +31,7 @@ Los objetivos de aprendizaje de la sesión son:
 ---
 ### SQL
 
-Lenguaje de Consultas Estándar (Standard Query Language, ISO/IEC 9075)
+Lenguaje de Consultas Estándar (Structured Query Language, ISO/IEC 9075)
 
 Uno de los principales lenguajes de programación y el primero en ofertas de trabajo, según el informe “[The Top Programming Languages](https://spectrum.ieee.org/top-programming-languages-2024)” publicado anualmente por IEEE Spectrum.
 
@@ -128,6 +128,7 @@ Explicación del significado de las columnas
 - `species`: especie del pingüino medido
 - `island`: isla en la que se realizó la medición
 - `bill_length_mm`: longitud del pico en mm
+- `flipper_length_mm`: longitud de la aleta en mm
 - `bill_depth_mm`: profundidad del pico en mm
 - `body_mass_g`: peso del pingüino
 - `sex`: sexo del pingüino
@@ -529,12 +530,12 @@ Salida:
 
 | Función    | Descripción                                                |
 | ---------- | ---------------------------------------------------------- |
-| Round(X)   | Redondea el número X su entero más cercano                 |
-| Round(X,Y) | Redondea el número X a Y decimales                         |
-| Ceil(X)  | Redondea el número hacia el entero inmediatamente superior |
-| Floor(X) | Redondea el número hacia el entero inmediatamente inferior |
-| Abs(X)     | Valor absoluto de X                                        |
-| Sqrt(X)    | Raíz cuadrada de X                                         | 
+| round(X)   | Redondea el número X a su entero más cercano                 |
+| round(X,Y) | Redondea el número X a Y decimales                         |
+| ceil(X)  | Redondea el número hacia el entero inmediatamente superior |
+| floor(X) | Redondea el número hacia el entero inmediatamente inferior |
+| abs(X)     | Valor absoluto de X                                        |
+| sqrt(X)    | Raíz cuadrada de X                                         | 
 
 ---
 
@@ -597,13 +598,12 @@ Salida:
 | Función         | Descripción                                                  |
 | --------------- | ------------------------------------------------------------ |
 | \|\|            | Operador de concatenación                                    |
-| Length(X)       | Longitud de la cadena de texto X                             |
-| Lower(X)        | Pasa a minúsculas todos las letras                           |
-| Upper(X)        | Pasa a mayúsculas todos las letras                           |
-| Initcap(X)      | Pasa todas las letras a minúscula y las primeras a mayúscula |
-| substring(X, N) | Devuelve la subcadena de X a partir del caracter N           |
-| Replace(X,Y,Z)  | Reemplaza la subcadena Y dentro de X por Z                   |
-|                 |                                                              |
+| length(X)       | Longitud de la cadena de texto X                             |
+| lower(X)        | Pasa a minúsculas todos las letras                           |
+| upper(X)        | Pasa a mayúsculas todos las letras                           |
+| initcap(X)      | Pasa todas las letras a minúscula y las primeras a mayúscula (no en SQLite)|
+| substring(X, N) | Devuelve la subcadena de X a partir del caracter N (substr en SQLite)          |
+| replace(X,Y,Z)  | Reemplaza la subcadena Y dentro de X por Z                   |
 
 ---
 

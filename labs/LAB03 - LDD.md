@@ -95,8 +95,8 @@ Tabla resultado (consulta del esquema):
 
 | type  | name         | tbl_name     | rootpage | sql                                                                                                                                                                                                                                                                                         |
 | ----- | ------------ | ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| table | EMPLEADO     | EMPLEADO     | 2        | CREATE TABLE EMPLEADO ( nombre VARCHAR(40) NOT NULL, apellido1 VARCHAR(30) NOT NULL, apellido2 VARCHAR(30), dni VARCHAR(10) NOT NULL, fechaNac DATE NOT NULL, direccion VARCHAR(150), sexo CHAR(1) NOT NULL, sueldo NUMERIC(12,2) NOT NULL, supervisor VARCHAR(10), dpto INTEGER NOT NULL ) |
-| table | DEPARTAMENTO | DEPARTAMENTO | 3        | CREATE TABLE DEPARTAMENTO ( nombre VARCHAR(40) NOT NULL, numero INTEGER NOT NULL, director VARCHAR(10) NOT NULL, fechaIngresoDirector DATE NOT NULL )                                                                                                                                       |
+| table | EMPLEADO     | EMPLEADO     | 9        | CREATE TABLE EMPLEADO ( nombre TEXT NOT NULL, apellido1 TEXT NOT NULL, apellido2 TEXT, dni TEXT NOT NULL, fechaNac TEXT NOT NULL, direccion TEXT, sexo TEXT NOT NULL, sueldo REAL NOT NULL, supervisor TEXT, dpto INTEGER NOT NULL ) STRICT                                                 |
+| table | DEPARTAMENTO | DEPARTAMENTO | 10       | CREATE TABLE DEPARTAMENTO ( nombre TEXT NOT NULL, numero INTEGER NOT NULL, director TEXT NOT NULL, fechaIngresoDirector TEXT NOT NULL ) STRICT                                                                                                                                              |
 
 Crea un nombre de tabla seguido de una lista de columnas entre paréntesis:
 - Cada columna es un nombre, un tipo de datos y modificadores adicionales
@@ -316,7 +316,7 @@ En nuestra definición de tablas actual, se pueden **duplicar filas**, porque no
 ## Clave primaria: definición
 
 ```sql
--- borrar tabla depatamento
+-- borrar tabla departamento
 drop table if exists departamento;
 
 -- PK formada por una sola columna
@@ -360,7 +360,7 @@ Ahora el SGBDR comprueba la unicidad del valor de la columna clave primaria y, p
 (surrogate key)
 
 ```sql
--- borrar tabla depatamento
+-- borrar tabla departamento
 drop table if exists departamento;
 
 -- PK formada por una sola columna
@@ -640,7 +640,7 @@ En este caso, para la clave externa `dpto`, se ha decidido que sus valores:
 Las acciones disponibles para mantener la integridad referencial son: 
 - **Cancelar la operación** que causa la infracción. Diferentes opciones: 
 		- `NO ACTION`: permite la operación y verifica al final la integridad. Si hay violación, se deshacen los cambios. **Opción por defecto** en muchos SGBD.
-		- `RESTRICT`: rechaza la operación si se voila la integridad. Se verifica antes de realizar la operación.
+		- `RESTRICT`: rechaza la operación si se viola la integridad. Se verifica antes de realizar la operación.
 - Lanzar **actualizaciones adicionales** para corregir la infracción. Diferentes opciones:
 		- `CASCADE`: propaga la modificación a otras tablas (lo vemos más adelante)
 		- `SET NULL`: pone a NULL una clave externa si su clave primaria referenciada se ve modificada. La clave externa debe admitir valores NULL.
@@ -749,15 +749,15 @@ CREATE TABLE DEPARTAMENTO (
 	director TEXT UNIQUE NOT NULL,       -- EMPLEADO[0..1] -> DEPARTAMENTO[1..1] 
 	fechaIngresoDirector TEXT NOT NULL,
 	PRIMARY KEY (numero),
-	FOREIGN KEY (director) REFERENCES EMPLEADO(dni) ON UPDATE CASCADE ON DELETE SET NULL
+	FOREIGN KEY (director) REFERENCES EMPLEADO(dni) ON UPDATE CASCADE ON DELETE RESTRICT
 ) STRICT;
 ```
 
 En este caso, la clave externa `director` representa la asociación uno-a-uno entre `EMPLEADO` y `DEPARTAMENTO` que establece que 1 empleado puede dirigir 0 o 1 departamento y que un departamento tiene que estar dirigido por 1 empleado. 
 
 Asociación uno-a-uno en SQL:
-- **Obligatorio**: FK con `NOT NULL UNIQUE`
-- **Opcional**: FK con `UNIQUE` (sin NOT NULL)
+- **Obligatorio**: FK con `NOT NULL UNIQUE` y `ON DELETE RESTRICT`
+- **Opcional**: FK con `UNIQUE` (sin NOT NULL) y `ON DELETE SET NULL`
 - La FK va normalmente en la entidad *menos importante*
 
 ---
