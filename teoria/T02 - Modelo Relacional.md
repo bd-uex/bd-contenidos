@@ -151,14 +151,14 @@ Esta formalización matemática es lo que hace que el modelo relacional sea tan 
 
 - Formalmente, dados
 	- $R(A_1, A_2, \dots, A_n)$
-	- $r(R) \subset dom(A_1) \times dom(A_2) \times \dots \times dom(A_n)$
+	- $r(R) \subseteq dom(A_1) \times dom(A_2) \times \dots \times dom(A_n)$
 
 - $R(A_1, A_2, \dots, A_n)$ es el esquema de la relación
 	- $R$ es el nombre de la relación.
 	- $A_1, A_2, \dots, A_n$ son los atributos de la relación
 - $r(R)$: un estado específico (o "población") de la relación $R$: un conjunto de tuplas (filas)
 	- $r(R) = {t_1, t_2, \dots, t_n}$ donde cada $t_i$ es una tupla de grado $n$
-	- $t_i = (v_1, v_2, \dots, v_n)$ donde cada elemento $v_j$  es del dominio $A_j$
+	- $t_i = (v_1, v_2, \dots, v_n)$ donde cada elemento $v_j$ es del dominio de $A_j$
 
 #### Ejemplo de estado de una relación
 
@@ -201,7 +201,7 @@ Los valores en una tupla:
 - Un atributo A puede calificarse con el nombre de la relación $R$ a la que pertenece mediante la notación de punto $R.A$; por ejemplo, ESTUDIANTE.nombre o ESTUDIANTE.edad. Esto se debe a que **el mismo nombre puede usarse para dos atributos en relaciones diferentes**. Sin embargo, todos los nombres de atributo en una relación particular deben ser distintos.
 - Una n-tupla $t$ en una relación $r(R)$ se denota por $t = (v_1, v_2, \dots, v_n)$, donde $v_i$ es el valor correspondiente al atributo $A_i$. La siguiente notación se refiere a los valores de los componentes de las tuplas:
 	- Tanto $t[A_i]$ como $t.A_i$ (y, en ocasiones, $t[i]$) se refieren al valor $v_i$ en $t$ para el atributo $A_i$. 
-	- Tanto $t[A_u, A_w, \dots, A_z]$ como $t.(A_u, A_w, \dots, A_z)$, donde $A_u, A_w, \dots, A_z$ es una lista de atributos de $R$, hacen referencia a la subtupla de valores $(v_u, v_w, \dots, v_z) de $t$ correspondiente a los atributos especificados en la lista.
+	- Tanto $t[A_u, A_w, \dots, A_z]$ como $t.(A_u, A_w, \dots, A_z)$, donde $A_u, A_w, \dots, A_z$ es una lista de atributos de $R$, hacen referencia a la subtupla de valores $(v_u, v_w, \dots, v_z)$ de $t$ correspondiente a los atributos especificados en la lista.
 - Ejemplo de acceso a valores de los componentes de una tupla
 - Dada la tupla:
 	- t = (’Barbara Benson’, ‘123456789’, ‘(817)839-8461’, ‘7384 Fontana Lane’, NULL, 19, 3.25) 
@@ -363,7 +363,7 @@ La creación de este esquema de bases de datos en un SBDR consiste en definir to
 
 ```sql
 
--- EMPLEADO(nombre, apellido1, apellido2, dni, fechaNac, dirección, sexo, sueldo, superDni, numeroDpto )
+-- EMPLEADO(nombre, apellido1, apellido2, dni, fechaNac, dirección, sexo, sueldo, supervisor, numeroDpto )
 
 CREATE TABLE EMPLEADO (	
 	nombre VARCHAR(40) NOT NULL,
@@ -487,7 +487,7 @@ CREATE TABLE EMPLEADO (
 		- La eliminación de cualquier atributo de $K$ da como resultado un conjunto de atributos que deja de ser superclave (no posee la propiedad de unicidad de la superclave)
 
 - Ejemplo: Considere el esquema de relación $COCHE$:
-	- $COCHE (estado, matricula, numSerie, narca, nodelo, año)$
+	- $COCHE (estado, matricula, numSerie, marca, modelo, año)$
 	- La relación $COCHE$ tiene dos claves:
 		- $Clave1 = {estado, matricula}$
 		- $Clave2 = {numSerie}$
