@@ -508,7 +508,7 @@ Resultado:
 | 1            | 
 
 ```sql
-select 3 in (1, 2, null) as tres_no_en_lista;
+select 3 not in (1, 2, null) as tres_no_en_lista;
 ```
 
 Resultado:
