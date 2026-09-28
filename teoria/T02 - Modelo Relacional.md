@@ -721,7 +721,7 @@ delete from FAMILIAR where empleado = '987654321';
 - En caso de violación de la integridad se pueden tomar varias acciones:
 	- **Cancelar la operación** que causa la infracción. Diferentes opciones: 
 		- NO ACTION: permite la operación y verifica al final la integridad. Si hay violación, se deshacen los cambios. Opción por defecto en muchos SGBD.
-		- RESTRICT: rechaza la operación si se voila la integridad. Se verifica antes de realizar la operación.
+		- RESTRICT: rechaza la operación si se viola la integridad. Se verifica antes de realizar la operación.
 	- Lanzar **actualizaciones adicionales** para corregir la infracción. Diferentes opciones:
 		- CASCADE: propaga la modificación a otras tablas (lo vemos más adelante)
 		- SET NULL: pone a NULL una clave externa si su clave primaria referenciada se ve modificada. La clave externa debe admitir valores NULL.
@@ -798,7 +798,7 @@ Observa que establecer acciones a realizar para mantener la integridad referenci
 - El departamento con `numero = 1` siempre debe existir en la tabla DEPARTAMENTO. No se puede borrar nunca, porque la clave externa `dpto`en EMPLEADO toma ese valor por defecto en el caso de borrado de clave primaria en DEPARTAMENTO. Para forzar este comportamiento en la base de datos, es posible definir un TRIGGER que lo controle.
 - Puede haber empleados que no tengan supervisor porque se admiten valores NULL.
 - Los departamentos siempre deben tener un director, por lo que no se permita borrar a un empleado que sea director de un departamento. Antes de borrar ese empleado, se debe asignar un nuevo director.
-Hay que tener en cuenta que estás decisiones afectarán a cómo se debe usar esta base de datos por parte de los usuarios. 
+Hay que tener en cuenta que estas decisiones afectarán a cómo se debe usar esta base de datos por parte de los usuarios. 
 
 >[!exercise] Ejercicio
 > Revisa las claves externas definidas para la base de datos empresa e identifica las acciones a aplicar en caso de borrado. Modifica las sentencias de creación de las tablas correspondientes en SQL convenientemente.
