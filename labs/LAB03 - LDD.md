@@ -961,3 +961,12 @@ Tabla resultado:
 Respuesta a la pregunta: **Rap** (515 millones de media, frente a 390 del Pop y 10 del Rock en español).
 
 ---
+## Fin de la lección
+
+Enhorabuena has llegado al final de la sesión!
+
+<img src="http://2.bp.blogspot.com/-JbKbQ6shIYU/Tz-3ueNBJtI/AAAAAAAAG2U/u6S9zEmFX54/s1600/Queen+Don%27t+Stop+Me+Now+en+comic+4.jpg" alt="Alt text" style="display: block; margin: 0 auto;" />
+
+Fuente: [Diego's Tumblr](https://temblorxd.tumblr.com/)
+
+---
