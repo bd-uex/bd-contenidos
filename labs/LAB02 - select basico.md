@@ -493,6 +493,105 @@ Resultado:
 
 ---
 
+### La trampa de NOT IN con valores NULL
+
+Al principio de la lección vimos el operador `IN`. Ahora que conocemos la lógica ternaria, podemos entender un comportamiento sorprendente de su negación, `NOT IN`, cuando hay valores NULL de por medio.
+
+```sql
+select 2 in (1, 2, null) as dos_en_lista;
+```
+
+Resultado:
+
+| dos_en_lista |
+| ------------ |
+| 1            | 
+
+```sql
+select 3 not in (1, 2, null) as tres_no_en_lista;
+```
+
+Resultado:
+
+| tres_no_en_lista |
+| ---------------- |
+|                  | 
+
+¿Por qué la segunda consulta devuelve NULL en vez de verdadero? Porque los operadores `IN` y `NOT IN` son azúcar sintáctico sobre comparaciones y lógica booleana:
+
+- `x IN (a, b, NULL)` equivale a `x = a OR x = b OR x = NULL`
+    - Si `x` coincide con algún valor de la lista, hay un `TRUE` y el `OR` devuelve `TRUE` (por eso la primera consulta funciona)
+    - Si no coincide con ninguno, queda `FALSE OR FALSE OR NULL`, que es `NULL`
+- `x NOT IN (a, b, NULL)` equivale a `x != a AND x != b AND x != NULL`
+    - `x != NULL` siempre es `NULL` (lógica ternaria)
+    - Por tanto, el `AND` **nunca puede ser `TRUE`**: como mucho será `NULL`
+
+**Conclusión**: si la lista de un `NOT IN` contiene algún `NULL`, la condición nunca es verdadera y **la consulta no devuelve ninguna fila**. Y recuerda: las filas cuya condición se evalúa a `NULL` no pasan el filtro del `WHERE`.
+
+---
+
+### ### La trampa de NOT IN en acción
+
+Comprobemos el efecto sobre la tabla `cancion` (47 canciones en inglés, 18 en español y 9 con idioma desconocido):
+
+Código SQL:
+
+```sql
+select count(*) as no_ingles
+from cancion
+where idioma not in ('EN');
+```
+
+Salida:
+
+| no_ingles |
+| --------- |
+| 18        | 
+
+Código SQL:
+
+```sql
+select count(*) as no_ingles
+from cancion
+where idioma not in ('EN', null);
+```
+
+Salida:
+
+| no_ingles |
+| --------- |
+| 0         | 
+
+Observa dos cosas:
+
+1. En la primera consulta, las 9 canciones de idioma desconocido **tampoco cuentan** (18, no 27): su comparación `NULL != 'EN'` es `NULL` y no pasan el filtro. Es el mismo comportamiento que ya vimos con `!=`.
+2. En la segunda, basta **un solo NULL en la lista** para que el resultado sea vacío. Aquí el NULL está escrito a mano y salta a la vista pero, cuando veamos subconsultas, la lista del `NOT IN` vendrá calculada de otra tabla y el NULL puede colarse **sin que lo veas**. Es uno de los errores más difíciles de depurar en SQL.
+
+**Cómo protegerse**:
+
+- Si quieres incluir los NULL en el resultado, sé explícito: `where idioma not in ('EN') or idioma is null`
+- O elimina los NULL antes de comparar: `where coalesce(idioma, 'desconocido') not in ('EN')`
+- Cuando la lista venga de una subconsulta (lo veremos más adelante), garantiza que no contenga NULL (`... where columna is not null`) o usa `NOT EXISTS`
+
+---
+
+### Ejercicio 5 - NOT IN y NULL
+
+Escribe una consulta que cuente las canciones que **no** están en inglés, contando también aquellas cuyo idioma se desconoce.
+
+Solución:
+
+```sql
+```
+
+Resultado:
+ 
+| no_ingles |
+| --------- |
+| 27        | 
+
+---
+
 ## Funciones de agregación y cláusula de agrupación
 
 - Funciones de agregación: sum, max, min, avg, count
@@ -537,7 +636,7 @@ Salida:
 | --------- | --------- | ------------------ |
 | 431       | 122       | 0.0376337567207215 | 
 
-- `max`, `min`y `avg`son otras funciones de agregación en SQL
+- `max`, `min`y `avg` son otras funciones de agregación en SQL
 - En realidad, esto no debería funcionar: no se puede calcular el máximo ni el promedio si algún valor es nulo.
     - Consulta todos los valores de la tabla para comprobar la existencia de valores nulos (hay canciones sin duración ni reproducciones)
 - SQL hace lo que es útil en lugar de lo que es correcto
@@ -548,7 +647,7 @@ Salida:
 
 ---
 
-### Ejercicio 5 - Funciones agregación
+### Ejercicio 6 - Funciones agregación
 
 ¿Cuál es el número medio de reproducciones de las canciones que tienen más de un millón de reproducciones?
 
@@ -588,7 +687,7 @@ Salida:
 
 ---
 
-### Ejercicio 6 - Contar
+### Ejercicio 7 - Contar
 
 ¿Cuántos años de publicación (`anio`) diferentes hay en el conjunto de datos de canciones?
 
@@ -658,7 +757,7 @@ Salida:
 
 ---
 
-### Ejercicio 7 - Agrupar
+### Ejercicio 8 - Agrupar
 
 Escribe una consulta que muestre cada año de publicación (`anio`) distinto en el conjunto de datos de canciones y la cantidad de canciones publicadas ese año.
 
@@ -772,7 +871,7 @@ Salida:
 
 ---
 
-### Ejercicio 8 - Filtrar valores agregados
+### Ejercicio 9 - Filtrar valores agregados
 
 Escribe una consulta que cuente el número de canciones de cada una de las siguientes categorías:
 	- corta si dura menos de 200 segundos
@@ -840,9 +939,9 @@ El sistema gestor de bases de datos primero filtra las canciones (`cancion`) que
 
 ## Fin de la lección
 
-Enhorabuena, has llegado al final de la sesión. 
+Enhorabuena has llegado al final de la sesión!
 
-![](http://3.bp.blogspot.com/-7-wOyX_XloQ/Tz-33y4VGXI/AAAAAAAAG2k/zwyeWPPT05k/s1600/Queen+Don%27t+Stop+Me+Now+en+comic+6.jpg)
+<img src="http://1.bp.blogspot.com/-WolgaAXg06M/Tz-3rIN1p0I/AAAAAAAAG2M/ip75NZ1wOsM/s1600/Queen+Don%27t+Stop+Me+Now+en+comic+3.jpg" alt="Alt text" style="display: block; margin: 0 auto;" />
 
 Fuente: [Diego's Tumblr](https://temblorxd.tumblr.com/)
 

@@ -23,7 +23,7 @@ Dentro del **Lenguaje de Manipulación de Datos**, veremos las **3 operaciones**
 
 ## Ejercicio 1 - Repaso SELECT
 
-Escribe una consulta que utilice un filtro para calcular simultáneamente las masas corporales (`body_mass_g`) promedio de pingüinos pesados ​​(aquellos que pesan más de 4500 gramos) y pingüinos livianos (aquellos que pesan menos de 3500 gramos), tomando las columnas resultado los nombres `avg_heavy` y `avg_light`respectivamente. Redondea el resultado a 2 decimales.
+Escribe una consulta que utilice un filtro para calcular simultáneamente el número de reproducciones (`reproducciones`) promedio de las canciones de éxito (aquellas con más de 100 millones de reproducciones) y de las canciones minoritarias (aquellas con menos de 1 millón de reproducciones), tomando las columnas resultado los nombres `media_exitos` y `media_minoritarias` respectivamente. Redondea el resultado a 2 decimales.
 
 Solución:
 ```sql
@@ -32,9 +32,9 @@ Solución:
 
 Resultado:
 
-| avg_heavy | avg_light |
-| --------- | --------- |
-| 5159.13   | 3239.44   |
+| media_exitos | media_minoritarias |
+| ------------ | ------------------ |
+| 1552723200.0 | 271333.33          | 
 
 ---
 ## Borrado de tablas
@@ -925,29 +925,48 @@ Tabla resultado:
 
 ## Ejercicio 7 - Vistas
 
-Con fines analíticos y comparativos, se desea crear una nueva vista (`avg_weight_by_species_sex`) en la base de datos penguins que muestre el peso promedio, con una precisión de dos decimales, de los pingüinos por cada especie y sexo. Se debe evitar la aparición de valores nulos para que no complique el análisis posterior.
+Con fines analíticos y comparativos, se desea crear una nueva vista (`media_reproducciones_por_genero_idioma`) en la base de datos de streaming que muestre el número medio de reproducciones, con una precisión de dos decimales, de las canciones por cada género e idioma. Se debe evitar la aparición de valores nulos para que no complique el análisis posterior.
 
-¿De qué especie son las hembras más pesadas?
+¿De qué género son las canciones en español que más se escuchan de media?
 
-Para comprobar tu solución usa la vista definida desde una setencia `SELECT *`;
+Para comprobar tu solución usa la vista definida desde una sentencia `SELECT *`.
 
-Abre en otra pestaña [SQL Snippets con la base de datos pnguins](https://i3lab.unex.es/sql-snippets/index.html?db=penguins) para solucionar este ejercicio.
+Abre en otra pestaña [SQL Snippets con la base de datos de streaming](https://i3lab.unex.es/sql-snippets/index.html?db=streaming_lab01) para solucionar este ejercicio.
 
 Solución:
 
 ```sql
+-- crear vista
+CREATE VIEW media_reproducciones_por_genero_idioma AS
+SELECT genero, idioma, round(AVG(reproducciones), 2) AS media_reproducciones
+FROM cancion
+WHERE idioma IS NOT NULL
+GROUP BY genero, idioma;
 
+-- usar vista
+select * from media_reproducciones_por_genero_idioma;
 ```
 
 Tabla resultado:
 
-| species   | sex    | peso_promedio |
-| --------- | ------ | ------------- |
-| Adelie    | FEMALE | 3368.84       |
-| Adelie    | MALE   | 4043.49       |
-| Chinstrap | FEMALE | 3527.21       |
-| Chinstrap | MALE   | 3938.97       |
-| Gentoo    | FEMALE | 4679.74       |
-| Gentoo    | MALE   | 5484.84       |
+| genero | idioma | media_reproducciones |
+| ------ | ------ | -------------------- |
+| Pop    | EN     | 990721411.76         |
+| Pop    | ES     | 390045750.0          |
+| Rap    | EN     | 493098875.0          |
+| Rap    | ES     | 515212166.67         |
+| Rock   | EN     | 533004681.82         |
+| Rock   | ES     | 10054750.0           |
+
+Respuesta a la pregunta: **Rap** (515 millones de media, frente a 390 del Pop y 10 del Rock en español).
+
+---
+## Fin de la lección
+
+Enhorabuena has llegado al final de la sesión!
+
+<img src="http://2.bp.blogspot.com/-JbKbQ6shIYU/Tz-3ueNBJtI/AAAAAAAAG2U/u6S9zEmFX54/s1600/Queen+Don%27t+Stop+Me+Now+en+comic+4.jpg" alt="Alt text" style="display: block; margin: 0 auto;" />
+
+Fuente: [Diego's Tumblr](https://temblorxd.tumblr.com/)
 
 ---
