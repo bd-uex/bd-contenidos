@@ -4,7 +4,7 @@
 
 1.- Modelar **entidades débiles**, comprendiendo cuándo una entidad no puede identificarse por sí misma y cómo se usan las **claves parciales** y las **relaciones débiles**.
 
-2.- Revisar la primera versión del **estudio de videojuegos** del laboratorio anterior, aplicando las entidades débiles a los dos problemas que dejamos abiertos.
+2.- Revisar la primera versión del **Enunciado ER 00A Estudio Videojuegos** del laboratorio anterior, aplicando las entidades débiles a los dos problemas que dejamos abiertos.
 
 3.- Aplicar la notación para resolver el **Enunciado ER 02 The Expanse Simplificado**.
 
@@ -17,7 +17,7 @@
 
 - 4.- Entidades débiles y relaciones débiles
 
-### Revisión del Enunciado ER - Estudio de Videojuegos (segunda versión)
+### Revisión del Enunciado ER 00A Estudio Videojuegos (segunda versión)
 
 ### Resolución del Enunciado ER 02 The Expanse Simplificado
 
@@ -27,7 +27,7 @@
 En este laboratorio vamos a usar los archivos que creaste en el laboratorio anterior:
 
 1. **EjemplosNotacionBigER.erd**, donde seguiremos añadiendo los ejemplos de la notación.
-2. **ModeloEstudioVideojuegos.erd**, con la primera versión del estudio de videojuegos. Haz una copia con el nombre **ModeloEstudioVideojuegosV2.erd** y trabaja sobre ella: así conservarás la primera versión para compararlas.
+2. **ModeloEstudioVideojuegos.erd**, con la primera versión del Enunciado ER 00A Estudio Videojuegos. Haz una copia con el nombre **ModeloEstudioVideojuegosV2.erd** y trabaja sobre ella: así conservarás la primera versión para compararlas.
 
 Además, crea un archivo nuevo, **ModeloTheExpanseV1Simplificado.erd**, igual que en el laboratorio 1: Archivo -> Nuevo Archivo -> **New Empty ER Model**, y añade la línea `notation=crowsfoot` justo debajo de la línea `erdiagram`.
 
@@ -104,13 +104,13 @@ Antes de continuar, piensa:
 - ¿Basta el nombre para distinguir un contacto de todos los demás de la base de datos? ¿Y para distinguirlo de los demás contactos **del mismo estudiante**? Piensa que dos estudiantes distintos pueden tener un contacto llamado "María García", pero un mismo estudiante nunca tiene dos contactos con el mismo nombre. 
 
 ---
-## Revisión del Enunciado ER - Estudio de Videojuegos (segunda versión)
+## Revisión del Enunciado ER 00A Estudio Videojuegos (segunda versión)
 
-Al final del laboratorio anterior dejamos dos preguntas abiertas sobre la primera versión del estudio de videojuegos. Ahora que conocemos las entidades débiles, vamos a resolverlas. Abre el archivo **ModeloEstudioVideojuegosV2.erd**.
+Al final del laboratorio anterior dejamos dos preguntas abiertas sobre la primera versión del Enunciado ER 00A Estudio Videojuegos. Ahora que conocemos las entidades débiles, vamos a resolverlas. Abre el archivo **ModeloEstudioVideojuegosV2.erd**.
 
 ---
 
-### Ejercicio 01 - Enunciado ER - Estudio de Videojuegos (6)
+### Ejercicio 01 - Enunciado ER 00A Estudio Videojuegos (6)
 
 La primera pregunta era si `numero` es una clave primaria correcta para **Nivel**. El enunciado decía:
 
@@ -137,7 +137,7 @@ Con todo esto, en nuestro diagrama ER tendremos que:
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code.
 
 ---
-### Ejercicio 02 - Enunciado ER - Estudio de Videojuegos (7)
+### Ejercicio 02 - Enunciado ER 00A Estudio Videojuegos (7)
 
 La segunda pregunta era si es correcto el atributo `sedes` en **Equipo**. El enunciado decía:
 
@@ -284,9 +284,9 @@ Con todo esto, en nuestro diagrama ER tendremos que:
 
 1.- Añadir la **Entidad débil** **Cargamento** que está formada por los atributos:
 - codigo: clave parcial aportada por Cargamento para formar la clave primaria.
-- fecha
+- fecha_empaquetado
 
-2.- Añadir la **relación débil** **almacenado_en** entre Cargamento y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya tenido un Cargamento y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
+2.- Añadir la **relación débil** **empaquetado_en** entre Cargamento y Centro. Dado que es una relación débil, la única duda a resolver para fijar la cardinalidad es si puede haber en nuestra BD algún Centro que todavía no haya tenido un Cargamento y tiene sentido que sí dado que un Centro puede estar recién construido sin haber encontrado ni extraído ningún mineral.
 
 Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar asegúrate de estar entendiendo cómo se está representando gráficamente todo.
 
@@ -336,7 +336,7 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 ---
 ### Fin
 
-¡Enhorabuena! Has modelado correctamente el diagrama Entidad Relación para el enunciado Enunciado ER 02 The Expanse Simplificado.
+¡Enhorabuena! Has modelado correctamente el diagrama Entidad Relación para los enunciados Enunciado ER 00A Estudio Videojuegos y Enunciado ER 02 The Expanse v1 simplificado.
 
 ![](../imgs/BD%20-%20ERD%20resuelto%20por%20Bender.png)
 

@@ -10,7 +10,7 @@
 
 4.- Modelar **relaciones recursivas** usando **roles**.
 
-5.- Aplicar la notación para resolver la primera versión del enunciado del **estudio de videojuegos** visto en clase.
+5.- Aplicar la notación para resolver la primera versión del **Enunciado ER 00A Estudio Videojuegos** visto en clase.
 
 ---
 ## Contenidos
@@ -23,7 +23,7 @@
 - 2.- Relaciones entre entidades y cardinalidades
 - 3.- Relaciones recursivas con roles
 
-### Resolución del Enunciado ER - Estudio de Videojuegos (primera versión)
+### Resolución del Enunciado ER 00A Estudio Videojuegos (primera versión)
 
 ---
 ## Antes del laboratorio -> Instalación de BigER en VS Code
@@ -231,14 +231,14 @@ Tras escribir ese texto, deberías ver algo similar a lo que se muestra en la si
 Puedes ver como ahora en cada extremo de la relación es_mentor_de aparece el rol tomado en cada extremo de la relación por el Estudiante.
 
 ---
-## Resolución del Enunciado ER - Enunciado ER 16 Estudio Videojuegos Inicial
+## Resolución del Enunciado ER - Enunciado ER 00A Estudio Videojuegos 
 
-Los ejercicios a continuación están orientados a resolver el Enunciado ER 16 Estudio Videojuegos Inicial que hemos visto en clase, disponible [aquí](../ejercicios/entidad-relacion/Enunciado%20ER%2016%20Estudio%20Videojuegos%20Inicial.md).
+Los ejercicios a continuación están orientados a empezar a resolver el Enunciado ER 00A Estudio Videojuegos que hemos visto en clase, disponible [aquí](../ejercicios/entidad-relacion/Enunciado%20ER%2000A%20Estudio%20Videojuegos.md).
 
 Decimos "primera versión" porque todavía no hemos visto las **entidades débiles**: vamos a modelar todo lo que podemos con lo que sabemos hasta ahora, y en el laboratorio 2 revisaremos las partes que lo necesiten.
 
 ---
-### Ejercicio 02 - Enunciado ER 16 Estudio Videojuegos Inicial (1)
+### Ejercicio 02 - Enunciado ER 00A Estudio Videojuegos (1)
 
 Abre el archivo ModeloEstudioVideojuegos.erd, que será donde vamos a ir modelando el enunciado.
 
@@ -264,7 +264,7 @@ Escribe el texto BigER necesario para modelar los desarrolladores y los equipos,
 
 ---
 
-### Ejercicio 03 - Enunciado ER 16 Estudio Videojuegos Inicial (2)
+### Ejercicio 03 - Enunciado ER 00A Estudio Videojuegos (2)
 
 Vamos a continuar con el tercer párrafo:
 
@@ -283,7 +283,7 @@ Escribe el texto BigER necesario para modelar los videojuegos y los niveles, de 
 ![](../imgs/BD%20-%20BigER%20Estudio%20Videojuegos%20parte%202.png)
 
 ---
-### Ejercicio 04 - Enunciado ER 16 Estudio Videojuegos Inicial(3)
+### Ejercicio 04 - Enunciado ER 00A Estudio Videojuegos (3)
 
 Vamos a modelar las relaciones del segundo párrafo, entre Desarrollador y Equipo:
 
@@ -295,7 +295,7 @@ Fíjate en que entre las mismas dos entidades hay **dos relaciones distintas**: 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente cada relación, y comprueba con la regla de lectura que cada cardinalidad dice lo mismo que el enunciado.
 
 ---
-### Ejercicio 05 - Enunciado ER 16 Estudio Videojuegos Inicial (4)
+### Ejercicio 05 - Enunciado ER 00A Estudio Videojuegos (4)
 
 Vamos ahora con las relaciones del tercer párrafo:
 
@@ -306,7 +306,7 @@ Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el 
 
 ---
 
-### Ejercicio 06 - Enunciado ER 16 Estudio Videojuegos Inicial (5)
+### Ejercicio 06 - Enunciado ER 00A Estudio Videojuegos (5)
 
 Para terminar, nos falta el último párrafo:
 
@@ -325,7 +325,7 @@ Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el 
 ---
 ### Fin
 
-¡Enhorabuena! Has modelado la primera versión del diagrama Entidad-Relación para el Enunciado ER 16 Estudio Videojuegos Inicial. Pero, como en el diagrama que vimos en clase, todavía tiene **dos problemas**. Antes de terminar, intenta responder a estas dos preguntas:
+¡Enhorabuena! Has modelado la primera versión del diagrama Entidad-Relación para el Enunciado ER 00A Estudio Videojuegos. Pero, como en el diagrama que vimos en clase, todavía tiene **dos problemas**. Antes de terminar, intenta responder a estas dos preguntas:
 
 1. ¿Es correcto `numero` como clave primaria de **Nivel**? Vuelve a leer lo que dice el enunciado sobre la numeración de los niveles: ¿qué pasa con el nivel 1 de dos juegos distintos?
 2. ¿Es correcto el atributo `sedes` en **Equipo**? Recuerda que un equipo puede tener varias sedes, y que de cada una el enunciado nos pide la ciudad y la dirección.

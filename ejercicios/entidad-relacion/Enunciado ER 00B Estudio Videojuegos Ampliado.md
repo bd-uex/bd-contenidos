@@ -6,7 +6,7 @@ Lo que de verdad importa en el estudio son los **videojuegos**. Cada uno tiene u
 
 Por último, los desarrolladores trabajan en los videojuegos, y el estudio necesita saber cuántas horas semanales dedica cada desarrollador a cada juego en el que trabaja. Un desarrollador puede trabajar en varios juegos a la vez, o en ninguno si acaba de llegar, y un juego en preproducción puede no tener todavía a nadie asignado. Como en Dehesa Pixel Studios creen que nadie aprende solo, los desarrolladores veteranos **mentorizan** a los recién llegados: cada desarrollador tiene como mucho un mentor, y un mentor puede mentorizar a varios desarrolladores.
 
-## Ampliación: productores y modos de juego
+## Ampliación con jerarquías: productores y modos de juego
 
 Los primeros juegos de Dehesa Pixel Studios se han vendido mejor de lo que nadie esperaba, y con el éxito han llegado los **productores**. Algunos desarrolladores son, además, productores, y se encargan de sacar adelante los videojuegos. Todo videojuego tiene al menos un productor, aunque los juegos más ambiciosos pueden estar coproducidos por varios, y cada productor se lleva un porcentaje de las ventas de cada juego que produce, que puede ser distinto en cada uno. Por supuesto, quien es productor produce al menos un videojuego. De los productores no se necesita guardar ningún dato más. Las especialidades de los desarrolladores, en cambio, siguen siendo solo eso, un dato más de cada uno: por ahora el estudio no necesita guardar nada propio de ellos.
 
