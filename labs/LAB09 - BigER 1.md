@@ -83,6 +83,16 @@ Modifica el contenido de la entidad Nombre_Entidad anterior para que pase a ser 
 
 Escribe en la notación BigER cómo modelar la entidad **Estudiante**
 
+```BigER
+entity Estudiante {
+numero_expediente key
+dni unique
+nombre
+apellido_1
+apellido_2
+}
+```
+
 ---
 
 ## Introducción a la notación textual de BigER (2) Relaciones
