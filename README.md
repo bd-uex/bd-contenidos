@@ -1,4 +1,4 @@
-****# Bases de Datos — Contenidos de la asignatura
+****# Bases de Datos — Contenidos de la asignatura****
 
 Este repositorio contiene **todos los apuntes de la asignatura de Bases de Datos** del Grado en Ingeniería Informática en formato Markdown: temas de teoría, guías de repaso, guiones de laboratorio, enunciados de ejercicios y criterios de evaluación.
 
