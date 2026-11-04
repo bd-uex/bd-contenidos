@@ -21,8 +21,11 @@ Escribe una consulta que calcule y devuelva una columna llamada `que_donde` que 
 
 Solución:
 ```sql
-
-
+select Upper(genero) || " " || Lower(pais) as que_donde, round((me_gusta*100.0/reproducciones),1) as porcentaje_me_gusta 
+from cancion
+where Lower(idioma) != 'es'
+order by porcentaje_me_gusta desc
+limit 10
 ```
 
 Resultado:
@@ -167,8 +170,14 @@ Para emitir una canción en la radio hay que añadirle una cuña publicitaria. E
 
 Solución:
 ```sql
-
-
+select distinct titulo, pais, duracion
+case
+	when Lower(pais) = "reino unido" then round((duracion+30)/60.0,2)
+	when Lower(pais) = "españa" then round((duracion+45)/60.0,2)
+end as duracion_radio_min
+from cancion
+order by duracion asc
+limit 20
 ```
 
 Resultado:
@@ -371,8 +380,9 @@ Escribe una consulta para encontrar las canciones (`cancion`) cuya duración (`d
 
 Solución:
 ```sql
-
-
+select *
+from cancion
+where duracion is not null and idioma is null
 ```
 
 Resultado:

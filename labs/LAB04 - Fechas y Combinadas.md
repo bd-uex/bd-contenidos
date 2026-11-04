@@ -23,7 +23,10 @@ Escribe una consulta que devuelva el sueldo medio por departamento para departam
 
 Solución:
 ```sql
-
+select dpto, avg(sueldo) as sueldo_medio
+from empleado
+group by dpto
+having count(dpto)>1;
 ```
 
 Resultado:
@@ -164,7 +167,7 @@ Tabla resultado:
 
 | nombre       | director  | mas_antiguo | hora     |
 | ------------ | --------- | ----------- | -------- |
-| Sede Central | 888665555 | 1981-06-19  | 02:00:00 | 
+| Sede Central | 888665555 | 1981-06-19  | 02:00:00 |
 
 ---
 
@@ -185,7 +188,7 @@ Tabla resultado:
 | nombre        | director  | local_date | local_time |
 | ------------- | --------- | ---------- | ---------- |
 | Investigación | 333445555 | 2025-10-03 | 19:42:24   |
-| Ventas        | 453453453 | 2024-08-15 | 14:00:00   | 
+| Ventas        | 453453453 | 2024-08-15 | 14:00:00   |
 
 Es posible comparar fechas con los operadores de comparación y otros operadores.
 
@@ -219,7 +222,7 @@ Tabla resultado:
 
 | last_day   |
 | ---------- |
-| 2024-02-29 | 
+| 2024-02-29 |
 
 Otros modificadores disponibles:
 
@@ -242,7 +245,9 @@ Escribe una consulta para obtener el nombre, apellido1 y fechaNac de los emplead
 
 Solución:
 ```sql
-
+select nombre, apellido1, fechaNac
+from empleado
+where fechaNac <= '1966-01-01' AND fechaNac > '1953-01-01';
 ```
 
 Tabla resultado:
@@ -250,7 +255,7 @@ Tabla resultado:
 | nombre   | apellido1 | fechaNac   |
 | -------- | --------- | ---------- |
 | José     | Pérez     | 1965-09-01 |
-| Alberto  | Campos    | 1955-12-08 | 
+| Alberto  | Campos    | 1955-12-08 |
 | Fernando | Ojeda     | 1962-09-15 |
 
 ---
@@ -437,7 +442,7 @@ HAVING count(*)> 1;
 
 Tabla resultado:
 
-| dni       | 
+| dni       |
 | --------- |
 | 333445555 |
 
@@ -519,12 +524,20 @@ Escribe una consulta que devuelva los empleados con más de un familiar que no s
 
 Solución:
 ```sql
-
+select empleado
+from familiar
+group by empleado
+having count(*)>1
+intersect
+select dni
+from empleado
+where supervisor is not null
+limit 1;
 ```
 
 Tabla resultado:
 
-| empleado  | 
+| empleado  |
 | --------- |
 | 123456789 |
 
@@ -649,8 +662,7 @@ Escribe una consulta que devuelva el dni de los empleados que no tienen familiar
 
 Solución:
 ```sql
-
-
+SELECT dni FROM empleado EXCEPT SELECT empleado FROM familiar UNION SELECT supervisor AS dni FROM empleado WHERE supervisor IS NOT NULL GROUP BY supervisor HAVING COUNT(*) > 2;
 ```
 
 Tabla resultado:
@@ -770,7 +782,7 @@ Escribe una consulta que devuelva los proyectos del departamento con mayor núme
 
 Solución:
 ```sql
-
+WITH personal AS ( SELECT dpto, COUNT(*) AS num_trabajadores FROM empleado GROUP BY dpto ), dpto_max AS ( SELECT dpto FROM personal WHERE num_trabajadores = (SELECT MAX(num_trabajadores) FROM personal) ) SELECT p.nombre, p.ubicacion, p.dpto FROM proyecto p JOIN dpto_max d ON d.dpto = p.dpto;
 ```
 
 Tabla resultado:
