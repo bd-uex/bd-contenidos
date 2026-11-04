@@ -59,7 +59,7 @@ El tipo de entidad es la **intensión** (el plano); el conjunto de entidades es 
 ### 2.1 Tipos de atributos
 
 - **Simple ⚛️**: no se puede dividir en partes con significado (`dni`, `sexo`).
-- **Compuesto 🧩**: formado por otros atributos (un nombre completo = `nombre` + `apellido_1` + `apellido_2`). En BigER modelamos directamente sus partes como atributos simples, lo que además permite buscar por cada una.
+- **Compuesto 🧩**: formado por otros atributos (un nombre completo = `nombre` + `apellido_1` + `apellido_2`). 
 - **Multivalor 📇**: puede tener varios valores para la misma entidad. Ejemplo: las `ediciones` de un `Curso`, ya que de un mismo curso pueden haberse impartido varias ediciones.
 
 > [!warning] Regla clave

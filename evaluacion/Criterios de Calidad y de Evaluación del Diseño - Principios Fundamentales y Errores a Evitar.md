@@ -69,9 +69,8 @@ Estos principios se centran en la correcta identificación y definición de las 
 
 Una entidad fuerte representa un concepto del minimundo sobre el que **necesitamos guardar información**. Como mínimo absoluto, debe poseer los atributos que la identifican (su clave primaria) y, generalmente, otros atributos descriptivos. Dejar una entidad fuerte sin ningún atributo que las describa mas allá de su clave (o incluso sin clave) **(Fallo M1)** es un error medio. Indica que, o bien el concepto no era lo suficientemente importante como para ser una entidad, o el análisis de sus propiedades ha sido incompleto. Una entidad fuerte "vacía" no aporta valor.
 
-- ❌ **Incorrecto (M1)**: Crear una entidad `Color` sin atributos, solo para conectarla a `Producto`. Si solo necesitas el nombre del color, debería ser un atributo (`color`) en `Producto`. Si necesitas guardar más datos sobre el color (ej: `codigo_pantone`, `es_metalizado`), entonces sí justifica ser una entidad con atributos.
-    
-- ✅ **Correcto**: Asegurarse de que cada entidad (`Cliente`, `Producto`, `Pedido`) tenga, además de su clave, los atributos necesarios para describirla según los requisitos (`nombre`, `direccion`, `precio`, `stock`, `fecha`, etc.).
+- ❌ **Incorrecto (M1)**: Crear una entidad `Color` con solo su clave, únicamente para conectarla a `Producto`. Si solo necesitas el nombre del color, debe ser un atributo (`color`) de `Producto`. Si necesitas guardar más datos sobre él (por ejemplo, `codigo_pantone` o `es_metalizado`), entonces sí se justifica una entidad con esos atributos.
+- ✅ **Correcto**: Asegurarse de que cada entidad (`Cliente`, `Producto`, `Pedido`) tenga, además de su clave, los atributos necesarios para describirla según los requisitos (`nombre`, `direccion`, `precio`, `stock`, `fecha`, etc.). También una entidad con identificador y nombre, como `Genero` o `Provincia`, cuando sirve para **estandarizar** valores que se repiten en muchas entidades. No es un fallo M1: el `nombre` ya es un atributo descriptivo más allá de la clave.
 
 ##### Principio 5: El Modelo Debe Ser Preciso y Conciso en Entidades (M2, M3)
 
@@ -91,7 +90,7 @@ Las entidades débiles son una herramienta clave para modelar dependencias, pero
 
 La **clave parcial** (o discriminante) es el conjunto de atributos _dentro_ de la entidad débil que la distingue de otras entidades débiles que dependen **del mismo propietario**. Es una parte esencial de su identidad. Indicar incorrectamente la clave parcial (por ejemplo, omitiéndola o eligiendo atributos que no discriminan) se considera una prueba de que no se comprende cómo se construye la identidad única de una entidad débil (salvo casos específicos como L15).
 
-- ✅ **Correcto**: En `Familiar` (débil de `Empleado`), la clave parcial es `nombre`, asumiendo que un empleado no tiene dos familiares directos con el mismo nombre exacto. La clave completa heredada sería `{dni, nombre}`.
+- ✅ **Correcto**: En `Familiar` (débil de `Empleado`), la clave parcial es `nombre`, asumiendo que un empleado no tiene dos familiares directos con el mismo nombre exacto. La clave completa heredada sería `{dni, nombre}` aunque en la débil solo pondremos `nombre` como clave parcial .
     
 - ❌ **Incorrecto (M4)**: No indicar como clave parcial `nombre` en `Familiar`. El `dni` no es parte de la clave _parcial_; es parte de la clave _heredada_ de la entidad fuerte de la que depende.
     
@@ -157,9 +156,9 @@ Estos principios finales se centran en la **precisión y completitud** de los de
 
 Estos principios se centran en la correcta y completa especificación de las entidades fuertes. Su aplicación demuestra un dominio completo del modelo E/R.
 
-##### Principio 12: Señala Claramente la Clave Primaria (L1) 🔑
+##### Principio 12: Señala Claramente la Clave Primaria  correcta (L1) 🔑
 
-Toda entidad fuerte **debe** tener una clave primaria que la identifique de forma única. Es **esencial** indicar cuál es este atributo (o conjunto de atributos) utilizando la notación estándar (`key` en BigER, subrayado en notación gráfica). No marcar explícitamente la clave primaria **(Fallo L1)** es un error leve. Aunque a veces se pueda deducir, omitir esta marca dificulta la lectura y comprensión inmediata del identificador principal de la entidad.
+Toda entidad fuerte **debe** tener una clave primaria correctaque la identifique de forma única. Es **esencial** indicar cuál es este atributo (o conjunto de atributos) utilizando la notación estándar (`key` en BigER, subrayado en notación gráfica). No marcar explícitamente la clave primaria **(Fallo L1)** es un error leve. Aunque a veces se pueda deducir, omitir esta marca dificulta la lectura y comprensión inmediata del identificador principal de la entidad.
 
 - ✅ **Correcto**: En la entidad `Empleado`, subrayar el atributo `dni`.
     

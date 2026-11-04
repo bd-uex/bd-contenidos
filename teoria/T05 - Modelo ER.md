@@ -114,7 +114,7 @@ Antes de nada, ¿qué es cada cosa?
 | **Claridad Visual** | Muy explícita pero puede ser densa.         | Compacta y estándar en la industria.                 |
 >
 >###### 5. Instalación y uso de BigER en VSCode
->En esta nota tienes disponible una pequeña guía para empezar a usar BigER en VSCode: [AL09.1 - Instalación y uso de BigER en VSCode](../labs/anexos/AL09.1%20-%20Instalación%20y%20uso%20de%20BigER%20en%20VSCode.md)
+>En esta nota tienes disponible una pequeña guía para empezar a usar BigER en VSCode: [AL09.1 - Instalación y uso de BigER en VS Code](../labs/anexos/AL09.1%20-%20Instalación%20y%20uso%20de%20BigER%20en%20VS%20Code.md)
 
 ---
 > [!example] Ejemplo simple: Empresa
@@ -649,6 +649,7 @@ Una entidad débil siempre viene acompañada de tres elementos que la definen:
 
 Aunque el concepto puede parecer complejo, las entidades débiles son la solución elegante a varios problemas de modelado muy comunes. Sin embargo, no se debe hacer un mal uso de ellas: **solo es correcto usarlas** en estos casos:
 
+![](../imgs/BD%20-%20BigER%20Relación%2011%201N%20alternativa.png)
 #### 5.4.1 Caso 1: Para modelar atributos multivalor de una entidad
 
 Queremos modelar `Curso` y las distintas repeticiones de dicho curso a lo largo del tiempo en un atributo `edicion`.
@@ -916,7 +917,6 @@ Sin embargo, la clave para un diseño correcto es decidir de qué entidad o enti
 ### 5.5. Un caso especial: las entidades asociativas para  relacionar una entidad con una  relación M:N.
 
 El modelo Entidad-Relación tiene una regla fundamental e inquebrantable: **una relación solo puede conectar entidades: es imposible que una relación conecte directamente con otra relación.** Un verbo no puede ser el sujeto de otra acción. Pero, en el modelado de datos, a veces nos encontramos que una interacción de **muchos-a-muchos (M:N) sin repetición** es tan importante que necesitamos conectarla con otras entidades.
-
 #### El Problema Guiado: Asignación de Competencias a Puestos de Trabajo
 
 **El Escenario Inicial:** En el departamento de Recursos Humanos, se definen los `Puestos_de_Trabajo` y un catálogo de `Competencias` profesionales. La relación entre ellos es de muchos-a-muchos (M:N):
