@@ -108,7 +108,7 @@ Modifica el contenido de la entidad Nombre_Entidad anterior para que pase a ser 
 ![](../imgs/BD%20-%20BigER%20Entidad%20Estudiante.png)
 
 Escribe en la notación BigER cómo modelar la entidad **Estudiante**.
-```BigER
+```erdiagram
 entity Estudiante {
 numero_expediente key
 dni unique
@@ -271,7 +271,7 @@ Escribe el texto BigER necesario para modelar los desarrolladores y los equipos,
 
 ![](../imgs/BD%20-%20BigER%20Estudio%20Videojuegos%20parte%201.png)
 
-```BigER
+```erdiagram
 entity Desarrollador {
 	dni key
 	cuenta_bancaria unique
@@ -308,7 +308,7 @@ De nuevo, vamos a fijarnos solo en las entidades. Este párrafo nos da dos más:
 Escribe el texto BigER necesario para modelar los videojuegos y los niveles, de manera que nuestro diagrama ER tenga estas dos nuevas entidades tal y como se muestran en la siguiente imagen:
 ![](../imgs/BD%20-%20BigER%20Estudio%20Videojuegos%20parte%202.png)
 
-```BigER
+```erdiagram
 entity Desarrollador {
 	dni key
 	cuenta_bancaria unique
@@ -350,7 +350,7 @@ Fíjate en que entre las mismas dos entidades hay **dos relaciones distintas**: 
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente cada relación, y comprueba con la regla de lectura que cada cardinalidad dice lo mismo que el enunciado.
 
-```BigER
+```erdiagram
 entity Desarrollador {
 dni key
 cuenta_bancaria unique
@@ -400,7 +400,7 @@ Vamos ahora con las relaciones del tercer párrafo:
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente cada relación.
 
-```BigER
+```erdiagram
 entity Desarrollador {
 dni key
 cuenta_bancaria unique
@@ -465,7 +465,7 @@ Este párrafo nos da dos relaciones más:
 
 Escribe el texto BigER necesario para modelarlas y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente cada relación.
 
-```BigER
+```erdiagram
 entity Desarrollador {
 dni key
 cuenta_bancaria unique

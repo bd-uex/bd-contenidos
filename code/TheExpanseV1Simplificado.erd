@@ -1,0 +1,96 @@
+erdiagram ModeloTheExpanseSimplificado
+notation = crowsfoot
+
+entity Centro {
+    codigo key
+    nombre
+    coordenadas
+    fecha_creacion
+}
+
+entity Planeta {
+    codigo key
+    nombre
+    numero_lunas
+    rotacion_horas
+    orbita_dias
+}
+
+entity Mineral {
+    codigo key
+    nombre
+    descripcion
+}
+
+entity Nave_Espacial {
+    matricula key
+    modelo
+    capacidad
+}
+
+weak entity Vuelo {
+    fecha_inicio partial-key
+    hora_inicio partial-key
+    fecha_fin
+    hora_fin
+}
+
+weak entity Cargamento {
+    codigo partial-key
+    fecha_empaquetado
+}
+
+weak entity Historico_Extraccion {
+    fecha partial-key
+    cantidad
+} 
+
+relationship ubicado_en {
+    Centro[1..N] -> Planeta[1..1]
+}
+
+relationship es_principal_en {
+    Centro[1..1] -> Planeta[0..1]
+}
+
+relationship encontrado_por {
+    Centro[0..N] -> Mineral[0..N]
+    fecha_hallazgo
+}
+
+relationship asignada_a {
+    Nave_Espacial[0..N] -> Planeta[1..1]
+}
+
+weak relationship realizado_por {
+    Vuelo[0..N] -> Nave_Espacial[1..1]
+}
+
+relationship origen_de {
+    Vuelo[0..N] -> Centro[1..1]
+}
+
+relationship destino_de {
+    Vuelo[0..N] -> Centro[1..1]
+}
+
+weak relationship empaquetado_en {
+    Cargamento[0..N] -> Centro[1..1]
+}
+
+relationship forma_parte_de {
+    Cargamento[0..N] -> Mineral[1..1]
+    cantidad
+}
+
+relationship transportado_en {
+    Cargamento[1..N] -> Vuelo[0..1]
+}
+
+weak relationship extraido_por {
+    Historico_Extraccion[0..N] -> Centro[1..1]
+}
+
+weak relationship incluido_en {
+    Historico_Extraccion[0..N] -> Mineral[1..1]
+}
