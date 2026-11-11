@@ -11,7 +11,7 @@ Estos principios son los cimientos **no negociables** de un diseño Entidad-Rela
 El objetivo final de un diagrama E/R es crear un mapa fiel del "minimundo" que se nos describe. Si el diseño final es globalmente incoherente o no representa los requisitos básicos, se considera un error fundamental, independientemente de los fallos más pequeños.  
 
 #### 1.2 Sobre relaciones
-##### Principio 2: Las Conexiones Conceptuales son Relaciones, NO Atributos de Implementación (G2)
+##### Principio 2: Las Conexiones Conceptuales son Relaciones, NO Atributos de Implementación (G2) (no confundir con el caso L6)
 
 Este es un error conceptual **crítico y grave (G2)** que surge de confundir los niveles de abstracción del diseño de bases de datos. En el **modelo conceptual E/R**, estamos describiendo la _semántica_ del minimundo, las conexiones lógicas entre conceptos. Por tanto, **jamás** debes usar un atributo dentro de una entidad para referenciar o "apuntar" a otra entidad. Las conexiones lógicas entre entidades **siempre** deben modelarse explícitamente como **relaciones**.
 
@@ -23,7 +23,7 @@ Es **fundamental** entender que, aunque **más tarde**, en el **modelo relaciona
     
 3. **Anticipa decisiones**: El mapeo de E/R a relacional tiene reglas específicas. Poner claves externas en el E/R es saltarse el proceso y puede llevar a errores.
     
-- ❌ **Incorrecto y Penalizable (Fallo G2)**: Crear una entidad `Asignatura` y añadir un atributo `Profesor_Responsable` (o `dni`) pensando en la futura clave externa. Esto es un grave error conceptual.
+- ❌ **Incorrecto y Penalizable (Fallo G2)**: Crear una entidad `Asignatura` y añadir un atributo `responsable` (o `nif`) pensando en la futura clave externa. Esto es un grave error conceptual.
     
 - ✅ **Correcto**: Crear las entidades `Profesor` y `Asignatura` y conectarlas con una relación explícita como `es_responsable_de`. La _traducción_ de esta relación a una clave externa se hará en la fase de diseño lógico, no aquí.
 
@@ -43,9 +43,13 @@ Las jerarquías (especialización/generalización) son una herramienta poderosa,
     - ❌ **Incorrecto y Penalizable (Fallo G4)**: Si `Coche` **"ES UN"** `Vehiculo`, representarlo con dos entidades y una relación entre ellas llamada "ES". Esto ignora la herramienta de modelado diseñada específicamente para esta semántica.
         
     - ✅ **Correcto**: Usar la notación de especialización/generalización para crear la jerarquía a partir de `Vehiculo`: 
-      hierarchy `por_tipo_vehiculo` `Vehiculo` total disjoint
-      Y así ya poder indicar que `Coche` es subclase de `Vehiculo` extendiendo dicha jerarquía:
-      entity `Coche` extends `por_tipo_vehiculo`
+```erdiagram
+  hierarchy por_tipo_vehiculo Vehiculo total disjoint
+
+  entity Coche extends por_tipo_vehiculo {
+      id_vehiculo key
+  }
+```
         
 3. **Un Subtipo NO Puede Ser una Entidad Débil de Otra Entidad (G5)**: Una entidad **no puede ser a la vez una subclase y una entidad débil** dependiente de una tercera entidad distinta. La razón es un **conflicto irresoluble de identificación**:
 
@@ -67,7 +71,7 @@ Estos principios cubren aspectos cruciales del modelado E/R y EER. Ignorarlos, a
 Estos principios se centran en la correcta identificación y definición de las entidades **fuertes** (aquellas con identidad propia) en tu modelo. 
 ##### Principio 4: Toda Entidad Debe Describir Algo Relevante (M1)
 
-Una entidad fuerte representa un concepto del minimundo sobre el que **necesitamos guardar información**. Como mínimo absoluto, debe poseer los atributos que la identifican (su clave primaria) y, generalmente, otros atributos descriptivos. Dejar una entidad fuerte sin ningún atributo que las describa mas allá de su clave (o incluso sin clave) **(Fallo M1)** es un error medio. Indica que, o bien el concepto no era lo suficientemente importante como para ser una entidad, o el análisis de sus propiedades ha sido incompleto. Una entidad fuerte "vacía" no aporta valor.
+Una entidad fuerte representa un concepto del minimundo sobre el que **necesitamos guardar información**. Como mínimo absoluto, debe poseer los atributos que la identifican (su clave primaria) y, generalmente, otros atributos descriptivos. Dejar una entidad fuerte sin ningún atributo que las describa más allá de su clave (o incluso sin clave) **(Fallo M1)** es un error medio. Indica que, o bien el concepto no era lo suficientemente importante como para ser una entidad, o el análisis de sus propiedades ha sido incompleto. Una entidad fuerte "vacía" no aporta valor.
 
 - ❌ **Incorrecto (M1)**: Crear una entidad `Color` con solo su clave, únicamente para conectarla a `Producto`. Si solo necesitas el nombre del color, debe ser un atributo (`color`) de `Producto`. Si necesitas guardar más datos sobre él (por ejemplo, `codigo_pantone` o `es_metalizado`), entonces sí se justifica una entidad con esos atributos.
 - ✅ **Correcto**: Asegurarse de que cada entidad (`Cliente`, `Producto`, `Pedido`) tenga, además de su clave, los atributos necesarios para describirla según los requisitos (`nombre`, `direccion`, `precio`, `stock`, `fecha`, etc.). También una entidad con identificador y nombre, como `Genero` o `Provincia`, cuando sirve para **estandarizar** valores que se repiten en muchas entidades. No es un fallo M1: el `nombre` ya es un atributo descriptivo más allá de la clave.
@@ -90,32 +94,32 @@ Las entidades débiles son una herramienta clave para modelar dependencias, pero
 
 La **clave parcial** (o discriminante) es el conjunto de atributos _dentro_ de la entidad débil que la distingue de otras entidades débiles que dependen **del mismo propietario**. Es una parte esencial de su identidad. Indicar incorrectamente la clave parcial (por ejemplo, omitiéndola o eligiendo atributos que no discriminan) se considera una prueba de que no se comprende cómo se construye la identidad única de una entidad débil (salvo casos específicos como L15).
 
-- ✅ **Correcto**: En `Familiar` (débil de `Empleado`), la clave parcial es `nombre`, asumiendo que un empleado no tiene dos familiares directos con el mismo nombre exacto. La clave completa heredada sería `{dni, nombre}` aunque en la débil solo pondremos `nombre` como clave parcial .
+- ✅ **Correcto**: En `Familiar` (débil de `Empleado`), la clave parcial es `nombre`, asumiendo que un empleado no tiene dos familiares directos con el mismo nombre exacto. La clave completa heredada sería `{dni, nombre}` aunque en la débil solo pondremos `nombre` como clave parcial.
     
 - ❌ **Incorrecto (M4)**: No indicar como clave parcial `nombre` en `Familiar`. El `dni` no es parte de la clave _parcial_; es parte de la clave _heredada_ de la entidad fuerte de la que depende.
     
 ##### Principio 7: La Dependencia de la Entidad Débil Hacia su Propietario es Total y Única (M5) 🔗
 
-Por definición, una entidad débil tiene **dependencia de existencia e identificación** con su entidad fuerte propietaria. Esto significa que una entidad débil **no puede existir sin su propietario** y siempre está asociada a **exactamente uno**. Esta regla semántica se traduce en una cardinalidad **fija e inmutable** en la relación de identificación: vista _desde_ la entidad fuerte _hacia_ la débil, la participación es siempre **(1,1)** (uno y solo uno). Indicar cualquier otra cardinalidad (como (0,1), (0,N) o (1,N)) en el lado de la entidad fuerte es un error conceptual medio, porque contradice la naturaleza misma de la dependencia que define a la entidad débil.
+Por definición, una entidad débil tiene **dependencia de existencia e identificación** con su entidad fuerte propietaria. Esto significa que una entidad débil **no puede existir sin su propietario** y siempre está asociada a **exactamente uno**. Esta regla semántica se traduce en una cardinalidad **fija e inmutable** en la relación de identificación: vista _desde_ la entidad fuerte _hacia_ la débil, la participación es siempre **[1..1]** (uno y solo uno). Indicar cualquier otra cardinalidad (como [0..1], [0..N] o [1..N]) en el lado de la entidad fuerte es un error conceptual medio, porque contradice la naturaleza misma de la dependencia que define a la entidad débil.
 
-- ✅ **Correcto**: En la relación `familiar_de` entre `Empleado` (fuerte) y `Familiar` (débil), la línea que conecta `familiar_de` con `Empleado` debe indicar (1,1) (o dos barras paralelas en Crow's Foot).
+- ✅ **Correcto**: En la relación `familiar_de` entre `Empleado` (fuerte) y `Familiar` (débil), la línea que conecta `familiar_de` con `Empleado` debe indicar [1..1] (o dos barras paralelas en Crow's Foot).
     
-- ❌ **Incorrecto (M5)**: Indicar (0,1) en el lado de `Empleado`. Esto implicaría que un `Familiar` podría existir sin un `Empleado` asociado, lo cual es imposible por definición.
+- ❌ **Incorrecto (M5)**: Indicar [0..1] en el lado de `Empleado`. Esto implicaría que un `Familiar` podría existir sin un `Empleado` asociado, lo cual es imposible por definición.
     
 ##### Principio 8: Define Correctamente Cuántos Dependientes Puede Tener un Propietario (M6) 👨‍👩‍👧‍👦
 
 La relación de identificación, vista desde la entidad débil hacia la fuerte, indica cuántas instancias débiles puede tener asociadas **una** instancia de la entidad fuerte. Para que la estructura se ajuste al patrón estándar de entidad débil, la entidad fuerte **debe ser capaz de relacionarse con múltiples instancias** de la entidad débil. Por lo tanto, la cardinalidad **máxima** en el lado de la entidad débil **debe ser 'N'** (muchos).
 
 Esto significa que las cardinalidades correctas y esperadas en el lado de la entidad débil son:
-- **(0,N)**: Un propietario puede tener cero o muchos dependientes (ej: un `Empleado` puede estar relacionado con cero o varias instancias de  `Familiar`).
+- **[0..N]**: Un propietario puede tener cero o muchos dependientes (ej: un `Empleado` puede estar relacionado con cero o varias instancias de  `Familiar`).
     
-- **(1,N)**: Un propietario debe tener al menos un dependiente y puede tener muchos (ej: una `Factura` (fuerte) debe tener al menos una `Linea_Factura` (débil)).
+- **[1..N]**: Un propietario debe tener al menos un dependiente y puede tener muchos (ej: una `Factura` (fuerte) debe tener al menos una `Linea_Factura` (débil)).
 
-Especificar una cardinalidad **máxima de '1'** (es decir, (0,1) o (1,1)) en el lado de la entidad débil se considera un **error medio**. Esto contradice la expectativa de la relación de dependencia (donde la clave parcial sirve para distinguir entre _varios_ dependientes del mismo propietario) e indica una posible **incomprensión del concepto** o un **error en el modelado**. Si un propietario solo puede tener, como máximo, un dependiente, raramente se justifica modelarlo como una entidad débil separada; a menudo podría integrarse como atributos en la entidad fuerte o modelarse de otra forma.
+Especificar una cardinalidad **máxima de '1'** (es decir, [0..1] o [1..1]) en el lado de la entidad débil se considera un **error medio**. Esto contradice la expectativa de la relación de dependencia (donde la clave parcial sirve para distinguir entre _varios_ dependientes del mismo propietario) e indica una posible **incomprensión del concepto** o un **error en el modelado**. Si un propietario solo puede tener, como máximo, un dependiente, raramente se justifica modelarlo como una entidad débil separada; a menudo podría integrarse como atributos en la entidad fuerte o modelarse de otra forma.
 
-- ✅ **Correcto**: Si un `Empleado` puede estar relacionado con cero o varias instancias de  `Familiar`, indicar (0,N) o (1,N) (según si es obligatorio tener al menos uno) en la línea que conecta la relación con `Familiar`.
+- ✅ **Correcto**: Si un `Empleado` puede estar relacionado con cero o varias instancias de  `Familiar`, indicar [0..N] o [1..N] (según si es obligatorio tener al menos uno) en la línea que conecta la relación con `Familiar`.
     
-- ❌ **Incorrecto y Penalizable (M6)**: Si los requisitos _permitieran_ varios familiares, pero indicas (0,1) o (1,1) en el lado de `Familiar`. Esto restringe incorrectamente el modelo. Incluso si los requisitos _dijeran_ que un empleado solo puede tener _un_ familiar, modelarlo como entidad débil con cardinalidad máxima '1' viola el espíritu del criterio M6 y sugiere que quizás `Familiar` no debería ser una entidad débil en primer lugar.
+- ❌ **Incorrecto y Penalizable (M6)**: Si los requisitos _permitieran_ varios familiares, pero indicas [0..1] o [1..1] en el lado de `Familiar`. Esto restringe incorrectamente el modelo. Incluso si los requisitos _dijeran_ que un empleado solo puede tener _un_ familiar, modelarlo como entidad débil con cardinalidad máxima '1' viola el espíritu del criterio M6 y sugiere que quizás `Familiar` no debería ser una entidad débil en primer lugar.
 
 #### 2.3 Decisiones de Diseño Importantes: Principios sobre Relaciones (Errores Medios) ⚖️
 
@@ -139,7 +143,7 @@ En una jerarquía EER, la **identidad** (la clave primaria) se define **una sola
     
 - ❌ **Incorrecto y Penalizable (M8)**: Si `Vehiculo` usa `id_vehiculo` como clave, pero defines `matricula` como clave primaria de `Coche` y `numero_bastidor` como clave primaria de `Camion`. Esto rompe la conexión de identidad fundamental de la jerarquía.
     
-#### Principio 11: Evita la Redundancia: Los Atributos Comunes Van Arriba (M9) ⬆️
+##### Principio 11: Evita la Redundancia: Los Atributos Comunes Van Arriba (M9) ⬆️
 
 Uno de los propósitos principales de crear una jerarquía es **factorizar las características comunes** en el nivel más general posible (el supertipo) para evitar repetirlas. Los atributos que son compartidos por varios o todos los subtipos **deben** definirse **una única vez** en el supertipo. Gracias a la herencia, estos atributos estarán disponibles automáticamente para todas las entidades subtipo. Repetir atributos comunes (salvo la clave primaria) en los subtipos **(Fallo M9)** es un **error medio**. Crea redundancia innecesaria, aumenta el riesgo de inconsistencias (tener el mismo dato con valores diferentes en distintos sitios) y dificulta el mantenimiento del modelo.
 
@@ -156,9 +160,9 @@ Estos principios finales se centran en la **precisión y completitud** de los de
 
 Estos principios se centran en la correcta y completa especificación de las entidades fuertes. Su aplicación demuestra un dominio completo del modelo E/R.
 
-##### Principio 12: Señala Claramente la Clave Primaria  correcta (L1) 🔑
+##### Principio 12: Señala Claramente la Clave Primaria correcta (L1) 🔑
 
-Toda entidad fuerte **debe** tener una clave primaria correctaque la identifique de forma única. Es **esencial** indicar cuál es este atributo (o conjunto de atributos) utilizando la notación estándar (`key` en BigER, subrayado en notación gráfica). No marcar explícitamente la clave primaria **(Fallo L1)** es un error leve. Aunque a veces se pueda deducir, omitir esta marca dificulta la lectura y comprensión inmediata del identificador principal de la entidad.
+Toda entidad fuerte **debe** tener una clave primaria correcta que la identifique de forma única. Es **esencial** indicar cuál es este atributo (o conjunto de atributos) utilizando la notación estándar (`key` en BigER, subrayado en notación gráfica). No marcar explícitamente la clave primaria **(Fallo L1)** es un error leve. Aunque a veces se pueda deducir, omitir esta marca dificulta la lectura y comprensión inmediata del identificador principal de la entidad.
 
 - ✅ **Correcto**: En la entidad `Empleado`, subrayar el atributo `dni`.
     
@@ -172,17 +176,17 @@ A veces, una entidad puede tener **más de un** atributo o conjunto de atributos
     
 - ❌ **Incorrecto (L2)**: indicar solo `vin` como clave primaria y dejar `matricula` como un atributo normal, a pesar de que también es única según los requisitos.
 
-#### 3.2 Principios sobre Relaciones  ✨
+#### 3.2 Principios sobre Relaciones ✨
 
 Estos principios aseguran que las relaciones en tu modelo sean precisas, completas y no redundantes. Su correcta aplicación demuestra un entendimiento detallado de cómo representar las interacciones entre entidades.
 
 ##### Principio 14: Define las Cardinalidades Exactamente Como se Requieren (L3) 🎯
 
-Las restricciones de cardinalidad (mínima y máxima) son cruciales porque definen las **reglas de negocio** que gobiernan cómo se relacionan las entidades. Debes leer atentamente los requisitos y asegurarte de que las cardinalidades que indicas en el diagrama (ej: (0,N), (1,1), (1,N)) reflejan **exactamente** lo que se pide. Indicar una cardinalidad distinta a la especificada explícitamente en el enunciado **(Fallo L3)** es un error leve. Aunque no rompe la estructura general, demuestra una falta de precisión al traducir las reglas de negocio al modelo (salvo errores de cardinalidad graves ya cubiertos).
+Las restricciones de cardinalidad (mínima y máxima) son cruciales porque definen las **reglas de negocio** que gobiernan cómo se relacionan las entidades. Debes leer atentamente los requisitos y asegurarte de que las cardinalidades que indicas en el diagrama (ej: [0..N], [1..1], [1..N]) reflejan **exactamente** lo que se pide. Indicar una cardinalidad distinta a la especificada explícitamente en el enunciado **(Fallo L3)** es un error leves (salvo en los casos recogidos como fallo medio (M5 o M6)). Aunque no rompe la estructura general, demuestra una falta de precisión al traducir las reglas de negocio al modelo (salvo errores de cardinalidad graves ya cubiertos).
 
-- ✅ **Correcto**: Si el enunciado dice "un empleado debe pertenecer a _un_ departamento, y un departamento puede tener _muchos_ empleados (o ninguno si es nuevo)", las cardinalidades serían (1,1) en el lado del Departamento y (0,N) en el lado del Empleado para la relación `trabaja_para`.
+- ✅ **Correcto**: Si el enunciado dice "un empleado debe pertenecer a _un_ departamento, y un departamento puede tener _muchos_ empleados (o ninguno si es nuevo)", las cardinalidades serían [1..1] en el lado del Departamento y [0..N] en el lado del Empleado para la relación `trabaja_para`.
     
-- ❌ **Incorrecto (L3)**: Poner (0,1) en el lado del `Departamento`, permitiendo que un `Empleado` no tenga `Departamento`, si los requisitos lo exigían.
+- ❌ **Incorrecto (L3)**: Poner [0..1] en el lado del `Departamento`, permitiendo que un `Empleado` no tenga `Departamento`, si los requisitos lo exigían.
     
 ##### Principio 15: Decide Cómo Modelar el Estado Actual vs. el Histórico (L4) ⏳
 
@@ -202,7 +206,7 @@ Existen dos enfoques principales, y la elección tiene implicaciones importantes
         
 2. **Enfoque 2: Modelar Explícitamente el Estado Actual**
     
-    - **Cómo**: Se modelan **ambas cosas**: la entidad histórica _y_ una **relación binaria separada** que representa únicamente el estado actual (ej: una relación `tiene_asignado_actualmente` (1:1 o 1:N) entre `Empleado` y `Puesto`).
+    - **Cómo**: Se modelan **ambas cosas**: la entidad histórica _y_ una **relación binaria separada** que representa únicamente el estado actual (ej: una relación `tiene_asignado_actualmente` 1:1 o 1:N entre `Empleado` y `Puesto`).
         
     - **Ventajas**: Consultar el estado actual es **muy eficiente** (acceso directo a través de la relación). Puede reflejar más claramente la importancia del estado presente en el negocio.
         
@@ -237,7 +241,7 @@ Si ya has modelado una relación explícita entre dos entidades (ej: `trabaja_pa
 
 Algunas relaciones, especialmente las M:N, tienen atributos que describen la **interacción** en sí misma, no a las entidades participantes. Es crucial identificar e incluir estos atributos asociados directamente a la relación (o a la entidad asociativa que la represente). No incluir los atributos que pertenecen a una relación **(Fallo L7)** es un error leve que hace el modelo incompleto.
 
-- ✅ **Correcto**: En la relación M:N `trabaja_en` entre `Empleado` y `Proyecto`, incluir el atributo `horas` asociado a la relación .
+- ✅ **Correcto**: En la relación M:N `trabaja_en` entre `Empleado` y `Proyecto`, incluir el atributo `horas` asociado a la relación.
     
 - ❌ **Incorrecto (L7)**: Modelar la relación `trabaja_en` sin incluir el atributo `horas`, a pesar de que los requisitos indiquen que se debe registrar.
     
@@ -245,7 +249,7 @@ Algunas relaciones, especialmente las M:N, tienen atributos que describen la **i
 
 Un atributo debe colocarse en el elemento que describe directamente. Incluir atributos en una relación cuando en realidad describen a una de las entidades participantes **(Fallo L8)** es un error leve de modelado. La regla general es: si el valor del atributo depende _solo_ de una de las entidades, va en esa entidad; si depende de la _combinación_ de las entidades participantes, va en la relación.
 
-- ✅ **Correcto**: `NombreEmpleado` va en `Empleado`. `nombre` va en `Proyecto`. `horas` (trabajadas por un empleado en un proyecto) va en la relación `trabaja_en`.
+- ✅ **Correcto**: `nombre` va en `Empleado`. `nombre` va en `Proyecto`. `horas` (trabajadas por un empleado en un proyecto) va en la relación `trabaja_en`.
     
 - ❌ **Incorrecto (L8)**: Poner el atributo `salario` del empleado en la relación `trabaja_en`. El salario depende del empleado, no de en qué proyecto trabaje (generalmente).
     
@@ -287,23 +291,23 @@ Este es el reverso de los dos principios anteriores. Si una entidad cumple **amb
     
 ##### Principio 24: Usa Entidades Débiles Históricas **Solo** si Hay Repeticiones Reales (L13, L14) 🔄
 
-Cuando convertimos una relación M:N en una entidad para guardar su **historial** (como `Docencia` entre `Profesor` y `Asignatura` a lo largo de varios cursos), la entidad resultante (`Docencia`) es débil y típicamente incluye un atributo de tiempo (como `curso_academico`) en su clave parcial para distinguir las ocurrencias. Sin embargo, este patrón **solo** debe aplicarse si la misma pareja de entidades **puede relacionarse legítimamente varias veces** a lo largo del tiempo según las reglas de negocio.
+Cuando convertimos una relación M:N en una entidad para guardar su **historial** (como `Docencia` entre `Profesor` y `Asignatura` a lo largo de varios cursos), la entidad resultante (`Docencia`) es débil y típicamente incluye un atributo de tiempo (como `curso`) en su clave parcial para distinguir las ocurrencias. Sin embargo, este patrón **solo** debe aplicarse si la misma pareja de entidades **puede relacionarse legítimamente varias veces** a lo largo del tiempo según las reglas de negocio.
 
 - **No** convertir en entidad débil histórica una relación M:N donde **SÍ** hay repeticiones y necesitas distinguirlas (normalmente con un atributo de tiempo en la clave parcial) **(Fallo L14)** es un error leve. El modelo sería incapaz de almacenar correctamente el historial.
     
-    - ❌ **Incorrecto (Fallo L14)**: Dejar `imparte` como relación M:N entre `Profesor` y `Asignatura` con un atributo `curso_academico`. Cada pareja profesor-asignatura solo puede aparecer una vez en la relación, así que solo se podría guardar uno de los cursos en que la impartió.
-    - ✅ **Correcto (Necesario si hay repetición)**: Crear `Docencia` como débil de `Profesor` y `Asignatura` con clave parcial `curso_academico`, si un profesor puede impartir la misma asignatura varios cursos.
+    - ❌ **Incorrecto (Fallo L14)**: Dejar `imparte` como relación M:N entre `Profesor` y `Asignatura` con un atributo `curso`. Cada pareja profesor-asignatura solo puede aparecer una vez en la relación, así que solo se podría guardar uno de los cursos en que la impartió.
+    - ✅ **Correcto (Necesario si hay repetición)**: Crear `Docencia` como débil de `Profesor` y `Asignatura` con clave parcial `curso`, si un profesor puede impartir la misma asignatura varios cursos.
         
 - Convertir una relación en entidad débil histórica (añadiendo un componente de tiempo a la clave) cuando **NO** se pueden dar repeticiones **(Fallo L13)** es un error leve. Complica innecesariamente el modelo e introduce una clave primaria no mínima. En estos casos caben dos soluciones correctas:
 	- Si la relación no participa en otras relaciones, se queda como relación M:N, con sus atributos si los tiene.
 	- Si participa en otras relaciones, se convierte en una entidad asociativa, cuya clave es únicamente la combinación de las claves de las entidades que asocia, sin ningún atributo de tiempo.
 		- ❌ Incorrecto (Fallo L13): Modelar la autoría de los libros como una entidad débil `Autoria` de `Autor` y `Libro` con clave parcial `fecha_publicacion`, formando la clave `{id_autor, isbn, fecha_publicacion}`. Un autor figura una sola vez entre los autores de un mismo libro, así que la pareja nunca se repite y la fecha no aporta nada a la unicidad. Además, la fecha de publicación describe al libro, no a la pareja autor-libro, por lo que su sitio es la entidad `Libro`.
 		- ✅ Correcto: Una relación M:N `escribe` entre `Autor` y `Libro`, con el atributo `orden_firma` si se necesita registrar el orden en que aparecen los autores. Si la autoría tuviera que relacionarse con otra entidad, por ejemplo con el `Agente` que negoció los derechos de ese autor sobre ese libro, ese `Agente` no se podría relacionar directamente con `Autor`, porque un autor puede haber tenido agentes distintos para libros distintos. Tampoco con `Libro`, porque si el libro tiene dos autores, cada uno puede tener su propio agente. El agente se relaciona **con la pareja autor-libro**, es decir, con la relación `escribe`. Y una relación no puede conectarse con otra relación, por lo que `escribe` se convertiría en la entidad asociativa `Autoria`, y su clave seguiría siendo `{id_autor, isbn}`. 
-#### Principio 25: La Dependencia Histórica Debe Ser Mínima y Correcta (L15) ⚖️
+##### Principio 25: La Dependencia Histórica Debe Ser Mínima y Correcta (L15) ⚖️
 
 Cuando creas una entidad débil histórica a partir de una relación que se repite, esta debe depender **única y exclusivamente** de las entidades necesarias para identificarla, siguiendo las reglas de los casos que vimos en un instante de tiempo. Hacerla depender de más entidades de las necesarias **(Fallo L15)** es un error leve. Introduce redundancia en la clave primaria y complica el modelo innecesariamente.
 
-- ✅ **Correcto**: En el historial de `Historial_Departamento` (Ejemplo 5.4.2.3.1: Asignación Departamental de Empleados ), la entidad histórica depende **solo** de `Empleado` (y la fecha), porque la relación en un instante es 1:N.
+- ✅ **Correcto**: En el historial de `Historial_Departamento` (Ejemplo 5.4.2.3.1: Asignación Departamental de Empleados), la entidad histórica depende **solo** de `Empleado` (y la fecha), porque la relación en un instante es 1:N.
     
 - ❌ **Incorrecto (L15)**: Hacer que `Historial_Departamento` dependa de `Empleado` **y** de `Departamento` (y la fecha). La dependencia de `Departamento` es innecesaria para la identificación única, dado que un empleado solo está en un departamento en una fecha dada.
 
@@ -315,16 +319,16 @@ Este principio asegura que se indican correctamente las relaciones débiles cuan
 
 La relación que conecta una entidad débil con su entidad fuerte propietaria no es una relación cualquiera; es la **relación de identificación**. Es a través de esta relación que la entidad débil hereda parte de su clave y establece su dependencia. Para destacar esta naturaleza especial, el modelo EER utiliza una notación específica: un **rombo con borde grueso** en la notación gráfica (o la palabra clave `weak relationship` en BigER). No indicar explícitamente que esta relación es débil (identificadora) usando la notación correcta **(Fallo L16)** es un **error leve**. Aunque la estructura general pueda entenderse por el contexto (al ver la entidad débil con rectángulo con borde grueso), omitir la marca en la relación reduce la claridad y no sigue la convención estándar para resaltar las dependencias de identificación.
 
-- ✅ **Correcto**: En el diagrama , la relación `familiar_de` entre `Empleado` (fuerte) y `Familiar` (débil) debe modelarse como `weak relationship` en BigER y dibujarse con un rombo con borde grueso.
+- ✅ **Correcto**: En el diagrama, la relación `familiar_de` entre `Empleado` (fuerte) y `Familiar` (débil) debe modelarse como `weak relationship` en BigER y dibujarse con un rombo con borde grueso.
     
 - ❌ **Incorrecto (L16)**: Dejar la relación `familiar_de` como una relación normal.
 
 
-#### 3.5 Principios sobre Jerarquías  ✨
+#### 3.5 Principios sobre Jerarquías ✨
 
 Estos principios aseguran que tus jerarquías (especialización/generalización) sean semánticamente correctas, precisas y eficientes, evitando redundancias o conexiones incorrectas. Su correcta aplicación demuestra un dominio fino del modelo EER.
 
-#### Principio 27: Crea Subtipos Solo si Aportan Valor (L17, L18) ➕➖
+##### Principio 27: Crea Subtipos Solo si Aportan Valor (L17, L18) ➕➖
 
 Las jerarquías sirven para modelar **diferencias significativas** dentro de un tipo de entidad general.
 
@@ -351,16 +355,16 @@ Las jerarquías sirven para modelar **diferencias significativas** dentro de un 
     - ✅ **Correcto (Necesario si hay diferencias)**: Crear las subclases `Ingeniero` (con atributo `tipo_ingeniero`) y `Administrativo` (con atributo `categoria`), ya que tienen propiedades distintas.
         
 
-#### Principio 28: Conecta las Relaciones al Nivel Correcto de la Jerarquía (L19, L20) 🎯
+##### Principio 28: Conecta las Relaciones al Nivel Correcto de la Jerarquía (L19, L20) 🎯
 
 Cuando una entidad externa se relaciona con una entidad que forma parte de una jerarquía, es crucial conectar la relación al nivel **semánticamente correcto**:
 
 - **Conecta al subtipo si es específica (Evita L19)**: Si la relación solo aplica a un **subconjunto** específico (un subtipo), debe conectarse directamente a ese **subtipo**. Conectarla erróneamente al supertipo **(Fallo L19)** es un error leve que generaliza incorrectamente la relación.
     
-    - ✅ **Correcto**: La relación `afiliado_a` (con `Sindicato`) se conecta al subtipo `Empleado_Tiempo_Parcial`, si solo ellos pueden afiliarse.
+    - ✅ **Correcto**: La relación `afiliado_a` (con `Sindicato`) se conecta al subtipo `Tiempo_Parcial`, si solo ellos pueden afiliarse.
         
     - ❌ **Incorrecto (L19)**: Conectar `afiliado_a` al supertipo `Empleado` si la regla solo aplica a los de tiempo parcial.
-    -
+    
 - **Conecta al supertipo si aplica a todos (Evita L20)**: Si la relación se aplica a **todas** las instancias de la jerarquía (independientemente del subtipo), debe conectarse al **supertipo**. Conectarla erróneamente a un subtipo **(Fallo L20)** es un error leve que restringe incorrectamente el alcance de la relación.
     
     - ✅ **Correcto**: La relación `trabaja_para` (entre `Empleado` y `Departamento`) se conecta a `Empleado` (supertipo), porque _todos_ los empleados, sean ingenieros o administrativos, trabajan para un departamento.
@@ -368,11 +372,11 @@ Cuando una entidad externa se relaciona con una entidad que forma parte de una j
     - ❌ **Incorrecto (L20)**: Conectar `trabaja_para` solo al subtipo `Ingeniero`.
         
         
-#### Principio 29: Especifica Correctamente las Restricciones de la Jerarquía (L21) 🚦
+##### Principio 29: Especifica Correctamente las Restricciones de la Jerarquía (L21) 🚦
 
 Las restricciones de **totalidad/parcialidad** y **disyunción/solapamiento** definen las reglas fundamentales de la jerarquía. Debes analizar los requisitos y aplicar la combinación correcta (total disjunta o total solapada o parcial disjunta o parcial solapada) al dibujar el diagrama o (total disjoint o total overlapping o partial disjoint o partial overlapping) al definir la jerarquía en BigER. Indicar incorrectamente estas restricciones **(Fallo L21)** es un error leve. Demuestra una falta de precisión al capturar las reglas de negocio sobre cómo se clasifican las entidades dentro de la jerarquía.
 
-- ✅ **Correcto**: Marcar la jerarquía por tipo de jornada  `(Tiempo_Completo, Tiempo_Parcial)` como (total disjoint) si todo empleado debe tener una y solo una de esas jornadas.
+- ✅ **Correcto**: Marcar la jerarquía por tipo de jornada `(Tiempo_Completo, Tiempo_Parcial)` como (total disjoint) si todo empleado debe tener una y solo una de esas jornadas.
     
 - ❌ **Incorrecto (L21)**: Marcar la especialización como (total overlapping o partial disjoint o partial overlapping) si todo empleado debe tener una y solo una de esas jornadas.
 

@@ -73,7 +73,7 @@ Sus cardinalidades siguen siempre las mismas reglas:
 
 Como en cualquier relación, el orden de las dos entidades no cambia el significado. Y si una entidad débil depende de **más de una** entidad fuerte, necesita una relación débil con cada una de ellas.
 
-![](../imgs/BD%20-%20BigER%20Relación%20debil%20Horizontal.png)
+![](../imgs/BD%20-%20BigER%20Relacion%20debil%20Horizontal.png)
 
 Vuelve al archivo EjemplosNotacionBigER.erd y añade lo siguiente:
 

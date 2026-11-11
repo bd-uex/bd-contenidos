@@ -25,7 +25,7 @@
 
 #### a) Entidades fuertes (no débiles):
 
-- **M1**: Dejar entidades no asociativas sin ningún atributo que la describa(más allá de la clave o incluso sin ella).
+- **M1**: Dejar entidades no asociativas sin ningún atributo que la describa (más allá de la clave o incluso sin ella).
     
 - **M2**: Crear entidades que no son necesarias según los requisitos.
     
@@ -36,9 +36,9 @@
 
 - **M4**: Indicar incorrectamente la clave parcial (discriminante) salvo que se dé el caso **L15**.
     
-- **M5**: Indicar una cardinalidad distinta a `(1,1)` en el lado de la **entidad fuerte** en la relación de identificación.
+- **M5**: Indicar una cardinalidad distinta a `[1..1]` en el lado de la **entidad fuerte** en la relación de identificación.
     
-- **M6**: Indicar una cardinalidad distinta a `(0,N)` o `(1,N)` en el lado de la **entidad débil** en la relación de identificación.
+- **M6**: Indicar una cardinalidad distinta a `[0..N]` o `[1..N]` en el lado de la **entidad débil** en la relación de identificación.
     
 
 #### c) Relaciones:

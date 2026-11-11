@@ -28,7 +28,7 @@
 ---
 ## Antes del laboratorio -> Instalación de BigER en VS Code
 
-Necesitas tener instalados **Visual Studio Code**, **Java 17** y la extensión **bigER UEx**. Si aún no los tienes, sigue las instrucciones paso a paso de la guía que tienes en Obsidian en labs/anexos/AL09.1 - Instalación y uso de BigER en VSCode.md o en: [AL09.1 - Instalación y uso de BigER en VS Code](https://github.com/bd-uex/bd-contenidos/blob/curso2627/labs/anexos/AL09.1%20-%20Instalaci%C3%B3n%20y%20uso%20de%20BigER%20en%20VSCode.md)
+Necesitas tener instalados **Visual Studio Code**, **Java 17** y la extensión **bigER UEx**. Si aún no los tienes, sigue las instrucciones paso a paso de la guía que tienes en Obsidian en labs/anexos/AL09.1 - Instalación y uso de BigER en VSCode.md o en: [AL09.1 - Instalación y uso de BigER en VS Code](https://github.com/bd-uex/bd-contenidos/blob/main/labs/anexos/AL09.1%20-%20Instalaci%C3%B3n%20y%20uso%20de%20BigER%20en%20VS%20Code.md))
 
 Si tenías instalada la versión pública de bigER del Marketplace, desinstálala antes: las dos versiones entran en conflicto.
 
@@ -233,7 +233,7 @@ Puedes ver como ahora en cada extremo de la relación es_mentor_de aparece el ro
 ---
 ## Resolución del Enunciado ER - Enunciado ER 00A Estudio Videojuegos 
 
-Los ejercicios a continuación están orientados a empezar a resolver el Enunciado ER 00A Estudio Videojuegos que hemos visto en clase, disponible [aquí](../ejercicios/entidad-relacion/Enunciado%20ER%2000A%20Estudio%20Videojuegos.md).
+Los ejercicios a continuación están orientados a empezar a resolver el Enunciado 00A Estudio Videojuegos que hemos visto en clase, disponible [aquí](../ejercicios/entidad-relacion/Enunciado%20ER%2000A%20Estudio%20Videojuegos.md).
 
 Decimos "primera versión" porque todavía no hemos visto las **entidades débiles**: vamos a modelar todo lo que podemos con lo que sabemos hasta ahora, y en el laboratorio 2 revisaremos las partes que lo necesiten.
 
