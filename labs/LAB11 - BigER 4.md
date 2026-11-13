@@ -8,6 +8,8 @@
 
 3.- Aplicar la notación para resolver el **Enunciado ER 11 Colegio de Enseñanza de Primaria**, que combina todo lo visto en los laboratorios anteriores.
 
+4.- Aplicar la notación para resolver un examen real de diseño E/R: el **Enunciado ER 13 Todas Tus Series**.
+
 ---
 ## Contenidos
 
@@ -19,13 +21,16 @@
 
 ### Resolución del Enunciado ER 11 Colegio de Enseñanza de Primaria
 
+### Resolución del Enunciado ER 13 Todas Tus Series
+
 ---
 ## Antes de empezar
 
-En este laboratorio vamos a crear dos archivos nuevos, con **New Empty ER Model** y con la línea `notation=crowsfoot` justo debajo de la línea `erdiagram`:
+En este laboratorio vamos a crear tres archivos nuevos, con **New Empty ER Model** y con la línea `notation=crowsfoot` justo debajo de la línea `erdiagram`:
 
 1. **EjemplosAsociativasBigER.erd**, para los ejemplos y el primer ejercicio.
 2. **ModeloColegioPrimaria.erd**, para el enunciado del colegio.
+3. **ModeloTodasTusSeries.erd**, para el enunciado de las series.
 
 Recuerda que la vista del diagrama se abre con **Ctrl+Alt+E** (**Cmd+Alt+E** en macOS).
 
@@ -205,20 +210,20 @@ Con respecto a los docentes, se debe mantener información personal del mismo (d
 
 ---
 
-En primer lugar, parece claro que tenemos la entidad fuerte **Estudiante**, con número de expediente (candidato idóneo a ser clave primaria), nombre, apellido_1, apellido_2, sexo y fecha de nacimiento.
+En primer lugar, parece claro que tenemos la entidad fuerte **Estudiante**, con número de expediente (candidato idóneo a ser clave primaria), nombre, los dos apellidos, sexo y fecha de nacimiento: `numero_expediente`, `nombre`, `apellido_1`, `apellido_2`, `sexo` y `fecha_nacimiento`.
 
-Además, nos dicen que, si un estudiante tiene alguna necesidad especial, guardemos su descripción y la atención especial que necesita. Es decir, tenemos una subclase de Estudiante, **Estudiante_Especial**, con atributos propios que no tienen todos los estudiantes. Como es la única subclase, ya sabes qué restricción tiene su jerarquía.
+Además, nos dicen que, si un estudiante tiene alguna necesidad especial, guardemos su descripción y la atención especial que necesita. Es decir, tenemos una subclase de Estudiante, **Estudiante_Especial**, con atributos propios que no tienen todos los estudiantes: `descripcion` y `atencion_especial`. Como es la única subclase, ya sabes qué restricción tiene su jerarquía.
 
 También vamos a tener a los **tutores** (la madre, el padre o cualquier otra persona que tenga al estudiante a su cargo) y a los **docentes**. Si analizamos estas dos posibles entidades, vemos que tienen algunas similitudes y algunas diferencias.
 
 Las similitudes son:
 
-- Son personas adultas de las que hay que guardar un NIF (candidato idóneo a ser clave primaria; el enunciado lo llama DNI en los docentes, pero es el mismo dato), nombre, apellido_1, apellido_2, teléfono y dirección.
+- Son personas adultas de las que hay que guardar un NIF (candidato idóneo a ser clave primaria), nombre, los dos apellidos, teléfono y dirección: `nif`, `nombre`, `apellido_1`, `apellido_2`, `telefono` y `direccion`.
 
 Las diferencias son:
 
-- De las personas **tutoras** hay que guardar su profesión, y además tienen una relación, **a_cargo_de**, con los estudiantes. Fíjate en que el tipo de relación (madre, padre...) no es un dato del tutor ni del estudiante, sino de la pareja.
-- De las personas **docentes** hay que guardar su salario y su cuenta. Además, tendrán algunas relaciones específicas que modelaremos cuando lleguemos a los párrafos correspondientes.
+- De las personas **tutoras** hay que guardar su profesión (`profesion`), y además tienen una relación, **a_cargo_de**, con los estudiantes. Fíjate en que el tipo de relación (madre, padre...) no es un dato del tutor ni del estudiante, sino de la pareja: por eso es un atributo de la relación, que llamaremos `relacion`.
+- De las personas **docentes** hay que guardar su salario y su cuenta (`salario` y `cuenta`). Además, tendrán algunas relaciones específicas que modelaremos cuando lleguemos a los párrafos correspondientes.
 
 Con todo esto, ya podemos suponer que vamos a crear una jerarquía con la superclase **Persona** y las subclases **Tutora** y **Docente**. Para decidir sus restricciones, piensa si puede haber personas que no sean ni tutoras ni docentes, y fíjate en la última frase del tercer párrafo.
 
@@ -236,13 +241,13 @@ Para cada curso se desea tener almacenados una serie de objetivos de aprendizaje
 
 ---
 
-En primer lugar, parece claro que tenemos la entidad fuerte **Curso**, con número de curso (candidato idóneo a ser clave primaria) y descripción.
+En primer lugar, parece claro que tenemos la entidad fuerte **Curso**, con número de curso (candidato idóneo a ser clave primaria) y descripción: `numero_curso` y `descripcion_curso`.
 
 Además, hay que establecer la relación **responsable_de** entre Docente y Curso. Las cardinalidades de los dos lados se deducen directamente del enunciado.
 
 Vamos ahora a modelar los objetivos de aprendizaje. Tal y como nos dice el enunciado, un objetivo no tiene ningún atributo que lo distinga de los objetivos de los demás cursos: tiene una descripción y un código que solo es único **dentro de cada curso**. Además, ¿qué pasaría con la información de los objetivos si desapareciera el curso al que pertenecen?
 
-Todo esto nos tiene que llevar a modelar **Objetivo_Aprendizaje** como **entidad débil** que depende de Curso, con el código del objetivo como clave parcial, y a unirla con Curso mediante la **relación débil** **tiene**.
+Todo esto nos tiene que llevar a modelar **Objetivo_Aprendizaje** como **entidad débil** que depende de Curso, con el código del objetivo como clave parcial (`codigo_objetivo`) y su descripción (`descripcion_objetivo`), y a unirla con Curso mediante la **relación débil** **tiene**.
 
 Escribe el texto BigER necesario para modelar estas dos entidades y estas dos relaciones, y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
 
@@ -308,13 +313,110 @@ Este párrafo final ya deberíamos poder modelarlo sin más pistas. Aun así, f�
 
 - Los estudiantes no se matriculan de una asignatura en general, sino de **cada asignatura de un curso**. ¿Qué entidad del modelo representa eso?
 - El enunciado dice que, aunque se puede repetir curso, **no hay que contemplarlo**. ¿Qué cambiaría en el modelo si sí hubiera que contemplarlo?
+- Atributos para la relación `matriculado` (`fecha`, `nota_1`, `nota_2`, `nota_3`).
 
 Escribe el texto BigER necesario para modelar lo indicado en ese párrafo y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
 
 ---
+## Resolución del Enunciado ER 13 Todas Tus Series
+
+Los ejercicios a continuación están orientados a resolver el Enunciado ER 13 Todas Tus Series, disponible [aquí](../ejercicios/entidad-relacion/Enunciado%20ER%2013%20Todas%20Tus%20Series.md).
+
+Este enunciado es un **examen real** de diseño E/R, así que esta vez las pistas serán mínimas: es tu oportunidad de comprobar si eres capaz de resolver un enunciado completo por tu cuenta. Abre el archivo **ModeloTodasTusSeries.erd**, que será donde vamos a ir modelándolo.
+
+Como en los ejercicios anteriores, cada ejercicio incluye los **nombres** que espera el comprobador para que reconozca tu solución. Solo los nombres: decidir qué es cada cosa, sus claves y sus cardinalidades es cosa tuya.
+
+---
+### Ejercicio 06 - Enunciado ER 13 Todas Tus Series  (1)
+
+Vamos a comenzar centrándonos en resolver estos párrafos iniciales:
+
+---
+Los emprendedores de TodosTusSeries.com han decidido crear la plataforma definitiva para que los adictos a las series en España puedan encontrar su próxima serie y nos han encargado diseñar su base de datos considerando todos los aspectos que se detallan a continuación.
+
+Para empezar, necesitamos almacenar información completa sobre las series que incluiremos en nuestro catálogo. Cada serie tendrá un identificador único, su título, una sinopsis, la fecha de lanzamiento, y el estado actual (en emisión, finalizada, cancelada sin avisar, etc.). Es fundamental recordar que en el mundo del streaming moderno, las series pueden ser producidas por múltiples productoras a la vez; de hecho, es cada vez más común ver colaboraciones entre estudios internacionales, por lo que una serie puede tener varias productoras involucradas. De cada productora guardaremos su identificador, nombre y URL.
+
+Las series necesitan estar clasificadas por géneros para que los usuarios puedan encontrar fácilmente lo que buscan. Mantendremos un catálogo estandarizado de géneros con su identificador, nombre y descripción. Una serie puede pertenecer a múltiples géneros (podemos tener un drama sin más o una mezcolanza “drama-ciencia-ficción-comedia"), y por supuesto puede haber géneros que aún no tienen ninguna serie asignada en nuestro catálogo inicial. Además, para evitar que los padres acaben poniendo "The Walking Dead" a sus hijos de 5 años pensando que es sobre senderismo, mantendremos un sistema de clasificación por edades. Cada clasificación tendrá su identificador y edad mínima recomendada. Todas las series deben tener asignada una clasificación por edad obligatoriamente.
+
+---
+
+Esta parte es muy sencilla y no debería suponer ningún problema llevarla a cabo.
+
+> **Nombres para el comprobador**: las entidades `Serie` (`id_serie`, `titulo`, `sinopsis`, `fecha_lanzamiento`, `estado`), `Productora` (`id_productora`, `nombre`, `url`), `Genero` (`id_genero`, `nombre`, `descripcion`) y `Clasificacion_Edad` (`id_clasificacion`, `edad_minima`), y las relaciones `producida_por`, `clasificada_como` y `tiene_clasificacion`.
+
+Escribe el texto BigER necesario para modelar todas estas entidades y relaciones y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 07 - Enunciado ER 13 Todas Tus Series  (2)
+
+Vamos a continuar con los siguientes párrafos:
+
+---
+Hay que tener en cuenta que podemos tener series de una sola temporada o series con muchas temporadas (por ejemplo, Stranger Things ya tiene 4 temporadas emitidas, pero ya se está rodando la temporada 5). Cada temporada se identifica por su número dentro de la serie y además almacenaremos un resumen de sus novedades principales respecto a la temporada anterior (por ejemplo, para la temporada 3 de Stranger Things ese campo contendría algo del estilo de “Se presenta una nueva amenaza para Hawkins y sus habitantes: el Azotamentes”). Cada temporada contendrá un número variable de episodios: de cada uno de ellos guardaremos su número para esa temporada, su título propio, fecha de primera emisión, duración y sinopsis.
+
+El aspecto multiidioma es crucial en nuestra plataforma. Mantendremos un catálogo estandarizado de idiomas con identificador y nombre. Cada episodio puede tener audio disponible en varios idiomas (al menos uno) y subtítulos en otros tantos (no es obligatorio tenerlos), pero no necesariamente coinciden; por ejemplo, podríamos tener una serie con audio en inglés y coreano, pero con subtítulos disponibles en español, francés e italiano (o incluso sin subtítulos).
+
+---
+
+De esta parte, pon especial atención a las posibles entidades débiles. Fíjate en que el número de episodio solo es único dentro de su temporada, y el de la temporada solo dentro de su serie: ¿de quién depende cada uno? Ten cuidado, además, con las cardinalidades de los idiomas del audio y de los subtítulos.
+
+> **Nombres para el comprobador**: las entidades `Temporada` (`numero_temporada`, `novedades`), `Episodio` (`numero_episodio`, `titulo`, `fecha_primera_emision`, `duracion`, `sinopsis`) e `Idioma` (`id_idioma`, `nombre`), y las relaciones `pertenece_a`, `contiene`, `audio_disponible` y `subtitulos_disponibles`.
+
+Escribe el texto BigER necesario para modelar todas estas entidades y relaciones y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 08 - Enunciado ER 13 Todas Tus Series  (3)
+
+Vamos a continuar con el siguiente párrafo:
+
+---
+Detrás del telón aparecen las personas que participan en las series. De estas personas guardaremos su identificador, nombre, apellido, fecha de nacimiento, nacionalidad y una pequeña bio. Las personas que nos interesan se pueden dividir en creadores, directores e intérpretes. Para empezar, nada impide que una misma persona sea a la vez creador, director e intérprete. De los creadores, hay que saber qué series han creado teniendo en cuenta que puede haber series con varios creadores.  Los directores pueden dirigir varios episodios en distintas series y un episodio puede ser dirigido por varios. El tema de los intérpretes y sus actuaciones en episodios es más complejo. De los intérpretes hay que saber su nombre artístico (rara vez usan su nombre de normal). Un intérprete puede actuar representando uno o varios personajes en uno o varios episodios de una serie. De los personajes hay que saber su nombre y descripción. Hay que tener en cuenta que un mismo personaje puede ser interpretado por distintos intérpretes en distintos episodios de la misma serie. Por ejemplo, el personaje de Geralt de Rivia en la serie The Witcher ha sido interpretado primero por Henry Cavill y luego por Liam Hemsworth. Incluso en un mismo episodio, un mismo personaje puede ser interpretado por varios intérpretes, representando distintas versiones (por ejemplo, "Geralt niño" interpretado por un actor infantil y "Geralt anciano" interpretado por otro actor en un flashback). Es fundamental registrar los minutos exactos que dura cada una de estas actuaciones (es decir, cuántos minutos aparece el "Geralt niño" de ese actor, y cuántos el "Geralt anciano" del otro actor, en ese episodio). También debe almacenarse una breve descripción de esa versión específica, como "niño", "adulto" o "anciano", para darle contexto.
+
+---
+
+De esta parte, pon especial atención a las actuaciones de los intérpretes haciendo distintos personajes en los episodios. Es un caso muy especial: en el primer laboratorio de BigER vimos la sintaxis de las relaciones ternarias, pero aún no las habíamos usado en ningún enunciado. La pista definitiva para este caso es que tienes que revisar la sección 6 del Tema 5.
+
+> **Nombres para el comprobador**: las entidades `Persona` (`id_persona`, `nombre`, `apellido`, `fecha_nacimiento`, `nacionalidad`, `bio`), `Creador`, `Director`, `Interprete` (`nombre_artistico`) y `Personaje` (`id_personaje`, `nombre`, `descripcion`), y las relaciones `ha_creado`, `dirige_episodio` y `actuacion` (`minutos`, `version_del_personaje`).
+
+Escribe el texto BigER necesario para modelar todas estas entidades y relaciones y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 09 - Enunciado ER 13 Todas Tus Series  (4)
+
+Vamos a continuar con el siguiente párrafo:
+
+---
+ También mantendremos las plataformas de streaming disponibles en España con su identificador, nombre comercial, y URL. El sistema de derechos de emisión de las series es complejo: cada plataforma puede tener licencias para emitir diferentes series durante períodos específicos, con fechas de inicio y fin. Una serie puede estar disponible en múltiples plataformas simultáneamente o puede cambiar de plataforma según expiren los contratos.
+
+---
+
+De esta parte, ten en cuenta especialmente la última frase: "Una serie puede estar disponible en múltiples plataformas simultáneamente o puede cambiar de plataforma según expiren los contratos".
+
+> **Nombres para el comprobador**: las entidades `Plataforma` (`id_plataforma`, `nombre_comercial`, `url`) y `Derechos_Emision` (`fecha_inicio`, `fecha_fin`), y las relaciones `licencia_plataforma` y `derechos_serie`.
+
+Escribe el texto BigER necesario para modelar lo indicado en ese párrafo y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 10 - Enunciado ER 13 Todas Tus Series  (5)
+
+Vamos a finalizar con el siguiente párrafo:
+
+---
+Para la comunidad de usuarios, registraremos usuarios con identificador, email y nombre de usuario. Los usuarios pueden tener plataformas favoritas, valorar series con una puntuación y un comentario, y también valorar episodios individuales, pero en este caso solo con puntuación. Además, un usuario puede crearse distintas listas personalizadas de series, a las que se les dará un número consecutivo para cada usuario, y tendrán un nombre y descripción. Estas listas pueden ser compartidas con otros usuarios y hay que saber con quienes.
+
+---
+
+Esta parte, tras haber llegado hasta aquí, seguro que puedes hacerla sin ninguna pista.
+
+> **Nombres para el comprobador**: las entidades `Usuario` (`id_usuario`, `email`, `nombre_usuario`) y `Lista` (`numero_lista`, `nombre`, `descripcion`), y las relaciones `favorita`, `valora_serie` (`puntuacion`, `comentario`), `valora_episodio` (`puntuacion`), `crea_lista`, `incluye_serie` y `compartida_con`.
+
+Escribe el texto BigER necesario para modelar lo indicado en ese párrafo y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+
+---
 ### Fin
 
-¡Enhorabuena! Has modelado correctamente el diagrama Entidad Relación para el enunciado Enunciado 11 Colegio de Enseñanza de Primaria.
+¡Enhorabuena! Has modelado correctamente los diagramas Entidad Relación de los enunciados Enunciado ER 11 Colegio de Enseñanza de Primaria y Enunciado ER 13 Todas Tus Series.
 
 ![](../imgs/BD%20-%20ERD%20resuelto%20por%20Bender.png)
 

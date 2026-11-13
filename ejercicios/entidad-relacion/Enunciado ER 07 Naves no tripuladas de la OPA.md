@@ -1,4 +1,4 @@
-Tras nuestro éxito diseñando la base de datos de la OPA (Outer Planet Alliance), Camina Drummer nos ha encargado el diseño de una nueva base de datos. En concreto, la OPA está trabajando en el diseño de diferentes naves espaciales no tripuladas que sean capaces de volar entre planetas sin necesidad de astronautas pilotando dichas naves. Algunas de las pruebas que han realizado han tenido ya como consecuencia accidentes graves, lo que ha hecho enfadar bastante a Camina y, por este motivo, nos ha encargado el diseño una base de datos que permita tener un mayor control tanto de las naves como de las pruebas que están realizando. 
+Tras nuestro éxito diseñando la base de datos de la OPA (Outer Planet Alliance), Camina Drummer nos ha encargado el diseño de una nueva base de datos. En concreto, la OPA está trabajando en el diseño de diferentes naves espaciales no tripuladas que sean capaces de volar entre planetas sin necesidad de astronautas pilotando dichas naves. Algunas de las pruebas que han realizado han tenido ya como consecuencia accidentes graves, lo que ha hecho enfadar bastante a Camina y, por este motivo, nos ha encargado el diseño de una base de datos que permita tener un mayor control tanto de las naves como de las pruebas que están realizando. 
 
 Para empezar, de cada nave no tripulada hay que almacenar el código que la identifica, su nombre, peso, longitud, anchura, velocidad teórica que puede alcanzar y la capacidad prevista. 
 
@@ -12,7 +12,7 @@ La OPA quiere que la base de datos mantenga la información de todos sus emplead
 
 Cada nave tiene un único ingeniero aeroespacial como empleado responsable de su desarrollo, que solo es responsable de esa nave. 
 
-Entre los empleados, también están los ingenieros de software que se caracterizan por estas asignados a una nave. Es necesario conocer la nave a la que está asignado un ingeniero de software en la actualidad y desde cuándo, teniendo en cuenta que en un momento concreto un ingeniero de software solo está asignado a una nave mientras que una nave puede tener asignados varios ingenieros de software.
+Entre los empleados, también están los ingenieros de software que se caracterizan por estar asignados a una nave. Es necesario conocer la nave a la que está asignado un ingeniero de software en la actualidad y desde cuándo, teniendo en cuenta que en un momento concreto un ingeniero de software solo está asignado a una nave mientras que una nave puede tener asignados varios ingenieros de software.
 
 La asignación de ingenieros de software a las naves, sin embargo, va cambiando a lo largo del tiempo. Por este motivo, la OPA quiere tener constancia también de todas las asignaciones a otras naves que puede haber tenido un ingeniero de software a lo largo del tiempo, junto con su fecha de inicio y fecha fin.   
 

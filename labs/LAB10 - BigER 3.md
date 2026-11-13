@@ -8,6 +8,8 @@
 
 3.- Aplicar la notación para resolver el **Enunciado ER 04 The Expanse Completo**.
 
+4.- Repasar todo lo visto en los laboratorios de BigER resolviendo el **Enunciado ER 07 Naves no tripuladas de la OPA**.
+
 ---
 ## Contenidos
 
@@ -21,19 +23,21 @@
 
 ### Resolución del Enunciado ER 04 The Expanse Completo
 
+### Resolución del Enunciado ER 07 Naves no tripuladas de la OPA
+
 ---
 ## Antes de empezar
 
-En este laboratorio vamos a crear tres archivos nuevos, todos con **New Empty ER Model** y con la línea `notation=crowsfoot` justo debajo de la línea `erdiagram`:
+En este laboratorio vamos a crear cuatro archivos nuevos, todos con **New Empty ER Model** y con la línea `notation=crowsfoot` justo debajo de la línea `erdiagram`:
 
 1. **EjemplosEERBigER.erd**, para los ejemplos de la notación.
 2. **ModeloEERUniversidad.erd**, para los ejercicios de jerarquías.
 3. **ModeloTheExpanseCompleto.erd**, para el enunciado de The Expanse completo.
+4. **ModeloNavesNoTripuladasOPA.erd**, para el enunciado de las naves no tripuladas de la OPA.
 
 También necesitarás el archivo **ModeloTheExpanseV1Simplificado.erd** del laboratorio anterior.
 
 Recuerda que la vista del diagrama se abre con **Ctrl+Alt+E** (**Cmd+Alt+E** en macOS), y que **Ctrl+Alt+F** (**Cmd+Alt+F**) la ajusta a la pantalla. Los diagramas con jerarquías suelen ser grandes, así que este segundo atajo te será útil.
-
 
 ---
 ## Introducción a la notación textual de BigER (5) Jerarquías de especialización y generalización
@@ -362,7 +366,177 @@ Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado
 
 ---
 
-¡Enhorabuena! Has modelado correctamente el diagrama Entidad Relación para el enunciado Enunciado 04 ER The Expanse Completo.
+## Resolución del Enunciado ER 07 Naves no tripuladas de la OPA
+
+Los ejercicios a continuación están orientados a resolver el Enunciado ER 07 Naves no tripuladas de la OPA disponible [aquí](../ejercicios/entidad-relacion/Enunciado%20ER%2007%20Naves%20no%20tripuladas%20de%20la%20OPA.md).
+
+Es un enunciado más largo que los anteriores, porque repasa casi todo lo que hemos visto hasta ahora: entidades estandarizadas, relaciones recursivas, entidades débiles, históricos y, por supuesto, jerarquías. Lo resolveremos en seis pasos, de forma que al final de cada uno tendrás un modelo completo y correcto con lo que llevemos del enunciado.
+
+---
+### Ejercicio 08 - Enunciado ER 07 Naves no tripuladas de la OPA (1)
+
+Abre el archivo **ModeloNavesNoTripuladasOPA.erd**, que será donde vamos a ir modelando el Enunciado ER 07 Naves no tripuladas de la OPA.
+
+Vamos a comenzar centrándonos en los párrafos que describen las naves y su desarrollo:
+
+---
+_Para empezar, de cada nave no tripulada hay que almacenar el código que la identifica, su nombre, peso, longitud, anchura, velocidad teórica que puede alcanzar y la capacidad prevista._
+
+_Es muy importante saber la etapa actual de desarrollo en que se encuentra cada nave y desde cuando. Las naves se desarrollan siguiendo una serie de etapas estandarizadas (1.  Conceptualización inicial, 2. Diseño, 3. Modelo a escala,.., 9. En producción) de forma secuencial, es decir, cada nave solo pasa por cada etapa una vez a lo largo de su desarrollo. De cada una de estas etapas habrá que guardar su código único y su nombre._
+
+_Además, la OPA nos ha pedido que, para la correcta gestión de su planificación, también es necesario mantener en la base de datos las etapas completadas por las que ha pasado cada nave almacenando la fecha de inicio y la fecha de fin de cada etapa completada._
+
+_Hay que tener en cuenta también que hay algunas naves que han surgido como evolución de otra previa (sólo de una) y esta relación desea conocerse. Hay que tener en cuenta que una nave puede haber evolucionado hacia varias naves diferentes._
+
+---
+
+En primer lugar, tenemos dos entidades fuertes:
+
+- **Nave**, con un código (candidato idóneo a ser clave primaria), nombre, peso, longitud, anchura, velocidad teórica y capacidad prevista: `codigo_nave`, `nombre`, `peso`, `longitud`, `anchura`, `velocidad_teorica` y `capacidad_prevista`.
+- **Etapa_Desarrollo**, con un código de etapa (clave primaria) y su nombre: `codigo_etapa` y `nombre_etapa`. Fíjate en que el enunciado dice que las etapas están **estandarizadas**: por eso son una entidad, y no un simple atributo de Nave.
+
+Tenemos que modelar también las relaciones contenidas en estos párrafos:
+
+- En primer lugar, la relación **en_etapa_actual** entre Nave y Etapa_Desarrollo, con la fecha desde la que la nave está en esa etapa (`fecha_desde`). Por lo que nos dice el enunciado, una Nave está siempre en una sola etapa, mientras que en una etapa puede no haber ninguna nave en este momento, o haber varias.
+- En segundo lugar, las **etapas completadas** por cada nave, con su fecha de inicio y de fin (`fecha_inicio` y `fecha_fin`). Aquí hay que decidir si es una relación M:N o un histórico con una entidad débil. La clave está en la frase _"cada nave solo pasa por cada etapa una vez"_: como una misma pareja de nave y etapa **no se repite**, no hace falta ninguna entidad débil, y basta con una relación M:N con atributos, que llamaremos **completada_por**. Una nave puede no haber completado todavía ninguna etapa, y una etapa puede no haber sido completada aún por ninguna nave.
+- Por último, la relación recursiva **evoluciona_de** de Nave consigo misma. Una nave puede haber surgido de otra como mucho (o de ninguna, si es un diseño original), y una nave puede haber evolucionado hacia ninguna, una o varias naves. Como es una relación recursiva, necesita un rol en cada extremo: en este caso los dos extremos no significan lo mismo, así que los llamaremos "Original" y "Derivado".
+
+Fíjate en que la etapa actual y las etapas completadas son dos relaciones distintas: la etapa actual todavía no ha terminado, así que no tiene fecha de fin.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 09 - Enunciado ER 07 Naves no tripuladas de la OPA (2)
+
+Vamos a continuar con los párrafos que describen a los empleados:
+
+---
+_La OPA quiere que la base de datos mantenga la información de todos sus empleados (ingenieros, astronautas, directivos, mecánicos, administrativos, etc..) involucrados en el desarrollo de las naves y la realización de las pruebas. En concreto quiere almacenar su número único de empleado, nombre, apellidos y su categoría profesional._
+
+_Cada nave tiene un único ingeniero aeroespacial como empleado responsable de su desarrollo, que solo es responsable de esa nave._
+
+---
+
+En primer lugar, tenemos una nueva entidad fuerte:
+
+- **Empleado**, con un número de empleado (clave primaria), nombre, los dos apellidos y su categoría profesional: `numero_empleado`, `nombre`, `apellido_1`, `apellido_2` y `categoria_profesional`.
+
+Después, nos dicen que cada nave tiene un ingeniero aeroespacial responsable. Esta relación no la puede tener cualquier empleado, sino solo los ingenieros aeroespaciales: es una pista de que necesitamos una **subclase**.
+
+- **Ingeniero_Aeroespacial**, que extiende a Empleado a través de una jerarquía que llamaremos **por_tipo_empleado**, porque el criterio de clasificación es la categoría profesional. Por ahora es su **única** subclase, así que ya sabes qué restricción de completitud tiene y que no lleva restricción de disyunción.
+- La relación **responsable_de** entre Nave e Ingeniero_Aeroespacial. Por lo que nos dice el enunciado, cada nave tiene un único ingeniero aeroespacial responsable, y cada ingeniero aeroespacial solo es responsable de esa nave.
+
+¿Y el resto de categorías (astronautas, directivos, mecánicos...)? No tienen ningún dato ni relación propios, así que no crearemos subclases para ellas: serían subclases vacías, y la categoría ya queda recogida en el atributo `categoria_profesional`.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 10 - Enunciado ER 07 Naves no tripuladas de la OPA (3)
+
+Vamos a continuar con los párrafos que describen a los ingenieros de software:
+
+---
+_Entre los empleados, también están los ingenieros de software que se caracterizan por estar asignados a una nave. Es necesario conocer la nave a la que está asignado un ingeniero de software en la actualidad y desde cuándo, teniendo en cuenta que en un momento concreto un ingeniero de software solo está asignado a una nave mientras que una nave puede tener asignados varios ingenieros de software._
+
+_La asignación de ingenieros de software a las naves, sin embargo, va cambiando a lo largo del tiempo. Por este motivo, la OPA quiere tener constancia también de todas las asignaciones a otras naves que puede haber tenido un ingeniero de software a lo largo del tiempo, junto con su fecha de inicio y fecha fin._
+
+---
+
+Los ingenieros de software también tienen relaciones que no tiene el resto de empleados, así que necesitamos otra subclase:
+
+- **Ingeniero_Software**, que sale del **mismo criterio** que Ingeniero_Aeroespacial (la categoría profesional), así que extiende la **misma jerarquía** `por_tipo_empleado`. Ahora la jerarquía tiene dos subclases, así que tienes que revisar sus restricciones: piensa si hay empleados que no son de ninguna de las dos, y si un empleado puede tener dos categorías a la vez.
+
+Tenemos que modelar también la asignación actual y el histórico de asignaciones:
+
+- La relación **asignado_a** entre Ingeniero_Software y Nave, con la fecha desde la que el ingeniero está asignado (`fecha_desde`). Por lo que nos dice el enunciado, un ingeniero de software está asignado en cada momento a una sola nave, y una nave tiene asignados uno o varios ingenieros de software.
+- El **histórico de asignaciones**, con su fecha de inicio y de fin (`fecha_inicio` y `fecha_fin`). Esta vez, a diferencia de las etapas completadas del Ejercicio 08, nada impide que un ingeniero vuelva a una nave en la que ya estuvo, así que la misma pareja **sí puede repetirse**: necesitamos una entidad débil, **Asignacion_Historica**, con la fecha de inicio como clave parcial.
+
+La pregunta clave es: ¿de qué entidad o entidades depende Asignacion_Historica? Piensa si un ingeniero puede empezar dos asignaciones el mismo día, y si una nave puede recibir varios ingenieros ese mismo día. Como un ingeniero solo está asignado a una nave en cada momento, para distinguir una asignación basta con el ingeniero y la fecha de inicio:
+
+- Asignacion_Historica depende solo de Ingeniero_Software, a través de la relación débil **es_de**. Un ingeniero puede no tener todavía asignaciones anteriores, o tener varias.
+- Con Nave se relaciona mediante una relación normal, **ha_tenido**: cada asignación es a una sola nave, y una nave puede no haber tenido ninguna asignación anterior, o tener varias. Si la hiciéramos depender también de Nave, dependería de más entidades de las necesarias.
+
+Fíjate en que, igual que en el ejemplo de la Asignación Departamental de Empleados del Tema 5, mantenemos la relación con la asignación actual aunque podría deducirse del histórico: así el histórico solo guarda asignaciones terminadas, y no tendremos fechas de fin vacías en todas las asignaciones en curso.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 11 - Enunciado ER 07 Naves no tripuladas de la OPA (4)
+
+Vamos a continuar con los párrafos que describen los prototipos y las pruebas:
+
+---
+_La norma de la empresa es que de una nave se fabrican varios prototipos para pruebas. De los prototipos, además de la nave de la que es prototipo, debe saberse su número de serie único que lo identifica, su número de transpondedor (también un número único para poder circular en el espacio) y la fecha de fabricación._
+
+_Hay que guardar las pruebas que realizan los prototipos. Todas las pruebas tienen en común que se identifican por un número único y hay que saber qué tipo de prueba es, la fecha de la prueba, la hora y la duración de esta junto con el prototipo que se utilizó y qué empleado supervisó la prueba (las pruebas pueden ser supervisadas por cualquier empleado). Además, hay que almacenar un informe con las conclusiones de la prueba._
+
+_Además, para el tipo de pruebas extraplanetarias (entre dos planetas) hay que tener en cuenta también que necesitan obligatoriamente que un astronauta vaya dentro del prototipo vigilando que este se comporta correctamente. Hay que recalcar que los astronautas probadores no están asignados a los prototipos, sino a las pruebas extraplanetarias. De las pruebas extraplanetarias también es necesario almacenar el número total de kilómetros recorridos y el consumo de combustible realizado._
+
+---
+
+En primer lugar, tenemos dos nuevas entidades fuertes:
+
+- **Prototipo**, con su número de serie (clave primaria), su número de transpondedor (también único, así que será una **clave alternativa**) y su fecha de fabricación: `numero_serie`, `numero_transpondedor` y `fecha_fabricacion`.
+- **Prueba**, con su número de prueba (clave primaria), su tipo, fecha, hora, duración e informe: `numero_prueba`, `tipo`, `fecha`, `hora`, `duracion` e `informe`.
+
+Y sus relaciones:
+
+- **es_prototipo_de**, entre Prototipo y Nave. Cada prototipo es de una sola nave, y de una nave se pueden fabricar varios prototipos, aunque una nave que esté todavía en sus primeras etapas puede no tener ninguno.
+- **utiliza**, entre Prueba y Prototipo. Cada prueba utiliza un solo prototipo, y un prototipo puede no haber hecho todavía ninguna prueba, o haber hecho varias.
+- **supervisada_por**, entre Prueba y Empleado. Cada prueba la supervisa un solo empleado, y un empleado puede no haber supervisado ninguna prueba, o varias. Fíjate en que el enunciado insiste en que la prueba puede supervisarla **cualquier** empleado: por eso la relación es con la superclase Empleado, y no con una subclase.
+
+Después vienen las pruebas extraplanetarias, que tienen datos y relaciones propios que no tiene el resto de pruebas, así que necesitamos una nueva jerarquía:
+
+- **Prueba_Extraplanetaria**, que extiende a Prueba a través de la jerarquía **por_tipo_prueba**, con los kilómetros recorridos y el consumo de combustible (`kilometros_recorridos` y `consumo_combustible`). Es su única subclase, porque el resto de tipos de prueba no tienen nada propio. Por eso, además, mantenemos el atributo `tipo` en Prueba: sigue haciendo falta para saber de qué tipo es cada una de las demás pruebas.
+- **Astronauta_Probador**, una nueva subclase de Empleado. Como sale del mismo criterio que las anteriores (la categoría profesional), extiende también la jerarquía `por_tipo_empleado`, que ahora tiene tres subclases. Sus restricciones no cambian: sigue habiendo empleados sin subclase, y cada empleado tiene una sola categoría.
+- La relación **es_controlada_por** entre Prueba_Extraplanetaria y Astronauta_Probador. Cada prueba extraplanetaria necesita obligatoriamente un astronauta, y cada astronauta probador ha participado al menos en una prueba extraplanetaria. Fíjate en que el enunciado aclara que los astronautas no están asignados a los prototipos, sino a las pruebas: por eso la relación es con Prueba_Extraplanetaria, y no con Prototipo.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 12 - Enunciado ER 07 Naves no tripuladas de la OPA (5)
+
+Vamos a continuar con el párrafo que describe las incidencias:
+
+---
+_Durante la realización de cada prueba, a veces, pueden haber sucedido diferentes incidencias que deben ser registradas. Así, para cada prueba hay que saber todas las incidencias que se pudieron producir durante su realización. En concreto, es necesario saber el número de incidencia dentro de cada prueba en particular, junto con una descripción de la incidencia, la fecha y la hora en que se produjo y el grado de gravedad de la incidencia._
+
+---
+
+La frase clave es _"el número de incidencia dentro de cada prueba en particular"_: el número de incidencia solo es único dentro de su prueba (la incidencia 1 de una prueba es distinta de la incidencia 1 de otra). Es decir, una incidencia no se puede identificar por sí sola, y además no tiene sentido sin la prueba en la que se produjo:
+
+- **Incidencia** es una entidad débil, con el número de incidencia como clave parcial, su descripción, fecha, hora y grado de gravedad: `numero_incidencia`, `descripcion`, `fecha`, `hora` y `grado_gravedad`.
+- Depende de Prueba a través de la relación débil **sufre**. Cada incidencia es de una sola prueba, y en una prueba puede no haberse producido ninguna incidencia, o varias.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+### Ejercicio 13 - Enunciado ER 07 Naves no tripuladas de la OPA (6)
+
+Vamos a finalizar con el párrafo que describe las revisiones:
+
+---
+_La OPA tiene como política realizar cada día revisiones periódicas a varios prototipos. Así, debe poder saberse en todo momento las revisiones que ha pasado cada prototipo. En concreto, de cada revisión pasada por cada prototipo hay que saber la fecha de la revisión y un informe con el resultado de la revisión. También es necesario saber los empleados que han realizado la revisión, teniendo en cuenta que cada revisión es realizada por varios empleados y que un empleado puede realizar muchas revisiones. Como algunas revisiones pueden ser debidas a algunas de las incidencias que se producen durante las pruebas, la OPA también quiere almacenar si una revisión es debida a una o varias incidencias. Hay que tener en cuenta que puede haber tanto incidencias que no den lugar a revisiones como otras incidencias que provoquen varias revisiones._
+
+---
+
+Las revisiones no tienen ningún identificador propio: se distinguen por el prototipo y la fecha en que se hacen. Como la OPA hace las revisiones **cada día**, un prototipo pasa como mucho una revisión al día, así que la fecha basta para distinguir las revisiones de un mismo prototipo:
+
+- **Revision** es una entidad débil, con la fecha de la revisión como clave parcial y el informe con su resultado: `fecha_revision` e `informe`.
+- Depende de Prototipo a través de la relación débil **pasa**. Cada revisión es de un solo prototipo, y un prototipo puede no haber pasado todavía ninguna revisión, o varias.
+
+Y sus relaciones con otras entidades:
+
+- **realizada_por**, entre Revision y Empleado. Cada revisión la realizan uno o varios empleados, y un empleado puede no haber realizado ninguna revisión, o muchas. Como cualquier empleado puede realizar revisiones, la relación es con la superclase Empleado.
+- **debida_a**, entre Revision e Incidencia. Una revisión puede no deberse a ninguna incidencia (las revisiones periódicas), o deberse a una o varias, y una incidencia puede no haber dado lugar a ninguna revisión, o a varias.
+
+Fíjate en que Incidencia, aunque sea una entidad débil, puede participar en otras relaciones como cualquier otra entidad.
+
+Escribe el texto BigER necesario para modelar todo esto y visualiza el resultado en el diagrama en VS Code. Antes de continuar, asegúrate de entender cómo se está representando gráficamente todo.
+
+---
+
+¡Enhorabuena! Has modelado correctamente los diagramas Entidad Relación de los enunciados Enunciado ER 04 The Expanse Completo y Enunciado ER 07 Naves no tripuladas de la OPA.
 
 ![](../imgs/BD%20-%20ERD%20resuelto%20por%20Bender.png)
 

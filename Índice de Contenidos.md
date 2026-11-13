@@ -18,13 +18,13 @@
 - [LAB05 - JOIN](labs/LAB05%20-%20JOIN.md)
 - [LAB06 - Subconsultas](labs/LAB06%20-%20Subconsultas.md)
 - [LAB07 - Repaso SQL](labs/LAB07%20-%20Repaso%20SQL.md)
-- [LAB14 - Examen Repaso SQL](labs/LAB14%20-%20Examen%20Repaso%20SQL.md)
 - [LAB08 - BigER 1](labs/LAB08%20-%20BigER%201.md)
+- [LAB09 - BigER 2](labs/LAB09%20-%20BigER%202.md)
 - [LAB10 - BigER 3](labs/LAB10%20-%20BigER%203.md)
 - [LAB11 - BigER 4](labs/LAB11%20-%20BigER%204.md)
-- [LAB12 - BigER 5 B](labs/LAB12%20-%20BigER%205%20B.md)
-- [LAB12 - BigER 5 A](labs/LAB12%20-%20BigER%205%20A.md)
-- [LAB13 - Aplicaciones BD - JDBC](labs/LAB13%20-%20Aplicaciones%20BD%20-%20JDBC.md)
+- [LAB13 - BigER 6](labs/LAB13%20-%20BigER%206.md)
+- [LAB14 - Aplicaciones BD - JDBC](labs/LAB14%20-%20Aplicaciones%20BD%20-%20JDBC.md)
+- [LAB15 - Examen Repaso SQL](labs/LAB15%20-%20Examen%20Repaso%20SQL.md)
 
 ## Anexos laboratorio
 
@@ -34,3 +34,5 @@
 ## Criterios de evaluación
 
 - [Criterios Evaluación SQL](evaluacion/Criterios%20Evaluación%20SQL.md)
+- [Criterios de Calidad y de Evaluación del Diseño - Principios Fundamentales y Errores a Evitar](evaluacion/Criterios%20de%20Calidad%20y%20de%20Evaluación%20del%20Diseño%20-%20Principios%20Fundamentales%20y%20Errores%20a%20Evitar.md)
+- [Resumen Criterios de Evaluación - Examen Entidad Relación](evaluacion/Resumen%20Criterios%20de%20Evaluación%20-%20Examen%20Entidad%20Relación.md)
