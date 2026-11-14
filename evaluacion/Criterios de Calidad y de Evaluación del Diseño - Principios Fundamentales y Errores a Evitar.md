@@ -5,15 +5,10 @@ Dominar el modelado Entidad-Relación es como aprender a jugar al ajedrez ♟️
 
 Estos principios son los cimientos **no negociables** de un diseño Entidad-Relación correcto. Representan la comprensión básica del modelo y su aplicación a los requisitos. Un error en cualquiera de estas áreas se considera **grave (G)**, invalida una parte sustancial del modelo y demuestra una falta de comprensión fundamental. Por lo tanto, su dominio es absolutamente esencial. Violar estos principios resultará en **penalizaciones significativas** en cualquier evaluación del diseño, pudiendo comprometer gravemente la calificación final.
 
-#### 1.1 Requisito Imprescindible de Diseño
-##### Principio 1: El Modelo Debe Reflejar la Realidad (G1)
+#### 1.1 Sobre relaciones
+##### Principio 1: Las Conexiones Conceptuales son Relaciones, NO Atributos de Implementación (G1) (no confundir con el caso L6)
 
-El objetivo final de un diagrama E/R es crear un mapa fiel del "minimundo" que se nos describe. Si el diseño final es globalmente incoherente o no representa los requisitos básicos, se considera un error fundamental, independientemente de los fallos más pequeños.  
-
-#### 1.2 Sobre relaciones
-##### Principio 2: Las Conexiones Conceptuales son Relaciones, NO Atributos de Implementación (G2) (no confundir con el caso L6)
-
-Este es un error conceptual **crítico y grave (G2)** que surge de confundir los niveles de abstracción del diseño de bases de datos. En el **modelo conceptual E/R**, estamos describiendo la _semántica_ del minimundo, las conexiones lógicas entre conceptos. Por tanto, **jamás** debes usar un atributo dentro de una entidad para referenciar o "apuntar" a otra entidad. Las conexiones lógicas entre entidades **siempre** deben modelarse explícitamente como **relaciones**.
+Este es un error conceptual **crítico y grave (G1)** que surge de confundir los niveles de abstracción del diseño de bases de datos. En el **modelo conceptual E/R**, estamos describiendo la _semántica_ del minimundo, las conexiones lógicas entre conceptos. Por tanto, **jamás** debes usar un atributo dentro de una entidad para referenciar o "apuntar" a otra entidad. Las conexiones lógicas entre entidades **siempre** deben modelarse explícitamente como **relaciones**.
 
 Es **fundamental** entender que, aunque **más tarde**, en el **modelo relacional** (el diseño de las tablas), una relación 1:N pueda traducirse en una clave externa (un atributo en una tabla que referencia a otra), **eso es una decisión de implementación, NO de diseño conceptual**. Incluir claves externas como atributos en el diagrama E/R:
 
@@ -23,24 +18,24 @@ Es **fundamental** entender que, aunque **más tarde**, en el **modelo relaciona
     
 3. **Anticipa decisiones**: El mapeo de E/R a relacional tiene reglas específicas. Poner claves externas en el E/R es saltarse el proceso y puede llevar a errores.
     
-- ❌ **Incorrecto y Penalizable (Fallo G2)**: Crear una entidad `Asignatura` y añadir un atributo `responsable` (o `nif`) pensando en la futura clave externa. Esto es un grave error conceptual.
+- ❌ **Incorrecto y Penalizable (Fallo G1)**: Crear una entidad `Asignatura` y añadir un atributo `responsable` (o `nif`) pensando en la futura clave externa. Esto es un grave error conceptual.
     
 - ✅ **Correcto**: Crear las entidades `Profesor` y `Asignatura` y conectarlas con una relación explícita como `es_responsable_de`. La _traducción_ de esta relación a una clave externa se hará en la fase de diseño lógico, no aquí.
 
-#### 1.3 Sobre jerarquías
-##### Principio 3: Las Jerarquías Representan "ES UN" y Respetan la Identidad (G3, G4, G5) ⚠️
+#### 1.2 Sobre jerarquías
+##### Principio 2: Las Jerarquías Representan "ES UN" y Respetan la Identidad (G2, G3, G4) ⚠️
 
 Las jerarquías (especialización/generalización) son una herramienta poderosa, pero su uso está estrictamente reservado para modelar relaciones semánticas de tipo **"ES UN"**. Además, no deben entrar en conflicto con otros mecanismos de identificación, como la dependencia de las entidades débiles. Violar estas reglas se considera un **error conceptual grave** que demuestra una incomprensión fundamental del modelo EER y conlleva **penalizaciones significativas**.
 
-1. **El Subtipo DEBE Ser un Tipo del Supertipo (G3)**: La regla "ES UN" debe cumplirse estrictamente. Crear una jerarquía donde el subtipo no es una versión especializada del supertipo rompe la lógica fundamental del modelo.
+1. **El Subtipo DEBE Ser un Tipo del Supertipo (G2)**: La regla "ES UN" debe cumplirse estrictamente. Crear una jerarquía donde el subtipo no es una versión especializada del supertipo rompe la lógica fundamental del modelo.
     
-    - ❌ **Incorrecto y Penalizable (Fallo G3)**: Modelar `Motor` como subtipo de `Vehiculo`. Un motor **no "ES UN"** vehículo; es una _parte de_ él (relación de composición). Usar una jerarquía aquí es un error semántico grave.
+    - ❌ **Incorrecto y Penalizable (Fallo G2)**: Modelar `Motor` como subtipo de `Vehiculo`. Un motor **no "ES UN"** vehículo; es una _parte de_ él (relación de composición). Usar una jerarquía aquí es un error semántico grave.
         
     - ✅ **Correcto**: `Coche` **"ES UN"** `Vehiculo`. Esta sí es una jerarquía válida.
         
-2. **Usa la Notación Correcta para Jerarquías (G4)**: Si existe una relación "ES UN", **debes** usar la notación específica de jerarquía y no una relación binaria normal.
+2. **Usa la Notación Correcta para Jerarquías (G3)**: Si existe una relación "ES UN", **debes** usar la notación específica de jerarquía y no una relación binaria normal.
     
-    - ❌ **Incorrecto y Penalizable (Fallo G4)**: Si `Coche` **"ES UN"** `Vehiculo`, representarlo con dos entidades y una relación entre ellas llamada "ES". Esto ignora la herramienta de modelado diseñada específicamente para esta semántica.
+    - ❌ **Incorrecto y Penalizable (Fallo G3)**: Si `Coche` **"ES UN"** `Vehiculo`, representarlo con dos entidades y una relación entre ellas llamada "ES". Esto ignora la herramienta de modelado diseñada específicamente para esta semántica.
         
     - ✅ **Correcto**: Usar la notación de especialización/generalización para crear la jerarquía a partir de `Vehiculo`: 
 ```erdiagram
@@ -51,7 +46,7 @@ Las jerarquías (especialización/generalización) son una herramienta poderosa,
   }
 ```
         
-3. **Un Subtipo NO Puede Ser una Entidad Débil de Otra Entidad (G5)**: Una entidad **no puede ser a la vez una subclase y una entidad débil** dependiente de una tercera entidad distinta. La razón es un **conflicto irresoluble de identificación**:
+3. **Un Subtipo NO Puede Ser una Entidad Débil de Otra Entidad (G4)**: Una entidad **no puede ser a la vez una subclase y una entidad débil** dependiente de una tercera entidad distinta. La razón es un **conflicto irresoluble de identificación**:
 
 	- Una **subclase** (`Ingeniero`) **hereda** su identidad (su clave primaria) directamente de su **supertipo** (`Empleado`). Su identidad _es_ la del supertipo.
     
@@ -59,7 +54,7 @@ Las jerarquías (especialización/generalización) son una herramienta poderosa,
     
 	- Si una entidad `E` fuera subclase de `F` _y_ entidad débil de `G`, ¿cómo se identifica `E`? ¿Hereda la clave de `F` o construye su clave a partir de `G`? Son dos mecanismos incompatibles. El modelo EER prohíbe esta ambigüedad.
     
-	- ❌ **Incorrecto y Penalizable (Fallo G5)**: Imagina `Trabajador_Temporal` como subclase de `Empleado`. Ahora imagina que `Trabajador_Temporal` es también una entidad débil que depende de `Empresa_ETT` (Empresa de Trabajo Temporal) para identificarse (quizás porque su id solo es único dentro de la ETT). Esta estructura es inválida. Un `Trabajador_Temporal` debe heredar su dni de `Empleado` y no puede tener una identidad dependiente de `Empresa_ETT` al mismo tiempo.
+	- ❌ **Incorrecto y Penalizable (Fallo G4)**: Imagina `Trabajador_Temporal` como subclase de `Empleado`. Ahora imagina que `Trabajador_Temporal` es también una entidad débil que depende de `Empresa_ETT` (Empresa de Trabajo Temporal) para identificarse (quizás porque su id solo es único dentro de la ETT). Esta estructura es inválida. Un `Trabajador_Temporal` debe heredar su dni de `Empleado` y no puede tener una identidad dependiente de `Empresa_ETT` al mismo tiempo.
 
 ---
 ### 2 Principios de Diseño Importantes (Basado en Errores Medios)
@@ -69,14 +64,14 @@ Estos principios cubren aspectos cruciales del modelado E/R y EER. Ignorarlos, a
 #### 2.1 Principios Sobre Entidades Fuertes (ni débiles ni asociativas)
 
 Estos principios se centran en la correcta identificación y definición de las entidades **fuertes** (aquellas con identidad propia) en tu modelo. 
-##### Principio 4: Toda Entidad Debe Describir Algo Relevante (M1)
+##### Principio 3: Toda Entidad Debe Describir Algo Relevante (M1)
 
 Una entidad fuerte representa un concepto del minimundo sobre el que **necesitamos guardar información**. Como mínimo absoluto, debe poseer los atributos que la identifican (su clave primaria) y, generalmente, otros atributos descriptivos. Dejar una entidad fuerte sin ningún atributo que las describa más allá de su clave (o incluso sin clave) **(Fallo M1)** es un error medio. Indica que, o bien el concepto no era lo suficientemente importante como para ser una entidad, o el análisis de sus propiedades ha sido incompleto. Una entidad fuerte "vacía" no aporta valor.
 
 - ❌ **Incorrecto (M1)**: Crear una entidad `Color` con solo su clave, únicamente para conectarla a `Producto`. Si solo necesitas el nombre del color, debe ser un atributo (`color`) de `Producto`. Si necesitas guardar más datos sobre él (por ejemplo, `codigo_pantone` o `es_metalizado`), entonces sí se justifica una entidad con esos atributos.
 - ✅ **Correcto**: Asegurarse de que cada entidad (`Cliente`, `Producto`, `Pedido`) tenga, además de su clave, los atributos necesarios para describirla según los requisitos (`nombre`, `direccion`, `precio`, `stock`, `fecha`, etc.). También una entidad con identificador y nombre, como `Genero` o `Provincia`, cuando sirve para **estandarizar** valores que se repiten en muchas entidades. No es un fallo M1: el `nombre` ya es un atributo descriptivo más allá de la clave.
 
-##### Principio 5: El Modelo Debe Ser Preciso y Conciso en Entidades (M2, M3)
+##### Principio 4: El Modelo Debe Ser Preciso y Conciso en Entidades (M2, M3)
 
 El diagrama E/R debe ser un reflejo **exacto** y **completo** de las entidades descritas o implícitas en los requisitos del minimundo, ni más ni menos.
 
@@ -90,7 +85,7 @@ El diagrama E/R debe ser un reflejo **exacto** y **completo** de las entidades d
 
 Las entidades débiles son una herramienta clave para modelar dependencias, pero su correcta definición requiere precisión. Los errores en su identificación o en la especificación de su relación con la entidad fuerte indican una comprensión incompleta de este concepto fundamental.
 
-##### Principio 6: Define Correctamente la Clave Parcial (M4) 🔑
+##### Principio 5: Define Correctamente la Clave Parcial (M4) 🔑
 
 La **clave parcial** (o discriminante) es el conjunto de atributos _dentro_ de la entidad débil que la distingue de otras entidades débiles que dependen **del mismo propietario**. Es una parte esencial de su identidad. Indicar incorrectamente la clave parcial (por ejemplo, omitiéndola o eligiendo atributos que no discriminan) se considera una prueba de que no se comprende cómo se construye la identidad única de una entidad débil (salvo casos específicos como L15).
 
@@ -98,7 +93,7 @@ La **clave parcial** (o discriminante) es el conjunto de atributos _dentro_ de l
     
 - ❌ **Incorrecto (M4)**: No indicar como clave parcial `nombre` en `Familiar`. El `dni` no es parte de la clave _parcial_; es parte de la clave _heredada_ de la entidad fuerte de la que depende.
     
-##### Principio 7: La Dependencia de la Entidad Débil Hacia su Propietario es Total y Única (M5) 🔗
+##### Principio 6: La Dependencia de la Entidad Débil Hacia su Propietario es Total y Única (M5) 🔗
 
 Por definición, una entidad débil tiene **dependencia de existencia e identificación** con su entidad fuerte propietaria. Esto significa que una entidad débil **no puede existir sin su propietario** y siempre está asociada a **exactamente uno**. Esta regla semántica se traduce en una cardinalidad **fija e inmutable** en la relación de identificación: vista _desde_ la entidad fuerte _hacia_ la débil, la participación es siempre **[1..1]** (uno y solo uno). Indicar cualquier otra cardinalidad (como [0..1], [0..N] o [1..N]) en el lado de la entidad fuerte es un error conceptual medio, porque contradice la naturaleza misma de la dependencia que define a la entidad débil.
 
@@ -106,7 +101,7 @@ Por definición, una entidad débil tiene **dependencia de existencia e identifi
     
 - ❌ **Incorrecto (M5)**: Indicar [0..1] en el lado de `Empleado`. Esto implicaría que un `Familiar` podría existir sin un `Empleado` asociado, lo cual es imposible por definición.
     
-##### Principio 8: Define Correctamente Cuántos Dependientes Puede Tener un Propietario (M6) 👨‍👩‍👧‍👦
+##### Principio 7: Define Correctamente Cuántos Dependientes Puede Tener un Propietario (M6) 👨‍👩‍👧‍👦
 
 La relación de identificación, vista desde la entidad débil hacia la fuerte, indica cuántas instancias débiles puede tener asociadas **una** instancia de la entidad fuerte. Para que la estructura se ajuste al patrón estándar de entidad débil, la entidad fuerte **debe ser capaz de relacionarse con múltiples instancias** de la entidad débil. Por lo tanto, la cardinalidad **máxima** en el lado de la entidad débil **debe ser 'N'** (muchos).
 
@@ -123,7 +118,7 @@ Especificar una cardinalidad **máxima de '1'** (es decir, [0..1] o [1..1]) en e
 
 #### 2.3 Decisiones de Diseño Importantes: Principios sobre Relaciones (Errores Medios) ⚖️
 
-##### Principio 9: Modela Todas las Conexiones Requeridas (M7) 🔗
+##### Principio 8: Modela Todas las Conexiones Requeridas (M7) 🔗
 
 El modelo E/R debe capturar **todas** las interacciones y asociaciones significativas entre las entidades que se describen en los requisitos. Si el enunciado indica explícitamente que dos conceptos (representados como entidades) están relacionados de alguna manera, esa conexión **debe** modelarse como una **relación** explícita en el diagrama. Omitir una relación que es claramente requerida por la descripción del minimundo **(Fallo M7)** es un **error medio**. Indica que el modelo está incompleto, ya que no representa una parte fundamental de la estructura lógica de los datos descrita. La única excepción leve (L4) es cuando una relación _actual_ puede inferirse lógicamente a partir de una entidad histórica ya modelada.
 
@@ -135,7 +130,7 @@ El modelo E/R debe capturar **todas** las interacciones y asociaciones significa
 
 Las jerarquías (especialización/generalización) son una herramienta poderosa del modelo EER, pero su correcta implementación requiere respetar los principios de herencia de identidad y evitar la redundancia. 
 
-##### Principio 10: La Identidad es Única y Heredada en Toda la Jerarquía (M8) 🆔
+##### Principio 9: La Identidad es Única y Heredada en Toda la Jerarquía (M8) 🆔
 
 En una jerarquía EER, la **identidad** (la clave primaria) se define **una sola vez** en la entidad **supertipo** (la raíz de la jerarquía o subjerarquía). Todos los **subtipos** que heredan de ella **deben usar exactamente la misma clave primaria**. La esencia de la relación "ES UN" es que un subtipo _es_ una versión especializada del supertipo; representan la misma entidad del mundo real y, por lo tanto, comparten la misma identidad fundamental. Definir claves primarias diferentes para los subtipos **(Fallo M8)** es un **error medio** que viola este principio básico de herencia.
 
@@ -143,7 +138,7 @@ En una jerarquía EER, la **identidad** (la clave primaria) se define **una sola
     
 - ❌ **Incorrecto y Penalizable (M8)**: Si `Vehiculo` usa `id_vehiculo` como clave, pero defines `matricula` como clave primaria de `Coche` y `numero_bastidor` como clave primaria de `Camion`. Esto rompe la conexión de identidad fundamental de la jerarquía.
     
-##### Principio 11: Evita la Redundancia: Los Atributos Comunes Van Arriba (M9) ⬆️
+##### Principio 10: Evita la Redundancia: Los Atributos Comunes Van Arriba (M9) ⬆️
 
 Uno de los propósitos principales de crear una jerarquía es **factorizar las características comunes** en el nivel más general posible (el supertipo) para evitar repetirlas. Los atributos que son compartidos por varios o todos los subtipos **deben** definirse **una única vez** en el supertipo. Gracias a la herencia, estos atributos estarán disponibles automáticamente para todas las entidades subtipo. Repetir atributos comunes (salvo la clave primaria) en los subtipos **(Fallo M9)** es un **error medio**. Crea redundancia innecesaria, aumenta el riesgo de inconsistencias (tener el mismo dato con valores diferentes en distintos sitios) y dificulta el mantenimiento del modelo.
 
@@ -160,7 +155,7 @@ Estos principios finales se centran en la **precisión y completitud** de los de
 
 Estos principios se centran en la correcta y completa especificación de las entidades fuertes. Su aplicación demuestra un dominio completo del modelo E/R.
 
-##### Principio 12: Señala Claramente la Clave Primaria correcta (L1) 🔑
+##### Principio 11: Señala Claramente la Clave Primaria correcta (L1) 🔑
 
 Toda entidad fuerte **debe** tener una clave primaria correcta que la identifique de forma única. Es **esencial** indicar cuál es este atributo (o conjunto de atributos) utilizando la notación estándar (`key` en BigER, subrayado en notación gráfica). No marcar explícitamente la clave primaria **(Fallo L1)** es un error leve. Aunque a veces se pueda deducir, omitir esta marca dificulta la lectura y comprensión inmediata del identificador principal de la entidad.
 
@@ -168,7 +163,7 @@ Toda entidad fuerte **debe** tener una clave primaria correcta que la identifiqu
     
 - ❌ **Incorrecto (L1)**: Definir `dni` como un atributo más, sin subrayarlo ni marcarlo como clave.
     
-##### Principio 13: Identifica Todas las Claves Candidatas (Alternativas) (L2) 🔑🔑
+##### Principio 12: Identifica Todas las Claves Candidatas (Alternativas) (L2) 🔑🔑
 
 A veces, una entidad puede tener **más de un** atributo o conjunto de atributos que podrían servir como clave primaria (es decir, son únicos). Estos se denominan **claves candidatas**. Se debe elegir una como clave primaria, pero las **otras claves candidatas (claves alternativas)** también deben indicarse (`unique` en BigER, subrayado discontinuo en notación gráfica). No indicar las claves alternativas **(Fallo L2)** es un error leve. Muestra que no se ha realizado un análisis completo de todos los identificadores únicos posibles para la entidad.
 
@@ -180,7 +175,7 @@ A veces, una entidad puede tener **más de un** atributo o conjunto de atributos
 
 Estos principios aseguran que las relaciones en tu modelo sean precisas, completas y no redundantes. Su correcta aplicación demuestra un entendimiento detallado de cómo representar las interacciones entre entidades.
 
-##### Principio 14: Define las Cardinalidades Exactamente Como se Requieren (L3) 🎯
+##### Principio 13: Define las Cardinalidades Exactamente Como se Requieren (L3) 🎯
 
 Las restricciones de cardinalidad (mínima y máxima) son cruciales porque definen las **reglas de negocio** que gobiernan cómo se relacionan las entidades. Debes leer atentamente los requisitos y asegurarte de que las cardinalidades que indicas en el diagrama (ej: [0..N], [1..1], [1..N]) reflejan **exactamente** lo que se pide. Indicar una cardinalidad distinta a la especificada explícitamente en el enunciado **(Fallo L3)** es un error leves (salvo en los casos recogidos como fallo medio (M5 o M6)). Aunque no rompe la estructura general, demuestra una falta de precisión al traducir las reglas de negocio al modelo (salvo errores de cardinalidad graves ya cubiertos).
 
@@ -188,7 +183,7 @@ Las restricciones de cardinalidad (mínima y máxima) son cruciales porque defin
     
 - ❌ **Incorrecto (L3)**: Poner [0..1] en el lado del `Departamento`, permitiendo que un `Empleado` no tenga `Departamento`, si los requisitos lo exigían.
     
-##### Principio 15: Decide Cómo Modelar el Estado Actual vs. el Histórico (L4) ⏳
+##### Principio 14: Decide Cómo Modelar el Estado Actual vs. el Histórico (L4) ⏳
 
 Cuando una relación entre entidades cambia a lo largo del tiempo (ej: un empleado cambia de puesto, un vehículo cambia de propietario), a menudo modelamos este **historial** usando una entidad débil (ej: `Asignacion_Historica`). Esto nos lleva a una decisión de diseño crucial: ¿cómo representamos el **estado actual** de esa relación?
 
@@ -221,7 +216,7 @@ Existen dos enfoques principales, y la elección tiene implicaciones importantes
     
 **En resumen**: L4 solo se aplica si la decisión final entre inferir o modelar explícitamente la relación actual no se basa en un análisis de los requisitos específicos del contexto del problema, especialmente en términos de volumen de datos y patrones de consulta.
 
-##### Principio 16: Especifica Siempre los Roles en Relaciones Recursivas (L5) 🎭
+##### Principio 15: Especifica Siempre los Roles en Relaciones Recursivas (L5) 🎭
 
 Cuando una entidad se relaciona consigo misma (una relación recursiva, como `EMPLEADO` supervisa `EMPLEADO`), es **absolutamente esencial** indicar los **roles** que juega cada participante en la relación. Esto clarifica el significado de cada "extremo" de la conexión. No indicar los roles en una relación recursiva **(Fallo L5)** es un error leve que genera ambigüedad.
 
@@ -229,15 +224,15 @@ Cuando una entidad se relaciona consigo misma (una relación recursiva, como `EM
     
 - ❌ **Incorrecto (L5)**: Dibujar la relación `supervisa` sin especificar qué extremo representa al que supervisa y cuál al supervisado.
     
-##### Principio 17: No Dupliques Información de Relaciones con Atributos (L6) 🚫
+##### Principio 16: No Dupliques Información de Relaciones con Atributos (L6) 🚫
 
-Si ya has modelado una relación explícita entre dos entidades (ej: `trabaja_para` entre `Empleado` y `Departamento`), **no debes** incluir además un atributo en una de las entidades para almacenar información que ya está implícita en la relación (ej: añadir un atributo `nombre_departamento` a `Empleado`). Esto es redundante. Incluir un atributo que representa información ya capturada por una relación existente **(Fallo L6)** es un error leve. (Nota: esto es diferente del error grave G2, donde la _propia relación_ se omitía y se intentaba reemplazar por un atributo).
+Si ya has modelado una relación explícita entre dos entidades (ej: `trabaja_para` entre `Empleado` y `Departamento`), **no debes** incluir además un atributo en una de las entidades para almacenar información que ya está implícita en la relación (ej: añadir un atributo `nombre_departamento` a `Empleado`). Esto es redundante. Incluir un atributo que representa información ya capturada por una relación existente **(Fallo L6)** es un error leve. (Nota: esto es diferente del error grave G1, donde la _propia relación_ se omitía y se intentaba reemplazar por un atributo).
 
 - ✅ **Correcto**: La relación `trabaja_para` conecta `Empleado` (con `dni`, `nombre`) y `Departamento` (con `numero_departamento`, `nombre`).
     
 - ❌ **Incorrecto (L6)**: Además de la relación `trabaja_para`, añadir un atributo `nombre_departamento_empleado` dentro de la entidad `Empleado`.
     
-##### Principio 18: Incluye Todos los Atributos Propios de una Relación (L7) 📝
+##### Principio 17: Incluye Todos los Atributos Propios de una Relación (L7) 📝
 
 Algunas relaciones, especialmente las M:N, tienen atributos que describen la **interacción** en sí misma, no a las entidades participantes. Es crucial identificar e incluir estos atributos asociados directamente a la relación (o a la entidad asociativa que la represente). No incluir los atributos que pertenecen a una relación **(Fallo L7)** es un error leve que hace el modelo incompleto.
 
@@ -245,7 +240,7 @@ Algunas relaciones, especialmente las M:N, tienen atributos que describen la **i
     
 - ❌ **Incorrecto (L7)**: Modelar la relación `trabaja_en` sin incluir el atributo `horas`, a pesar de que los requisitos indiquen que se debe registrar.
     
-##### Principio 19: Asigna los Atributos al Lugar Correcto (Entidad vs. Relación) (L8)📍
+##### Principio 18: Asigna los Atributos al Lugar Correcto (Entidad vs. Relación) (L8)📍
 
 Un atributo debe colocarse en el elemento que describe directamente. Incluir atributos en una relación cuando en realidad describen a una de las entidades participantes **(Fallo L8)** es un error leve de modelado. La regla general es: si el valor del atributo depende _solo_ de una de las entidades, va en esa entidad; si depende de la _combinación_ de las entidades participantes, va en la relación.
 
@@ -253,7 +248,7 @@ Un atributo debe colocarse en el elemento que describe directamente. Incluir atr
     
 - ❌ **Incorrecto (L8)**: Poner el atributo `salario` del empleado en la relación `trabaja_en`. El salario depende del empleado, no de en qué proyecto trabaje (generalmente).
     
-##### Principio 20: Modela Solo Relaciones Necesarias y Significativas (L9) ✨
+##### Principio 19: Modela Solo Relaciones Necesarias y Significativas (L9) ✨
 
 El diagrama debe ser claro y conciso. Incluir relaciones que no se derivan de los requisitos o que son redundantes (se pueden deducir a través de otras relaciones ya existentes) **(Fallo L9)** es un error leve. Complica innecesariamente el modelo y dificulta su comprensión. Céntrate en representar las asociaciones directas y fundamentales descritas en el minimundo.
 
@@ -265,7 +260,7 @@ El diagrama debe ser claro y conciso. Incluir relaciones que no se derivan de lo
 
 Estos principios aseguran que uses el concepto de entidad débil de manera precisa y solo cuando sea verdaderamente necesario, respetando sus condiciones definitorias.
 
-##### Principio 21: Una Entidad Débil DEBE Tener Dependencia de Identificación (L10) 🆔
+##### Principio 20: Una Entidad Débil DEBE Tener Dependencia de Identificación (L10) 🆔
 
 La característica **definitoria** de una entidad débil es que **no puede identificarse por sí misma** y necesita "tomar prestada" la clave de su entidad fuerte propietaria para formar su propia identidad única. Si modelas una entidad como débil, pero en realidad _sí_ tiene una clave primaria propia o podría identificarse sin depender de la supuesta entidad fuerte, estás usando incorrectamente el concepto **(Fallo L10)**. Es un error leve porque, aunque estructuralmente podrías forzarlo, semánticamente es incorrecto.
 
@@ -273,7 +268,7 @@ La característica **definitoria** de una entidad débil es que **no puede ident
     
 - ❌ **Incorrecto (L10)**: Modelar `Permiso_Conducir` como débil de `Persona`. Aunque depende de `Persona` para existir, `Permiso_Conducir` tiene su propia clave única (`numero_permiso`) y, por tanto, _no_ tiene dependencia de identificación. Debería ser una entidad fuerte.
     
-##### Principio 22: Una Entidad Débil DEBE Tener Dependencia de Existencia (L11) ⏳
+##### Principio 21: Una Entidad Débil DEBE Tener Dependencia de Existencia (L11) ⏳
 
 Además de la dependencia de identificación, una entidad débil también **debe** tener dependencia de existencia con su entidad fuerte. Esto significa que no puede existir si su propietario no existe. Modelar una entidad como débil si conceptualmente _podría_ existir independientemente de la entidad fuerte **(Fallo L11)** es un error leve. Muestra una inconsistencia entre la dependencia estructural que impones y la lógica del negocio.
 
@@ -281,7 +276,7 @@ Además de la dependencia de identificación, una entidad débil también **debe
     
 - ❌ **Incorrecto (L11)**: Imagina modelar `Libro` como débil de `Biblioteca`. Aunque un libro está _en_ una biblioteca, el concepto de `Libro` (con su isbn) existe independientemente de si pertenece a una biblioteca específica o no. 
     
-##### Principio 23: Si Depende en Existencia e Identificación, ES Débil (L12) ✅
+##### Principio 22: Si Depende en Existencia e Identificación, ES Débil (L12) ✅
 
 Este es el reverso de los dos principios anteriores. Si una entidad cumple **ambas** condiciones (dependencia de existencia **y** dependencia de identificación) con respecto a una entidad fuerte, **debes** modelarla como una **entidad débil**. Indicarla como una entidad fuerte **(Fallo L12)** es un error leve. Aunque funcionalmente podría representarse con claves externas, ignora la semántica específica de dependencia que el modelo EER permite (y requiere) capturar explícitamente.
 
@@ -289,7 +284,7 @@ Este es el reverso de los dos principios anteriores. Si una entidad cumple **amb
     
 - ❌ **Incorrecto (L12)**: Modelar `Familiar` como una entidad fuerte con una clave primaria artificial propia (ej: `id_familiar`) y una relación normal con `Empleado`. Esto oculta la dependencia inherente de su identidad.
     
-##### Principio 24: Usa Entidades Débiles Históricas **Solo** si Hay Repeticiones Reales (L13, L14) 🔄
+##### Principio 23: Usa Entidades Débiles Históricas **Solo** si Hay Repeticiones Reales (L13, L14) 🔄
 
 Cuando convertimos una relación M:N en una entidad para guardar su **historial** (como `Docencia` entre `Profesor` y `Asignatura` a lo largo de varios cursos), la entidad resultante (`Docencia`) es débil y típicamente incluye un atributo de tiempo (como `curso`) en su clave parcial para distinguir las ocurrencias. Sin embargo, este patrón **solo** debe aplicarse si la misma pareja de entidades **puede relacionarse legítimamente varias veces** a lo largo del tiempo según las reglas de negocio.
 
@@ -303,7 +298,7 @@ Cuando convertimos una relación M:N en una entidad para guardar su **historial*
 	- Si participa en otras relaciones, se convierte en una entidad asociativa, cuya clave es únicamente la combinación de las claves de las entidades que asocia, sin ningún atributo de tiempo.
 		- ❌ Incorrecto (Fallo L13): Modelar la autoría de los libros como una entidad débil `Autoria` de `Autor` y `Libro` con clave parcial `fecha_publicacion`, formando la clave `{id_autor, isbn, fecha_publicacion}`. Un autor figura una sola vez entre los autores de un mismo libro, así que la pareja nunca se repite y la fecha no aporta nada a la unicidad. Además, la fecha de publicación describe al libro, no a la pareja autor-libro, por lo que su sitio es la entidad `Libro`.
 		- ✅ Correcto: Una relación M:N `escribe` entre `Autor` y `Libro`, con el atributo `orden_firma` si se necesita registrar el orden en que aparecen los autores. Si la autoría tuviera que relacionarse con otra entidad, por ejemplo con el `Agente` que negoció los derechos de ese autor sobre ese libro, ese `Agente` no se podría relacionar directamente con `Autor`, porque un autor puede haber tenido agentes distintos para libros distintos. Tampoco con `Libro`, porque si el libro tiene dos autores, cada uno puede tener su propio agente. El agente se relaciona **con la pareja autor-libro**, es decir, con la relación `escribe`. Y una relación no puede conectarse con otra relación, por lo que `escribe` se convertiría en la entidad asociativa `Autoria`, y su clave seguiría siendo `{id_autor, isbn}`. 
-##### Principio 25: La Dependencia Histórica Debe Ser Mínima y Correcta (L15) ⚖️
+##### Principio 24: La Dependencia Histórica Debe Ser Mínima y Correcta (L15) ⚖️
 
 Cuando creas una entidad débil histórica a partir de una relación que se repite, esta debe depender **única y exclusivamente** de las entidades necesarias para identificarla, siguiendo las reglas de los casos que vimos en un instante de tiempo. Hacerla depender de más entidades de las necesarias **(Fallo L15)** es un error leve. Introduce redundancia en la clave primaria y complica el modelo innecesariamente.
 
@@ -315,7 +310,7 @@ Cuando creas una entidad débil histórica a partir de una relación que se repi
 
 Este principio asegura que se indican correctamente las relaciones débiles cuando hay entidades débiles.
 
-##### Principio 26: Marca Explícitamente la Relación de Identificación (L16) ♦️♦️
+##### Principio 25: Marca Explícitamente la Relación de Identificación (L16) ♦️♦️
 
 La relación que conecta una entidad débil con su entidad fuerte propietaria no es una relación cualquiera; es la **relación de identificación**. Es a través de esta relación que la entidad débil hereda parte de su clave y establece su dependencia. Para destacar esta naturaleza especial, el modelo EER utiliza una notación específica: un **rombo con borde grueso** en la notación gráfica (o la palabra clave `weak relationship` en BigER). No indicar explícitamente que esta relación es débil (identificadora) usando la notación correcta **(Fallo L16)** es un **error leve**. Aunque la estructura general pueda entenderse por el contexto (al ver la entidad débil con rectángulo con borde grueso), omitir la marca en la relación reduce la claridad y no sigue la convención estándar para resaltar las dependencias de identificación.
 
@@ -328,7 +323,7 @@ La relación que conecta una entidad débil con su entidad fuerte propietaria no
 
 Estos principios aseguran que tus jerarquías (especialización/generalización) sean semánticamente correctas, precisas y eficientes, evitando redundancias o conexiones incorrectas. Su correcta aplicación demuestra un dominio fino del modelo EER.
 
-##### Principio 27: Crea Subtipos Solo si Aportan Valor (L17, L18) ➕➖
+##### Principio 26: Crea Subtipos Solo si Aportan Valor (L17, L18) ➕➖
 
 Las jerarquías sirven para modelar **diferencias significativas** dentro de un tipo de entidad general.
 
@@ -355,7 +350,7 @@ Las jerarquías sirven para modelar **diferencias significativas** dentro de un 
     - ✅ **Correcto (Necesario si hay diferencias)**: Crear las subclases `Ingeniero` (con atributo `tipo_ingeniero`) y `Administrativo` (con atributo `categoria`), ya que tienen propiedades distintas.
         
 
-##### Principio 28: Conecta las Relaciones al Nivel Correcto de la Jerarquía (L19, L20) 🎯
+##### Principio 27: Conecta las Relaciones al Nivel Correcto de la Jerarquía (L19, L20) 🎯
 
 Cuando una entidad externa se relaciona con una entidad que forma parte de una jerarquía, es crucial conectar la relación al nivel **semánticamente correcto**:
 
@@ -372,7 +367,7 @@ Cuando una entidad externa se relaciona con una entidad que forma parte de una j
     - ❌ **Incorrecto (L20)**: Conectar `trabaja_para` solo al subtipo `Ingeniero`.
         
         
-##### Principio 29: Especifica Correctamente las Restricciones de la Jerarquía (L21) 🚦
+##### Principio 28: Especifica Correctamente las Restricciones de la Jerarquía (L21) 🚦
 
 Las restricciones de **totalidad/parcialidad** y **disyunción/solapamiento** definen las reglas fundamentales de la jerarquía. Debes analizar los requisitos y aplicar la combinación correcta (total disjunta o total solapada o parcial disjunta o parcial solapada) al dibujar el diagrama o (total disjoint o total overlapping o partial disjoint o partial overlapping) al definir la jerarquía en BigER. Indicar incorrectamente estas restricciones **(Fallo L21)** es un error leve. Demuestra una falta de precisión al capturar las reglas de negocio sobre cómo se clasifican las entidades dentro de la jerarquía.
 
