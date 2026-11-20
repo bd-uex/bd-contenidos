@@ -17,7 +17,7 @@ tags: #database, #summary, #entity-relationship
 El Modelo Relacional (Codd) resuelve **cómo almacenar** datos de forma consistente, pero no dice nada sobre **cómo diseñar** una base de datos a partir de la realidad de un negocio. Deja tres problemas abiertos:
 
 1. **Semántica**: una tabla con columnas no dice si representa clientes, pacientes o pedidos.
-2. **Comunicación**: un experto de negocio no puede validar un diseño hecho de tablas normalizadas y claves foráneas.
+2. **Comunicación**: un experto de negocio no puede validar un diseño hecho de tablas normalizadas y claves externas.
 3. **Independencia tecnológica**: el "plano" conceptual de los datos no debería depender de si al final usamos una BD relacional u otra tecnología.
 
 **La solución de Chen (1976)**: el Modelo Entidad-Relación, un modelo de alto nivel para el **diseño conceptual**. No compite con el relacional: es el paso previo.
@@ -176,7 +176,7 @@ relationship trabaja_en {
 ### 4.2 El error más común 🚫
 
 > [!danger] Nunca uses la clave de otra entidad como atributo
-> El identificador de una entidad **nunca** aparece en el modelo Entidad Relación como atributo en otra entidad. La conexión siempre es una **relación**. Guardar el `nif` del profesor como atributo `responsable` en `Asignatura` mezcla el nivel conceptual con el de implementación. Lo correcto es una relación `es_responsable_de` entre `Profesor` y `Asignatura`. Las claves foráneas aparecerán después, en la fase lógica, nunca en la conceptual. Es el fallo **G2**.
+> El identificador de una entidad **nunca** aparece en el modelo Entidad Relación como atributo en otra entidad. La conexión siempre es una **relación**. Guardar el `nif` del profesor como atributo `responsable` en `Asignatura` mezcla el nivel conceptual con el de implementación. Lo correcto es una relación `es_responsable_de` entre `Profesor` y `Asignatura`. Las claves externas aparecerán después, en la fase lógica, nunca en la conceptual. Es el fallo **G1**.
 
 ### 4.3 Otros criterios
 
@@ -476,17 +476,16 @@ En la práctica se combinan ambos. Además, la pertenencia a una subclase puede 
 
 Cada fallo resta puntos según su gravedad. Conocerlos es la mejor forma de saber qué revisar en tu diagrama.
 
-### Fallos graves (G) 🚨 — 6 puntos por fallo
+### Fallos graves (G) 🚨 — 4 puntos por fallo
 
-| Código | Fallo |
-|---|---|
-| **G1** | El diseño global está muy lejos de la solución correcta |
-| **G2** | Incluir un atributo para representar lo que en realidad es una relación con otra entidad (la clave de otra entidad como atributo) |
-| **G3** | Definir una jerarquía donde el subtipo no "ES UN" tipo del supertipo |
-| **G4** | Usar una relación normal (por ejemplo, llamada `es`) cuando lo correcto es una jerarquía |
-| **G5** | Crear un subtipo que a la vez es entidad débil de otra entidad distinta |
+| Código | Fallo                                                                                                                             |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| **G1** | Incluir un atributo para representar lo que en realidad es una relación con otra entidad (la clave de otra entidad como atributo) |
+| **G2** | Definir una jerarquía donde el subtipo no "ES UN" tipo del supertipo                                                              |
+| **G3** | Usar una relación normal (por ejemplo, llamada `es`) cuando lo correcto es una jerarquía                                          |
+| **G4** | Crear un subtipo que a la vez es entidad débil de otra entidad distinta                                                           |
 
-### Fallos medios (M) ⚠️ — 2 puntos por fallo
+### Fallos medios (M) ⚠️ — 1,5 puntos por fallo
 
 | Código | Fallo                                                                                   |
 | ------ | --------------------------------------------------------------------------------------- |
@@ -500,7 +499,7 @@ Cada fallo resta puntos según su gravedad. Conocerlos es la mejor forma de sabe
 | **M8** | Claves primarias distintas en entidades de la misma jerarquía                           |
 | **M9** | Repetir en los subtipos atributos comunes (no clave) del supertipo                      |
 
-### Fallos leves (L) — 1 punto por fallo
+### Fallos leves (L) — 0,75 puntos por fallo
 
 | Tema | Códigos |
 |---|---|
@@ -539,16 +538,16 @@ Cada fallo resta puntos según su gravedad. Conocerlos es la mejor forma de sabe
 
 ### Errores capitales a evitar 🚫
 
-| Error | Corrección |
+| Error                                                          | Corrección |
 |---|---|
-| Clave de otra entidad como atributo (**G2**) | Siempre una relación |
-| Atributo multivalor en el diagrama final | Convertirlo en entidad débil |
-| Ternaria para hechos descomponibles ("falso ternario") | Relaciones binarias, con una asociativa si hace falta |
+| Clave de otra entidad como atributo (**G1**)                   | Siempre una relación |
+| Atributo multivalor en el diagrama final                       | Convertirlo en entidad débil |
+| Ternaria para hechos descomponibles ("falso ternario")         | Relaciones binarias, con una asociativa si hace falta |
 | Añadir tiempo a la clave de una M:N que no se repite (**L13**) | Relación M:N, o asociativa si participa en otras relaciones |
-| `extends` apuntando a la superclase | `extends` apunta a la jerarquía |
-| Subclases sin atributos ni relaciones propias (**L17**) | Un simple atributo en la superclase |
-| Una "super entidad" que lo modela todo | Descomponer el minimundo |
-| Nombres crípticos | Nombres autoexplicativos |
+| `extends` apuntando a la superclase                            | `extends` apunta a la jerarquía |
+| Subclases sin atributos ni relaciones propias (**L17**)        | Un simple atributo en la superclase |
+| Una "super entidad" que lo modela todo                         | Descomponer el minimundo |
+| Nombres crípticos                                              | Nombres autoexplicativos |
 
 ---
 
