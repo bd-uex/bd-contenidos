@@ -1,0 +1,61 @@
+erdiagram EjemplosEER
+notation = crowsfoot
+
+entity Empleado {
+    dni key
+    nombre
+    fecha_nacimiento
+    direccion
+    telefono
+}
+
+hierarchy por_puesto Empleado partial disjoint
+
+entity Administrativo extends por_puesto {
+    dni key
+    categoria
+}
+
+entity Tecnico extends por_puesto {
+    dni key
+    nivel
+}
+
+entity Ingeniero extends por_puesto {
+    dni key
+    tipo_ingeniero
+}
+
+hierarchy por_responsabilidad Empleado partial
+
+entity Gerente extends por_responsabilidad {
+    dni key
+}
+
+entity Proyecto {
+    codigo_proyecto key
+}
+
+relationship dirige {
+    Gerente[1..1] -> Proyecto[1..N]
+}
+
+hierarchy por_jornada Empleado total disjoint
+
+entity Tiempo_Completo extends por_jornada {
+    dni key
+    salario
+}
+
+entity Tiempo_Parcial extends por_jornada {
+    dni key
+    horas_semanales
+}
+
+entity Sindicato {
+    codigo_sindicato key
+}
+
+relationship afiliado_a {
+    Tiempo_Parcial[1..N] -> Sindicato[0..1]
+}

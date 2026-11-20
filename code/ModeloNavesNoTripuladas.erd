@@ -1,0 +1,144 @@
+erdiagram NavesNoTripuladas
+notation = crowsfoot
+
+entity Nave {
+    codigo_nave key
+    nombre
+    peso
+    longitud
+    anchura
+    velocidad_teorica
+    capacidad_prevista
+}
+
+entity Etapa_Desarrollo {
+    codigo_etapa key
+    nombre_etapa
+}
+
+relationship en_etapa_actual {
+    Nave[0..N] -> Etapa_Desarrollo[1..1]
+    fecha_desde
+}
+
+relationship completada_por {
+    Nave[0..N] -> Etapa_Desarrollo[0..N]
+    fecha_inicio
+    fecha_fin
+}
+
+relationship evoluciona_de {
+    Nave[0..1|"Original"] -> Nave[0..N|"Derivado"]
+}
+
+entity Empleado {
+    numero_empleado key
+    nombre
+    apellido_1
+    apellido_2
+    categoria_profesional
+}
+
+hierarchy por_tipo_empleado Empleado partial disjoint
+
+entity Ingeniero_Aeroespacial extends por_tipo_empleado {
+    numero_empleado key
+}
+
+entity Ingeniero_Software extends por_tipo_empleado {
+    numero_empleado key
+}
+
+entity Astronauta_Probador extends por_tipo_empleado {
+    numero_empleado key
+}
+
+relationship responsable_de {
+    Nave[1..1] -> Ingeniero_Aeroespacial[1..1]
+}
+
+relationship asignado_a {
+    Ingeniero_Software[1..N] -> Nave[1..1]
+    fecha_desde
+}
+
+weak entity Asignacion_Historica {
+    fecha_inicio partial-key
+    fecha_fin
+}
+
+weak relationship es_de {
+    Ingeniero_Software[1..1] -> Asignacion_Historica[0..N]
+}
+
+relationship ha_tenido {
+    Nave[1..1] -> Asignacion_Historica[0..N]
+}
+
+entity Prototipo {
+    numero_serie key
+    numero_transpondedor unique
+    fecha_fabricacion
+}
+
+entity Prueba {
+    numero_prueba key
+    tipo
+    fecha
+    hora
+    duracion
+    informe
+}
+
+relationship es_prototipo_de {
+    Prototipo[0..N] -> Nave[1..1]
+}
+
+relationship utiliza {
+    Prueba[0..N] -> Prototipo[1..1]
+}
+
+relationship supervisada_por {
+    Prueba[0..N] -> Empleado[1..1]
+}
+
+hierarchy por_tipo_prueba Prueba partial
+
+entity Prueba_Extraplanetaria extends por_tipo_prueba {
+    numero_prueba key
+    kilometros_recorridos
+    consumo_combustible
+}
+
+relationship es_controlada_por {
+    Prueba_Extraplanetaria[1..N] -> Astronauta_Probador[1..1]
+}
+
+weak entity Incidencia {
+    numero_incidencia partial-key
+    descripcion
+    fecha
+    hora
+    grado_gravedad
+}
+
+weak relationship sufre {
+    Incidencia[0..N] -> Prueba[1..1]
+}
+
+weak entity Revision {
+    fecha_revision partial-key
+    informe
+}
+
+weak relationship pasa {
+    Prototipo[1..1] -> Revision[0..N]
+}
+
+relationship realizada_por {
+    Revision[0..N ] -> Empleado[1..N]
+}
+
+relationship debida_a {
+    Revision[0..N] -> Incidencia[0..1]
+}

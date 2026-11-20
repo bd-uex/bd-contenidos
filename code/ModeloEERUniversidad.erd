@@ -1,0 +1,74 @@
+erdiagram EERUniversidad
+notation = crowsfoot
+
+entity Persona_UEX 
+{
+    nif key
+}
+
+hierarchy por_tipo_relacion Persona_UEX total overlapping
+
+entity Empleado extends por_tipo_relacion 
+{
+    nif key
+}
+
+entity Estudiante extends por_tipo_relacion
+{
+    nif key
+}
+
+hierarchy por_tipo_empleado Empleado total overlapping
+
+entity Docente extends por_tipo_empleado {
+    nif key
+}
+
+entity PTGAS extends por_tipo_empleado {
+    nif key
+}
+
+hierarchy por_tipo_docente Docente partial disjoint
+
+entity Catedratico extends por_tipo_docente
+{
+    nif key
+}
+
+entity Titular extends por_tipo_docente
+{
+    nif key
+}
+
+hierarchy por_centro Estudiante partial
+
+entity Estudiante_Politecnica extends por_centro {
+    nif key
+}
+
+hierarchy por_edad Estudiante_Politecnica total disjoint
+
+entity Mayor_De_Edad extends por_edad {
+    nif key
+}
+
+entity Menor_De_Edad extends por_edad {
+    nif key
+}
+
+hierarchy por_titulacion Estudiante_Politecnica partial overlapping
+
+entity Estudiante_Edificacion extends por_titulacion
+{
+    nif key
+}
+
+entity Estudiante_Civil extends por_titulacion
+{
+    nif key
+}
+
+entity Estudiante_Informatica extends por_titulacion
+{
+    nif key
+}
