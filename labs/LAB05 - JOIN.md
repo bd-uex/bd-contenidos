@@ -21,12 +21,15 @@ Escribe una consulta para obtener el nombre del departamento, su director, su fe
 
 Solución:
 ```sql
-
+select nombre, director, date(fechaIngresoDirector) as fecha, strftime('%m', fechaIngresoDirector) as mes
+from departamento
+order by date(fechaIngresoDirector) asc
+limit 1;
 ```
 
 Tabla resultado:
 
-| nombre       | director  | fecha      | mes | 
+| nombre       | director  | fecha      | mes |
 | ------------ | --------- | ---------- | --- |
 | Sede Central | 888665555 | 1981-06-19 | 06  |
 
@@ -64,7 +67,7 @@ WHERE E.sexo='F';
 
 Tabla resultado:
 
-| nombre | apellido1 | dni       | nombre  | 
+| nombre | apellido1 | dni       | nombre  |
 | ------ | --------- | --------- | ------- |
 | Alicia | Jiménez   | 999887777 | Alice   |
 | Alicia | Jiménez   | 999887777 | Elisa   |
@@ -170,7 +173,10 @@ Tabla resultado:
 Escribe una consulta que devuelva el nombre de cada proyecto (nombre_proyecto) y el total de horas trabajadas en cada uno (total_horas_dedicadas), ordena los resultados por las horas trabajabas empezando por el de mayor horas. 
 
 ```sql
-
+select p.nombre as nombre_proyecto, sum(t.horas) as total_horas_dedicadas
+from proyecto p inner join trabaja_en t on p.numero = t.proyecto
+group by p.nombre
+order by total_horas_dedicadas desc;
 ```
 
 Tabla resultado:
@@ -260,7 +266,11 @@ Escribe una consulta que devuelva el nombre (nombre_empleado) y apellido1 de emp
 Solución:
 
 ```sql
-
+select e.nombre as nombre_empleado, e.apellido1 as apellido1, p.nombre as nombre_proyecto, p.ubicacion as ubicacion
+from empleado e
+	inner join trabaja_en t on e.dni = t.empleado
+	inner join proyecto p on p.numero = t.proyecto
+order by nombre_empleado asc;
 ```
 
 Tabla resultado:
@@ -303,7 +313,7 @@ WHERE S.sexo='F';
 
 Tabla resultado:
 
-| supervisor | nombre | apellido1 | 
+| supervisor | nombre | apellido1 |
 | ---------- | ------ | --------- |
 | Juana      | Alicia | Jiménez   |
 | Juana      | Luis   | Pajares   |
@@ -320,7 +330,10 @@ Tabla resultado:
 Escribe una consulta que devuelva los empleados que ganan entre 2000 y 10000 euros menos que su supervisor directo. Las columnas resultado deben ser: nombre_empleado, sueldo_empleado, nombre_supervisor y sueldo_supervisor.
 
 ```sql
-
+select e.nombre as nombre_empleado, e.sueldo as sueldo_empleado, s.nombre as nombre_supervisor, s.sueldo as sueldo_supervisor
+from empleado e
+	inner join empleado s on s.dni = e.supervisor
+where e.sueldo between s.sueldo-10000 and s.sueldo-2000;
 ```
 
 Tabla resultado:
@@ -351,7 +364,7 @@ Tabla resultado:
 | ---------- | -------- | --------- |
 | José       |          |           |
 | Alberto    | Aurora   | Oliva     |
-| Alberto    | Fernando | Ojeda     | 
+| Alberto    | Fernando | Ojeda     |
 | Alberto    | José     | Pérez     |
 | Alicia     |          |           |
 | Juana      | Alicia   | Jiménez   |
@@ -399,7 +412,7 @@ Tabla resultado:
 | Alberto    | José     | Pérez     |
 | Alberto    | Fernando | Ojeda     |
 | Alberto    | Aurora   | Oliva     |
-| Juana      | Alicia   | Jiménez   | 
+| Juana      | Alicia   | Jiménez   |
 | Juana      | Luis     | Pajares   |
 | Eduardo    | Alberto  | Campos    |
 | Eduardo    | Juana    | Sáinz     |
@@ -443,7 +456,7 @@ FULL OUTER JOIN
 
 Tabla resultado:
 
-| nombre_proyecto | ubicacion_proyecto | dpto | ubicacion_oficina | 
+| nombre_proyecto | ubicacion_proyecto | dpto | ubicacion_oficina |
 | --------------- | ------------------ | ---- | ----------------- |
 | ProductoX       | Valencia           | 5    | Valencia          |
 | ProductoY       | Sevilla            | 5    | Sevilla           |
@@ -486,7 +499,11 @@ INSERT INTO Proyecto VALUES ('ProductoGTP',6,'Madrid',5);
 
 Solución:
 ```sql
-
+select p.nombre as nombre_proyecto, e.nombre as nombre_empleado, t.horas as horas
+from proyecto p
+	left join trabaja_en t on p.numero = t.proyecto
+	left join empleado e on t.empleado = e.dni
+order by nombre_proyecto asc, nombre_empleado asc;
 ```
 
 Tabla resultado:
@@ -617,14 +634,17 @@ Obtener un listado con el nombre completo de los empleados que **NO** tienen nin
 
 Solución:
 ```sql
-
+select e.nombre, e.apellido1, e.apellido2
+from empleado e
+	left join familiar f on e.dni = f.empleado
+where f.nombre is null;
 ```
 
 Tabla resultado:
 
 | nombre   | apellido1 | apellido2 |
 | -------- | --------- | --------- |
-| Alicia   | Jiménez   | Celaya    | 
+| Alicia   | Jiménez   | Celaya    |
 | Fernando | Ojeda     | Ordóñez   |
 | Aurora   | Oliva     | Azevuela  |
 | Luis     | Pajares   | Morera    |
@@ -651,7 +671,7 @@ Tabla resultado:
 
 | nombre   | numero_hijos |
 | -------- | ------------ |
-| Alberto  | 2            | 
+| Alberto  | 2            |
 | Alicia   | 1            |
 | Aurora   | 1            |
 | Eduardo  | 1            |
@@ -734,7 +754,7 @@ GROUP BY E.dni;
 
 Tabla resultado:
 
-| nombre  | total_horas | 
+| nombre  | total_horas |
 | ------- | ----------- |
 | José    | 40          |
 | Alberto | 10          |
@@ -787,12 +807,17 @@ Escribe una consulta que devuelva para cada departamento su nombre (nombre_depar
 Solución:
 
 ```sql
-
+select d.nombre as nombre_departamento, count(distinct p.numero) as num_proyectos, sum(t.horas) as total_horas_dedicadas
+from departamento d
+	inner join proyecto p on d.numero = p.dpto
+	inner join trabaja_en t on p.numero = t.proyecto 
+group by d.numero
+order by total_horas_dedicadas desc;
 ```
-
+terminar
 Tabla resultado:
 
-| nombre_departamento | num_proyectos | total_horas_dedicadas | 
+| nombre_departamento | num_proyectos | total_horas_dedicadas |
 | ------------------- | ------------- | --------------------- |
 | Investigación       | 3             | 140                   |
 | Administración      | 2             | 110                   |

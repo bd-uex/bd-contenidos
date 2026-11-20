@@ -1,0 +1,65 @@
+erdiagram EstudioVidejuegos
+notation = crowsfoot
+
+entity Desarrollador {
+    dni key
+    cuenta_bancaria unique
+    sueldo
+    especialidad
+    nombre 
+    apellido_1 
+    apellido_2
+}
+
+entity Equipo {
+    codigo key
+    nombre unique 
+}
+
+weak entity Nivel{
+    numero partial-key
+    nombre 
+    dificultad
+    duracion_estimada
+}
+
+entity Videojuego {
+    codigo key 
+    titulo unique 
+    argumento 
+}
+
+weak entity Sede {
+    ciudad partial-key
+    direccion
+}
+
+relationship pertenece_a {
+    Desarrollador[0..N] -> Equipo[1..1]
+}
+
+relationship lidera {
+    Desarrollador[0..1] -> Equipo[0..1]
+    fecha_inicio_lider
+}
+
+relationship desarrolla {
+    Videojuego[0..N] -> Equipo[1..1]
+}
+
+weak relationship forma_parte_de {
+    Nivel[0..N] -> Videojuego[1..1]
+}
+
+relationship trabaja_en {
+    Desarrollador[0..N] -> Videojuego[0..N]
+    horas
+}
+
+relationship mentoriza {
+    Desarrollador[0..1|"Mentor"] -> Desarrollador[0..N|"Mentorizado"]
+}
+
+weak relationship tiene_sede {
+    Equipo[1..1] -> Sede[1..N]
+}

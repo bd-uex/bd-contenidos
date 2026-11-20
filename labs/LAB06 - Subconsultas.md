@@ -32,12 +32,18 @@ La dirección de la empresa necesita un informe completo sobre la situación de 
 
 Solución:
 ```sql
-
+select d.nombre as nombre_departamento, dir.nombre || " " || dir.apellido1 as nombre_director, count(distinct e.dni) as num_empleados, count(distinct p.numero) as num_proyectos
+from departamento d
+	left join empleado dir on (dir.dni = d.director)
+	left join empleado e on (e.dpto = d.numero) and (d.director != e.dni)
+	left join proyecto p on (p.dpto = d.numero)
+group by nombre_departamento
+order by num_empleados desc;
 ```
 
 Tabla resultado:
 
-| nombre_departamento | nombre_director | num_empleados | num_proyectos | 
+| nombre_departamento | nombre_director | num_empleados | num_proyectos |
 | ------------------- | --------------- | ------------- | ------------- |
 | Investigación       | Alberto Campos  | 3             | 3             |
 | Administración      | Juana Sáinz     | 2             | 2             |
@@ -176,12 +182,18 @@ Escribe una consulta que muestre los nombres de los departamentos cuyo sueldo me
 
 Solución:
 ```sql
-
+select d.nombre as nombre, 
+		(select avg(sueldo)
+		 from empleado
+		 where dpto = d.numero) as sueldoMedio
+from departamento d
+where sueldoMedio > (select avg(sueldo)
+					 from empleado);
 ```
 
 Tabla resultado:
 
-| nombre       | sueldoMedio | 
+| nombre       | sueldoMedio |
 | ------------ | ----------- |
 | Sede Central | 55000       |
 
@@ -291,12 +303,18 @@ Escribe una consulta que liste el nombre y apellido de los empleados que trabaja
 
 Solución:
 ```sql
-
+select nombre, apellido1
+from empleado
+where dni in (select t.empleado
+			  from trabaja_en t
+			  		inner join proyecto p on t.proyecto = p.numero
+			  where lower(p.ubicacion) = "madrid")
+order by apellido1 asc;
 ```
 
 Tabla resultado:
 
-| nombre   | apellido1 | 
+| nombre   | apellido1 |
 | -------- | --------- |
 | Alberto  | Campos    |
 | Eduardo  | Ochoa     |
@@ -431,12 +449,18 @@ Escribe una consulta que liste el el nombre y apellido de cada empleado junto co
 
 Solución:
 ```sql
-
+select e1.nombre, 
+		e1.apellido1, 
+		e1.sueldo - (select avg(e2.sueldo)
+						from empleado e2
+					  	where e1.dpto = e2.dpto) as diferenciaSueldoMedio
+from empleado e1
+order by diferenciaSueldoMedio desc;
 ```
 
 Tabla resultado:
 
-| nombre   | apellido1 | diferenciaSueldoMedio | 
+| nombre   | apellido1 | diferenciaSueldoMedio |
 | -------- | --------- | --------------------- |
 | Juana    | Sáinz     | 12000                 |
 | Alberto  | Campos    | 6750                  |
@@ -518,12 +542,19 @@ Escribe una consulta que liste el nombre de los proyectos donde trabaja al menos
 
 Solución:
 ```sql
-
+select nombre
+from proyecto
+where numero in (select t.proyecto
+				 from trabaja_en t
+					inner join empleado e on t.empleado = e.dni
+				 	inner join departamento d on e.dpto = d.numero
+				 where lower(d.nombre) = "investigación")
+order by nombre asc;
 ```
 
 Tabla resultado:
 
-| nombre         | 
+| nombre         |
 | -------------- |
 | Computación    |
 | ProductoX      |
@@ -607,12 +638,20 @@ SELECT nombre, apellido1, sueldo FROM EMPLEADO;
 
 Solución:
 ```sql
-
+UPDATE empleado 
+SET sueldo = sueldo * 1.20 
+WHERE dni IN ( SELECT empleado
+				FROM trabaja_en 
+				GROUP BY empleado 
+				HAVING SUM(horas) > ( SELECT AVG(total_horas) 
+									  FROM ( SELECT SUM(horas) AS total_horas 
+											 FROM trabaja_en 
+											GROUP BY empleado ) sub ) );
 ```
 
 Tabla resultado:
 
-| nombre   | apellido1 | sueldo | 
+| nombre   | apellido1 | sueldo |
 | -------- | --------- | ------ |
 | José     | Pérez     | 36000  |
 | Alberto  | Campos    | 48000  |
@@ -653,13 +692,13 @@ Tabla resultado:
 
 `IN` y `EXISTS` permiten expresar la misma idea — _"quédate con las filas relacionadas con el resultado de la subconsulta"_ — pero funcionan de forma distinta:
 
-|                         | `IN`                                                                        | `EXISTS`                                                                                        | 
+|                         | `IN`                                                                        | `EXISTS`                                                                                        |
 | ----------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | **Qué compara**         | Un **valor** contra el **conjunto de valores** que devuelve la subconsulta  | Comprueba si la subconsulta **devuelve alguna fila** (no importa qué columnas devuelva)         |
 | **Tipo de subconsulta** | Normalmente **no correlacionada** (se ejecuta una vez)                      | Normalmente **correlacionada** (se evalúa por cada fila de la consulta principal)               |
 | **Evaluación**          | Materializa la lista completa y luego busca el valor                        | **Se detiene en la primera coincidencia** (cortocircuito): no necesita recorrer todas las filas |
 | **Rendimiento**         | Bien con listas **pequeñas**; puede degradarse con listas muy grandes       | Suele rendir mejor con tablas **grandes** e **índices** sobre la columna de correlación         |
-| **Negación con NULL**   | ⚠️ `NOT IN` **falla silenciosamente** si la subconsulta devuelve algún NULL | ✅ `NOT EXISTS` es **inmune a los NULL**                                                        |
+| **Negación con NULL**   | ⚠️ `NOT IN` **falla silenciosamente** si la subconsulta devuelve algún NULL | ✅ `NOT EXISTS` es **inmune a los NULL**                                                         |
 
 > [!info]+ Optimizadores modernos 
 > En consultas sencillas, los optimizadores actuales (incluido SQLite) suelen generar el mismo plan de ejecución para `IN` y `EXISTS`, así que la diferencia práctica de rendimiento puede ser nula. La diferencia que **siempre** se mantiene es la del comportamiento con NULL en la negación.
@@ -683,12 +722,12 @@ Tabla resultado: _(no hay resultados)_
 
 ¿Por qué? La subconsulta devuelve la columna `supervisor` de todos los empleados y Eduardo, que no tiene supervisor, aporta un **NULL** a la lista:
 
-| supervisor |
-| ---------- |
-| 333445555  | 
-| 888665555  |
-| 987654321  |
-|            |
+| supervisor |     |
+| ---------- | --- |
+| 333445555  |     |
+| 888665555  |     |
+| 987654321  |     |
+|            |     |
 
 Ese único NULL hace que la condición `NOT IN` nunca sea verdadera y la consulta devuelva una tabla vacía **sin dar ningún error**.
 
@@ -738,7 +777,14 @@ Escribe una consulta que devuelva el `dni` de los empleados que no tienen ningú
 
 Solución:
 ```sql
-
+SELECT dni
+FROM empleado
+WHERE dni NOT IN (
+    SELECT empleado 
+    FROM familiar 
+    WHERE empleado IS NOT NULL
+)
+ORDER BY dni;
 ```
 
 Tabla resultado:
@@ -796,7 +842,20 @@ WHERE P.ubicacion = 'Madrid';
 
 Solución:
 ```sql
-
+SELECT 
+    E.nombre,
+    E.apellido1
+FROM EMPLEADO E
+WHERE E.dni IN (
+    SELECT T.empleado
+    FROM TRABAJA_EN T
+    WHERE T.proyecto IN (
+        SELECT P.numero
+        FROM PROYECTO P
+        WHERE P.ubicacion = 'Madrid'
+    )
+)
+ORDER BY E.apellido1, E.nombre;
 ```
 
 Tabla resultado:

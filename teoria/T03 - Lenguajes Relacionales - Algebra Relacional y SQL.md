@@ -65,7 +65,7 @@ El álgebra relacional consta de varios grupos de operaciones
 
 ###  1.3. Base de datos de ejemplo: EMPRESA
 
-En este tema seguiremos usando como ejemplo ilustrativo [BD Empresa - Ejemplo completo| la base de datos de Empresa](anexos/BD%20Empresa%20-%20Ejemplo%20completo.md); por lo que, es conveniente repasar su esquema y estado.
+En este tema seguiremos usando como ejemplo ilustrativo [BD Empresa - Ejemplo completo| la base de datos de Empresa](BD%20Empresa%20-%20Ejemplo%20completo.md); por lo que, es conveniente repasar su esquema y estado.
 
 >[!info]+ Calculadora de Álgebra Relacional
 > Para poder practicar con las operaciones del álgebra relacional sobre la base de datos de empresa puedes usar este recurso web:
@@ -510,7 +510,7 @@ Generalmente, el producto cartesiano **no es una operación significativa**, dad
 > | Juana           | Sainz              | Alfonso                  |
 
 >[!note] Aviso
->Puedes revisar el estado de la [BD Empresa - Estado](anexos/BD%20Empresa%20-%20Estado.md) para entender mejor el ejemplo.
+>Puedes revisar el estado de la [BD Empresa - Estado](BD%20Empresa%20-%20Estado.md) para entender mejor el ejemplo.
 
 #### Representación en SQL
 

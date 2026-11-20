@@ -1,0 +1,35 @@
+erdiagram Ejemplo
+notation = crowsfoot
+
+entity Estudiante {
+    numero_expediente key
+    dni unique
+	nombre
+	apellido_1
+	apellido_2
+}
+
+entity Titulacion {
+    codigo key
+    nombre
+}
+
+relationship matriculado_en {
+    Estudiante[1..N] -> Titulacion[1..1]
+    fecha_matriculacion
+}
+
+weak entity Asignatura {
+    codigo_asignatura partial-key
+    Asignatura
+    nombre
+}
+
+weak relationship compuesta_de {
+    Titulacion[1..1] -> Asignatura[1..N]
+}
+
+relationship es_mentor_de {
+    Estudiante[0..1|"Mentor"] -> Estudiante[0..N|"Mentorizado"]
+}
+
